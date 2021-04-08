@@ -1,7 +1,8 @@
-import { Button, Container, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, Card, Container, makeStyles, TextField, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom'
+import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import  {db} from '../../firebase'
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,32 +18,43 @@ const useStyles = makeStyles((theme) => ({
   form: {
     alignItems: "center",
     justifyContent: "center",
-    width: '900px', // Fix IE 11 issue.
+    width: '90%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
-      background: "#4a47a3",
+      background: "#ff7a00",
+      color: "white",
       borderRadius: '20px',
       margin: theme.spacing(3, 0, 2),
   },
-  backButton: {
-      marginTop: "30px",
-        backgroundColor: "#A997DF",
-        color: "white",
-        borderRadius: "20px",
-        marginRight: "30px",
-        marginLeft: "20px",
+    wrapper: {
+  display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden',
+  paddingTop: 64,
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: 256
+  },
+   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  },
+  container: {
+      display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden'
+  },
+  content: {
+     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+      flex: '1 1 auto',
+  height: '100%',
+  overflow: 'auto'
     },
 }));
-
-
-
 
 
 const AddContent = ({match}) => {
   const classes= useStyles();
   const [title, setContentName] = useState('')
-  const [desc, setContentDescription] = useState('');
+  const [value, setValue] = useState('');
   const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
   const [mid, setMid] = useState(match.params.id)
@@ -51,24 +63,27 @@ const AddContent = ({match}) => {
     
     const handleSubmit = (e) => {
     e.preventDefault();
-    const content = {title, desc, mid, createdAt};
+    const content = {title, value, mid, createdAt};
     setLoading(true);
-      db.collection('contents').add(content).then((data) =>{
+      db.collection('moduleData').add(content).then((data) =>{
         console.log(data)
-        history.go(-1)
+        history.push(`/machine-data/${match.params.id}/Module`)
       })
 
   }
-  
+ 
     return (
       <>
-        <Container maxWidth="xs" component="main">
-          
-          <div className={classes.paper}>
-            <Alert severity="info">You are currently adding new Contents</Alert>
+      <ContentDashboardLayout match={match}/>
+        <div>   
+          <div className={classes.wrapper}>
+        <div className={classes.container}>
+          <Card className={classes.content}>
+           <div className={classes.paper}>
+            <Alert severity="info">You are currently adding a new Module</Alert>
             <br/>
             <Typography component="h1" variant="h4">
-          Add Content
+          Add Module
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField value={mid}
@@ -86,24 +101,25 @@ const AddContent = ({match}) => {
             required
             fullWidth
             id="content_name"
-            label="Content Name"
+            label="Module Title"
             name="content_name"
             autoFocus
             onChange={(e) => setContentName(e.target.value)}
+            
           />
           <TextField
-          rows={8}
-          value={desc}
+          
+          value={value}
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="content_description"
-            label="Description"
-            onChange={(e) => setContentDescription(e.target.value)}
+            label="Expected Value"
+            onChange={(e) => setValue(e.target.value)}
             id="content_description"
-            multiline
-            
+            style={{marginBottom: '20px'}}
+           
           />
           <TextField
            value={createdAt}
@@ -123,24 +139,31 @@ const AddContent = ({match}) => {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            
             className={classes.submit}
           >
-            Add Content
+            Add Module
             </Button>}
          {
            loading && <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            
             disabled
             className={classes.submit}
-          >Adding Content...</Button>
+          >Adding Module...</Button>
          }   
           </form>
           </div>
-        </Container>
+          </Card>
+        </div>
+      </div>
+      
+           
+         
+          
+        </div>
         </>
     )
 }

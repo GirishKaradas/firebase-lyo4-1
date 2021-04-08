@@ -6,6 +6,8 @@ import { db } from '../../firebase';
 import {firebaseLooper} from '../../utils/tools'
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { useAuth } from '../context/AuthContext';
+import LogIn from '../LogIn/LogIn';
 const useStyles = makeStyles((theme) =>( {
     add: {
      
@@ -26,21 +28,25 @@ const Users = () => {
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [users, setUsers] = useState([{}]);
+    const {currentUser} = useAuth()
+    const [admin, setAdmin] = useState(false)
     const [error, setError] = useState(null)
     const history = useHistory()
     useEffect(() => {
-        db.collection('users').get().then(snapshot => {
+
+        db.collection('users').onSnapshot(snapshot => {
             const userData = firebaseLooper(snapshot)
             setUsers(userData)
-        }).then(() => {
             setIsLoading(false)
         })
+
     }, [])
 
     const handleReturn = () => {
       history.push('/')
   }
     return (
+        <>
         <Container xs={12}>
              <Button startIcon={<ArrowBackIcon/>} className={classes.backButton}
             onClick={handleReturn}
@@ -56,12 +62,14 @@ const Users = () => {
                </Link>
                </Button>
                
-               <UserList users={users}/> 
+               <UserList users={users} /> 
                {isLoading && 
                     <CircularProgress  />
                    }
           
         </Container>
+        
+        </>
     )
 }
 

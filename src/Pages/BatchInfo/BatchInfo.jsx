@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { database } from '../../firebaseGlass'
+import { database } from '../../firebase'
 import { firebaseLooperTwo } from '../../utils/tools'
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
@@ -17,9 +17,46 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
+
+const useStyles = makeStyles((theme) => ({
+  layoutRoot: {
+    backgroundColor: 'white',
+    display: 'flex',
+    height: '100%',
+    overflow: 'hidden',
+    width: '100%',
+     background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: '#141256',
+  },
+ wrapper: {
+  display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden',
+  paddingTop: 64,
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: 256
+  },
+   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  },
+  container: {
+      display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden'
+  },
+  content: {
+     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+      flex: '1 1 auto',
+  height: '100%',
+  overflow: 'auto'
+    },
+}));
 
 const BatchInfo = ({match}) => {
-
+  const classes = useStyles()
     const [batch, setBatch] = useState([])
 
     
@@ -33,8 +70,11 @@ const BatchInfo = ({match}) => {
     })
     return (
         <>
-        <Sidebar match={match}/>
-         <Card
+        <ContentDashboardLayout match={match}/>
+        <div className={classes.wrapper}>
+        <div className={classes.container}>
+          <Card className={classes.content}>
+              <Card
          styles={{marginTop: "10%"}}
       >
       <PerfectScrollbar>
@@ -108,6 +148,10 @@ const BatchInfo = ({match}) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>
+          </Card>
+        </div>
+      </div> 
+         
     </>
     )
 }

@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { database } from '../../firebaseGlass';
-import { firebaseLooperTwo } from '../../utils/tools';
+import DemoChart from '../../components/DemoChart';
+import { database, db } from '../../firebase';
+import { firebaseLooper, firebaseLooperTwo } from '../../utils/tools';
 import TestData from './TestData';
+import TestHome from './TestHome'
 
 const Tests = () => {
 
      const [batch, setBatch] = useState([]);
 
   useEffect(() => {
-        database.ref('recipes/').get().then((snapshot) => {
-            const data = firebaseLooperTwo(snapshot)
-            console.log(data)
-            setBatch(data)
-           
+        db.collection('recipeeData').onSnapshot(data => {
+            const dataSet = firebaseLooper(data)
+            console.log(dataSet)
+            setBatch(dataSet)
+            
         })
       })
 
     return (
         <div>
-            {
-                batch.map(data => (
-                    <div>
-                        <TestData data={data.arrayList}/>
-                    </div>
-                ))
-            }
+         
+                  <div>
+                        <TestHome/>
+                  </div>
+              
         </div>
     )
 }

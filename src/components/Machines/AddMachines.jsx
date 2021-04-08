@@ -1,6 +1,6 @@
-import { Button, Container, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, Card, CardContent, Container, makeStyles, TextField, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import {db} from '../../firebase'
 import {firebaseLooper} from '../../utils/tools'
@@ -12,17 +12,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    borderRadius: "20px"
+   
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: '#141256',
   },
   form: {
-    width: '900px', // Fix IE 11 issue.
+    width: '90%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    alignItems: "center"
   },
   submit: {
-      background: "#141256",
+      background: "#ff7a00",
+      align: "center",
+      color: "white",
+      width: "20%",
       borderRadius: '20px',
       margin: theme.spacing(3, 0, 2),
   }
@@ -34,24 +40,34 @@ const AddMachines = () => {
   const [location, setMachineLocation] = useState('');
   const [createdBy, setCreatedBy] = useState(currentUser.email);
   const [loading, setLoading] = useState(false);
-  
+  const notification = `${currentUser.email} has created a new Machine!`
+  const link = 'machine-data'
   const history = useHistory();
-
+  const [notifyData, setNotifyData] = useState([])
+  useEffect(() => {
+    db.collection('notifications').onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      setNotifyData(data)
+    })
+  })
     const handleSubmit = (e) => {
      
     e.preventDefault();
     var result = {title,location,createdBy }
-        db.collection('machines').add(result).then(data => {
+        db.collection('machineData').add(result).then(data => {
           history.push('/machine-data')
           console.log(data)
         })
+        const index = notifyData.length
+        var notify = {notification, link, index}
+        db.collection('notifications').add(notify)
     }
 
 
 
   const classes= useStyles();
     return (
-        <Container maxWidth="xs" xs={12} component="main">
+        <Container  component="main" style={{ marginBottom: "100px"}}>
           <Container className={classes.paper}>
             <Alert severity="info">You are currently adding a new Machine</Alert>
             <br/>
@@ -59,7 +75,10 @@ const AddMachines = () => {
           Add Machine
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
+          <Card style={{borderRadius: "25px", background: "linear-gradient(white, #e7e7e7)"}}>
+            <CardContent>
+
+              <TextField
           value={title}
             variant="outlined"
             margin="normal"
@@ -98,9 +117,9 @@ const AddMachines = () => {
           
          {!loading && <Button
             type="submit"
-            fullWidth
+            
             variant="contained"
-            color="primary"
+            
             className={classes.submit}
           >
             Add  Machine
@@ -108,13 +127,17 @@ const AddMachines = () => {
          {
            loading && <Button
             type="submit"
-            fullWidth
+            
             variant="contained"
-            color="primary"
+            
             disabled
             className={classes.submit}
           >Adding Machine...</Button>
          }   
+
+            </CardContent>
+          </Card>
+          
           </form>
           </Container>
         </Container>

@@ -4,7 +4,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
 import BuildIcon from '@material-ui/icons/Build';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+
 import ViewCompactIcon from '@material-ui/icons/ViewCompact';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';

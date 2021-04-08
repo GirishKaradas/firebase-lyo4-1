@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { db, storageRef } from '../../firebase';
@@ -76,7 +76,9 @@ export default function StepItem({ data}) {
 
   const handleDelete = (id) => {
     db.collection('steps').doc(id).delete().then((data) => {
-      window.location.reload()
+      return(
+        <Snackbar  ></Snackbar>
+      )
     })
 }
 
@@ -85,7 +87,6 @@ const updateStep=(id) => {
     const data = {title,desc}
       db.collection('steps').doc(id).update(data).then(()=>{
         setLoading(false)
-        window.location.reload()
       })
   }
     return (

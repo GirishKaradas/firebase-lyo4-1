@@ -2,16 +2,18 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
+import 'firebase/database'
 
 
-
-var config = {
-  apiKey: "AIzaSyDmWlaEkgA2o7A4qkVeEXaC2N_OWFEaMd0",
-  authDomain: "lyoimsweb.firebaseapp.com",
-  projectId: "lyoimsweb",
-  storageBucket: "lyoimsweb.appspot.com",
-  messagingSenderId: "407922520085",
-  appId: "1:407922520085:web:8a80058bc9d0d32c209e1c"
+export const config = {
+  apiKey: "AIzaSyDI3ptricL3aRITUGTa8GeKqHxew8kU3T0",
+  authDomain: "lyodata.firebaseapp.com",
+  projectId: "lyodata",
+  storageBucket: "lyodata.appspot.com",
+  databaseURL: 'https://lyodata-default-rtdb.firebaseio.com/',
+  messagingSenderId: "953537304712",
+  appId: "1:953537304712:web:5573059cca9a6896d4273d",
+  measurementId: "G-3QHHE1Y44B"
 }
 
 const app = firebase.initializeApp(config)
@@ -19,4 +21,5 @@ export const auth = app.auth()
 export const storage = app.storage();//storage
 export const storageRef = storage.ref()
 export const db = app.firestore();
+export const database = app.database()
 export default app

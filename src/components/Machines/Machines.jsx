@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import MachineList from './MachineList';
 import {Link} from 'react-router-dom';
@@ -8,14 +8,15 @@ import {firebaseLooper} from '../../utils/tools'
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Page from '../Page';
+
 const useStyles = makeStyles((theme) =>( {
     add: {
-    background:'#141256',
+    background:'#ff7a00',
     borderRadius: '20px',
     margin: theme.spacing(3, 0, 2),
     },
    backButton: {
-        backgroundColor: "#A997DF",
+        backgroundColor: "black",
         width: "100px",
         color: "white",
         borderRadius: "20px",
@@ -31,25 +32,23 @@ const Machines = () => {
     
     useEffect(() => {
 
-        db.collection('machines').get().then(snapshot => {
-            const machine = firebaseLooper(snapshot);
-            setMachines(machine)
+        db.collection('machineData').onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setMachines(data)
             setIsLoading(false);
-            console.log(machine)
-            
-        }).catch(err => {
-            setIsLoading(false)
-            setError(err.message);
-            console.log(err)
         })
-     
+    
     }, [])
-
-
-  
     return (
         <Page title="Machines">
-        <Container maxWidth>
+            <Box
+            py={3}
+            style={{
+                backgroundColor: 'background.default',
+                minHeight: '100%',
+            }}
+    >
+        <Container maxWidth={false} >
                     <Button startIcon={<HomeIcon/>} href="/" className={classes.backButton}>Home</Button>
                 {error && <Typography variant="h6">{error}</Typography>}
                
@@ -64,17 +63,39 @@ const Machines = () => {
                      {isLoading && <Typography variant="h3">
                     Loading...<CircularProgress size={50}/> 
                     </Typography>}
-                            {
+                      <Box pt={3}>
+                           <Grid
+                           
+                        container
+                        spacing={3}
+                    >
+                        {
                         machines.map((data) => (
-                                    <Machine style={{height: "100%"}} key={data.id} data={data}/> 
+                            <Grid
+                            style={{
+                            margin: "3%"
+                           }}
+                            key={data.id}
+                            lg={4}
+                            md={6}
+                            xs={12}
+                            
+                            >
+                              <Machine key={data.id} data={data}/>   
+                            </Grid>
+                                    
                         ))
                 
                 }
+                    </Grid>
+                      </Box>
                     
+                            
                     
+         
                 
                 </Container>
-
+        </Box>
         </Page>
        
     )

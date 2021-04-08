@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +17,7 @@ import Alert from '@material-ui/lab/Alert';
 import { InputLabel, Select } from '@material-ui/core';
 import { useAuth } from "../context/AuthContext"
 import {db} from '../../firebase'
+import LogIn from '../LogIn/LogIn';
 
 
 function Copyright() {
@@ -41,15 +42,16 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:"#141256",
+    backgroundColor:"#ff7a00",
   },
   form: {
-    width: '700px', // Fix IE 11 issue.
+    width: '75%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background:'#141256',
+    background: "#ff7a00",
+    color: "white",
     borderRadius: '20px',
   },
 }));
@@ -69,9 +71,16 @@ export default function AddUser() {
   const [confirmPass, setConfirmPass] = useState('')
   const [loading, setLoading] = useState();
   const classes = useStyles();
+  const {currentUser} = useAuth()
+  const [admin, setAdmin] = useState(false)
   const history = useHistory()
   const { signup } = useAuth()
 
+  useEffect(() => {
+    if(currentUser.email === 'admin@gmail.com'){
+      setAdmin(true)
+    }
+  })
   const handleReturn = () => {
       history.push('/users')
   }
@@ -83,15 +92,16 @@ export default function AddUser() {
     if (password.length <= 8){
       return setError("Weak Password !")
     }
-
-    const userData = {firstName, lastName, email, password, phone, role, username}
+    if(role==='Admin'){
+      setAdmin(true)
+    }
+    const userData = {firstName, lastName, email, password, phone, role, username, admin}
     try {
       setError("")
       setLoading(true)
       await signup(email, password)
       db.collection('users').add(userData)
       history.push("/")
-    
     } catch {
       setError("Failed to create an account")
     }
@@ -101,19 +111,8 @@ export default function AddUser() {
 
   return (
     <>
-    <Button style={{
-        backgroundColor: "#A997DF",
-        color: "white",
-        borderRadius: "20px",
-        marginTop: "30px",
-        marginRight: "30px",
-        marginLeft: "20px",
-    }}
-    onClick={handleReturn}
-    >Go back</Button>
-    <Container component="main" maxWidth="xs">
-      
-      <CssBaseline />
+    
+    <Container component="main" >
       <div className={classes.paper}>
         <Alert severity="info">You are currently adding a new authenticated user!</Alert>
         <Avatar className={classes.avatar}>
@@ -237,8 +236,11 @@ export default function AddUser() {
         >
           <option aria-label="None" value="" />
           <option value="Admin">Admin</option>
+          <option value="Trainee">Trainee</option>
+            <option value="Operator">Operator</option>
           <option value="Supervisor">Supervisor</option>
-          <option value="Manager">Manager</option>
+          <option value="Validator">Validator</option>
+           <option value="Maintenance">Maintenance</option>
         </Select>
             </Grid>
             
@@ -247,7 +249,7 @@ export default function AddUser() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+           
             className={classes.submit}
           >
            Create
@@ -257,7 +259,7 @@ export default function AddUser() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            
             disabled
             className={classes.submit}
           >Creating user....</Button> &&<Alert severity="success">User Added Successfully!</Alert>
@@ -269,6 +271,7 @@ export default function AddUser() {
         <Copyright />
       </Box>
     </Container>
+    
     </>
   );
 }

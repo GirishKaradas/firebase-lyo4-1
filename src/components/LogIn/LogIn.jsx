@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../Logo';
 
 function Copyright() {
   return (
@@ -37,23 +38,21 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#141256',
+    backgroundColor: '#ff7a00',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   button_submit: {
-      background:'#141256',
-      borderRadius: '20px',
+      background:'#ff7a00',
+      borderRadius: '15px',
       margin: theme.spacing(3, 0, 2),
   }
 }));
 
 export default function LogIn() {
   const classes = useStyles()
-  const emailRef =useRef()
-  const passwordRef = useRef()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { login } = useAuth()
@@ -84,7 +83,7 @@ export default function LogIn() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          
+         
         </Avatar> 
        
         <Typography component="h1" variant="h5">
@@ -94,7 +93,7 @@ export default function LogIn() {
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
           value={email}
-          
+            style={{borderColor: "#ff7a00"}}
             variant="outlined"
             margin="normal"
             required
@@ -119,27 +118,24 @@ export default function LogIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            
+          
            onChange={(e) => setPassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
           disabled={loading}
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            
             className={classes.button_submit}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/forgotPass" variant="body2">
-                Forgot password?
+              <Link href="/forgotPass" variant="body2" >
+               <Typography variant="body1" style={{color: "#ff7a00"}}>Forgot password?</Typography> 
               </Link>
             </Grid>
           </Grid>

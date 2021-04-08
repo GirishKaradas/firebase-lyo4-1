@@ -18,7 +18,7 @@ const StepList = ({ steps}) => {
     <Container className={classes.root} >
       
         {steps.map((steps) => (
-         
+       
           <StepItem key={steps.id} steps={steps}/>
           
         ))}

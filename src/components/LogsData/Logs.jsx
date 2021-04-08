@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
+  Card,
   Container,
   makeStyles
 } from '@material-ui/core';
@@ -38,16 +39,15 @@ const CustomerListView = ({match}) => {
 
   return (
     <>
-  <Button startIcon={<HomeIcon/>} href="/" className={classes.backButton}>Home</Button>
+
     <Page
       className={classes.root}
-      title="Call Logs"
+      
     >
       <Container maxWidth={false}>
-        <Toolbar />
-        <Box mt={3}>
+        <Card >
           <Results match={match} customers={customers} />
-        </Box>
+        </Card>
       </Container>
     </Page>
     </>

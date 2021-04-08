@@ -1,119 +1,103 @@
-import React, { useEffect, useState } from 'react'
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-const TestHome = ({time1, data}) => {
-  let time = []
-  let temp = []
-  let stillTime = []
-  let pressure = []
-  let delta =  []
-  let deltaP =[]
-  const [timeData, setTimeData] = useState([])
-  const [stillTimeData, setStillTimeData] = useState([])
-  const [tempData, setTempData] = useState([])
-  const [pressureData, setPressureData] = useState([])
-  const [deltaData, setDeltaData] = useState([])
-  const [deltaDataPressure, setDeltaDataPressure] = useState([])
+const tutorialSteps = [
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bird',
+    imgPath:
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+  },
+  {
+    label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Goč, Serbia',
+    imgPath:
+      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+];
 
-  useEffect(() => {
-    for (let index = 0; index < data.length; index++) {
-      time.push(data[index].time1);
-      temp.push(data[index].temp1)
-      stillTime.push(data[index].time2)
-      pressure.push(data[index].pressure)
-      delta.push(((data[index].temp1 - 25)/(data[index].time1)) + data[index].temp1)
-      deltaP.push(Math.floor(Math.random() * ((data[index].temp1 - 25)/(data[index].temp1) + data[index].pressure)))
-    }
-  setTimeData(time)
-  setTempData(temp)
-  setStillTimeData(stillTime)
-  setPressureData(pressure)
-  setDeltaData(delta)
-  setDeltaDataPressure(deltaP)
-  })
-  console.log(timeData)
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 400,
+    flexGrow: 1,
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 50,
+    paddingLeft: theme.spacing(4),
+    backgroundColor: theme.palette.background.default,
+  },
+  img: {
+    height: 255,
+    maxWidth: 400,
+    overflow: 'hidden',
+    display: 'block',
+    width: '100%',
+  },
+}));
 
-const dataTwo = {
-  labels: timeData,
-  datasets: [
-    {
-      label: 'Temprature',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: '#b8b5ff',
-      borderColor: '#b8b5ff',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: '#fa1e0e',
-      pointBackgroundColor: '#fa1e0e',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#fa1e0e',
-      pointHoverBorderColor: '#7868e6',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: tempData
-    },
-    {
-      label: 'Dynamic-Temprature',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: '#7eca9c',
-      borderColor: '#7eca9c',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: '#93329e',
-      pointBackgroundColor: '#93329e',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#93329e',
-      pointHoverBorderColor: '#93329e',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: deltaData
-    }
-  ]
-};
+export default function TestHome() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = tutorialSteps.length;
 
-const dataOne = {
-  labels: timeData,
-  datasets: [
-    {
-      label: 'Pressure',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: '#f14668',
-      borderColor: '#f14668',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: '#fa1e0e',
-      pointBackgroundColor: '#fa1e0e',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#fa1e0e',
-      pointHoverBorderColor: '#7868e6',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: pressureData
-    }
-  ]
-};
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
-    return (
-        <div>
-        <Line data={dataTwo}/>
-        <Line data={dataOne}/>
-        </div>
-    )
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Paper square elevation={0} className={classes.header}>
+        <Typography>{tutorialSteps[activeStep].label}</Typography>
+      </Paper>
+      <img
+        className={classes.img}
+        src={tutorialSteps[activeStep].imgPath}
+        alt={tutorialSteps[activeStep].label}
+      />
+      <MobileStepper
+        steps={maxSteps}
+        position="static"
+        variant="text"
+        activeStep={activeStep}
+        nextButton={
+          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+            Next
+            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+            Back
+          </Button>
+        }
+      />
+    </div>
+  );
 }
-
-export default TestHome

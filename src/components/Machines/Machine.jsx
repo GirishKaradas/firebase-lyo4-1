@@ -27,13 +27,12 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import{Alert, AlertTitle} from '@material-ui/lab';
+import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
     height: "100%",
-   
     backgroundColor: theme.palette.background.dark,
     marginLeft: "50px",
     marginBottom: "50px"
@@ -47,14 +46,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Machine= ({data}) => {
-
-
+const Machine= ({data, ...rest}) => {
 
   const classes = useStyles();
    const [isLoading, setIsLoading] = useState(true);
     const [machines, setMachines] = useState();
-    const [error, setError] = useState(null)
+   const {currentUser} = useAuth()
     const [openEdit, setOpenEdit] = useState(false)
     const [open, setOpen] = useState(false)
    const [title, setTitle] = useState(data.title)
@@ -90,41 +87,53 @@ const Machine= ({data}) => {
  const updateMachine=(id) => {
     setLoading(true)
     const data = {title,location}
-      db.collection('machines').doc(id).update(data).then(()=>{
+      db.collection('machineData').doc(id).update(data).then(()=>{
         setLoading(false)
-        window.location.reload()
+        const notify = `${currentUser.email} has Updated ${data.title}`
+          db.collection('notifications').add(notify).then(() => {
+           console.log('notify added')
+          })
       })
   }
 
     const handleDelete = (id) => {
-        db.collection('machines').doc(id).delete().then(() => {
-          window.location.reload()
+        db.collection('machineData').doc(id).delete().then(() => {
+          const notify = `${currentUser.email} has deleted ${data.title}`
+          db.collection('notifications').add(notify).then(() => {
+           console.log('notify added')
+          })
         })
     }
 
    
   return (
-      <Container className={classes.root}>
-      
-       < >
-
-        <Box mt={3}>  
-            <Grid  >
-               
-            <Card
-              
-                lg={4}
-                md={6}
-                xs={12}
-                
+      <Card 
+      style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%'
+    }}
+    {...rest}
+      >
+       <CardContent>               
+           
+            <Box
+            pb={3}
+            sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            
+            }}
             >
-              <CardContent>
-                <Avatar>M</Avatar>
+              <Avatar>M</Avatar>
+            </Box>
+                
+               
                 <Typography
                   align="center"
                   color="textPrimary"
                   gutterBottom
-                  variant="h4"
+                  variant="h3"
                 >
                   {data.title} 
                 
@@ -136,8 +145,8 @@ const Machine= ({data}) => {
                 >
                   {data.location}
                 </Typography>
-              </CardContent>
-              
+             
+               </CardContent>
               <Box flexGrow={1} />
               <Divider />
               <Box p={2}>
@@ -147,7 +156,10 @@ const Machine= ({data}) => {
                   spacing={2}
                 >
                   <Grid
-                    className={classes.statsItem}
+                    style={{
+                      alignItems: "center",
+                      display: "flex"
+                    }}
                     item
                   >
                     <SupervisorAccountIcon
@@ -162,9 +174,18 @@ const Machine= ({data}) => {
                      {data.createdBy}
                     </Typography>
                   </Grid>
-                <Button startIcon={<OpenWithIcon/>} variant="contained" style={{backgroundColor: "blue", color:"white"}}><Link style={{color: "white" ,textDecoration: "none"}} to={`/machine-data/${data.id}/Content`}>Open</Link></Button>
-               <Button startIcon={<EditIcon/>} onClick={handleEdit} variant="contained" style={{backgroundColor: "#4a47a3", color:"white"}}>Edit</Button>
-               <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen} variant="contained" style={{backgroundColor: "#e40017", color:"white"}}>Delete</Button>
+                  <Grid
+                  item
+                  style={{
+                    alignItems: "center",
+                    display: "flex"
+                  }}
+                  >
+                     <Button startIcon={<OpenWithIcon/>} variant="contained" style={{width:"120px",backgroundColor: "#ff7a00", color:"white", margin: "2%"}}><Link style={{color: "white" ,textDecoration: "none"}} to={`/machine-data/${data.id}/Module`}>Open</Link></Button>
+                    <Button startIcon={<EditIcon/>} onClick={handleEdit} variant="contained" style={{width:"120px",backgroundColor: "#4a47a3", color:"white", margin: "2%"}}>Edit</Button>
+                    <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen} variant="contained" style={{width:"120px",backgroundColor: "#e40017", color:"white", margin: "2%"}}>Delete</Button>
+                  </Grid>
+               
                 </Grid>
               </Box>
            {/* Dialog */}
@@ -273,12 +294,10 @@ const Machine= ({data}) => {
                     </DialogContent>
                 </Dialog>
                 </div>
-            </Card>
-            </Grid>  
-         </Box>
+        
          
-            </>
-    </Container>
+           
+    </Card>
   );
 };
  

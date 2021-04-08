@@ -24,7 +24,7 @@ import {
   Container
 } from '@material-ui/core';
 import getInitials from './getInitials';
-import { database } from '../../../firebaseGlass';
+import { database } from '../../../firebase';
 import { firebaseLooperTwo } from '../../../utils/tools';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import TestHome from '../../Tests/TestHome';
@@ -214,6 +214,9 @@ const Results = ({values, className, customers, ...rest }) => {
 
                 {/* Dialog for Graph */}
                  <Dialog
+                 style={{
+                  
+                 }}
                     open={openGraph}
                     onClose={handleGraphClose}
                     aria-labelledby="alert-dialog-title"
@@ -227,7 +230,7 @@ const Results = ({values, className, customers, ...rest }) => {
                       </AlertTitle>
       
                    </Alert>
-                   <Box mt={3} minWidth={500}>
+                   <Box mt={3} minWidth={550}>
                      <TestData data={values.arrayList}/>
                    </Box>
                       

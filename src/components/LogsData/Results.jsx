@@ -15,14 +15,17 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  makeStyles
+  makeStyles,
+  Grid
 } from '@material-ui/core';
 import getInitials from './getInitials';
-import { database } from '../../firebaseGlass';
+import { database } from '../../firebase';
 import { firebaseLooperTwo } from '../../utils/tools';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    width: "100%"
+  },
   avatar: {
     marginRight: theme.spacing(2)
   }
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Results = ({ className, customers, ...rest }) => {
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0)
 
    const [calls, setCalls] = useState([]);
@@ -89,9 +92,15 @@ const Results = ({ className, customers, ...rest }) => {
     <Card
       className={clsx(classes.root, className)}
       {...rest}
+     
     >
       <PerfectScrollbar>
-        <Box minWidth={1050}>
+        <Box
+         lg={3}
+       sm={6}
+       xl={3}
+       xs={12}
+         >
           <Table>
             <TableHead>
               <TableRow>

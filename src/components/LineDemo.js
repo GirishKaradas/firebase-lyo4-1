@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { Card, Container } from '@material-ui/core';
 import React, {Component} from 'react';
 import { Line, Bar, Radar} from 'react-chartjs-2';
 
@@ -9,17 +9,17 @@ const data = {
       label: 'Dataset',
       fill: false,
       lineTension: 0.1,
-      backgroundColor: '#b8b5ff',
-      borderColor: '#b8b5ff',
+      backgroundColor: '#ff7a00',
+      borderColor: '#ff7a00',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
-      pointBorderColor: '#fa1e0e',
-      pointBackgroundColor: '#fa1e0e',
+      pointBorderColor: 'white',
+      pointBackgroundColor: 'white',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#fa1e0e',
+      pointHoverBackgroundColor: '#ff7a00',
       pointHoverBorderColor: '#7868e6',
       pointHoverBorderWidth: 2,
       pointRadius: 1,
@@ -34,19 +34,19 @@ const dataTwo = {
   datasets: [
     {
       label: 'Dataset',
-      fill: false,
+      fill: true,
       lineTension: 0.1,
-      backgroundColor: '#b8b5ff',
-      borderColor: '#b8b5ff',
+      backgroundColor: '#ff7a00',
+      borderColor: 'white',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
-      pointBorderColor: '#fa1e0e',
-      pointBackgroundColor: '#fa1e0e',
+      pointBorderColor: '#ff7a00',
+      pointBackgroundColor: '#ff7a00',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#fa1e0e',
+      pointHoverBackgroundColor: '#ff7a00',
       pointHoverBorderColor: '#7868e6',
       pointHoverBorderWidth: 2,
       pointRadius: 1,
@@ -60,10 +60,10 @@ export default class LineDemo extends Component {
   render() {
     return (
       <>
-      <Container style={{width: "70%"}} >
-        <Line data={data}/>
-        <br/>
-        <Bar ref="chart" data={dataTwo} />
+      <Container style={{background: "#292929", color: "white"}}  >
+        
+          <Line ref="chart" data={data}/>
+        
       </Container>
    
       </>

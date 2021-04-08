@@ -7,6 +7,12 @@ import {db} from '../../firebase'
 import EditIcon from '@material-ui/icons/Edit';
 import AccessTimeIcon from '@material-ui/icons/AccessTime'
 import { Alert, AlertTitle } from '@material-ui/lab';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles((theme) => ({
   root: {
     borderBottomColor: "black",
@@ -56,7 +62,7 @@ const ContentDataBox = ({data}) => {
     const [open, setOpen] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
     const [title, setContentName] = useState(data.title)
-    const [desc, setContentDescription] = useState(data.desc);
+    const [value, setValue] = useState(data.value);
     const [createdAt, setCreatedAt] = useState(data.createdAt);
    const [loading, setLoading] = useState(false);
    const [message, setMessage] = useState()
@@ -81,12 +87,12 @@ const ContentDataBox = ({data}) => {
 
   
   const handleDelete = (id) => {
-    db.collection('contents').doc(id).delete()
+    db.collection('moduleData').doc(id).delete()
 }
 
   const updateContent=(id) => {
     setLoading(true)
-    db.collection('contents').doc(id).update({title, desc}).then((data) => {
+    db.collection('moduleData').doc(id).update({title, value}).then((data) => {
         console.log(data)
         window.location.reload()
         setLoading(false)
@@ -99,33 +105,35 @@ const ContentDataBox = ({data}) => {
         <div>
              <div className={classes.dataBox}>
                <Container maxWindth="sm" sm={12}>
-            <Grid xs={12}>
-                 <Typography align="center" variant="h5">{data.title}</Typography>
-                 <Typography align="center" variant="body2">{data.desc}</Typography> 
-                 <br/>
-                 <Grid
-                className={classes.statsItem}
-                item
-                 >
-                  
-                <AccessTimeIcon
-                className={classes.statsIcon}
-                color="action"
-                />
-                <Typography
-                color="textSecondary"
-                display="inline"
-                variant="body2"
-                >
-                  {data.createdAt}
-                </Typography>
-          </Grid>   
-            </Grid>
-            
-            <Button style={{marginRight: "20%", marginLeft: "20%"}} startIcon={<EditIcon/>} onClick={handleEdit} variant="contained"  color="primary">Edit</Button>
-            <Button style={{marginRight: "20%"}} startIcon={<AccountTreeIcon/>} variant="contained" className={classes.divButton}><Link to={`/machine-data/${data.mid}/${data.title}/${data.id}/steps`} style={{color: "white" ,textDecoration: "none"}}> Steps</Link></Button>
-            <Button onClick={handleClickOpen} variant="contained" color="secondary" startIcon={<DeleteIcon/>}>Delete</Button>
+              <TableContainer component={Paper}>
+      <Table style={{minWidth: 500}} aria-label="custom pagination table">
+        <TableBody>
+         
+            <TableRow key={data.id}>
+              <TableCell component="th" scope="row">
+                {data.title}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                 {data.value}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              <Button style={{ marginRight: "20%", marginTop: '0', marginBottom: '0'}} startIcon={<EditIcon/>} onClick={handleEdit} variant="contained"  color="primary">Edit</Button>
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                <Button style={{ marginLeft: "20%"}} onClick={handleClickOpen} variant="contained" color="secondary" startIcon={<DeleteIcon/>}>Delete</Button>
            
+              </TableCell>
+            </TableRow>
+        </TableBody>
+      </Table>
+      
+    </TableContainer>
+           <div style={{marginLeft: '25%'}}>
+             
+            {/* <Button style={{marginRight: "20%"}} startIcon={<AccountTreeIcon/>} variant="contained" className={classes.divButton}><Link to={`/Content/${data.id}/Steps`} style={{color: "white" ,textDecoration: "none"}}> Steps</Link></Button> */}
+           
+           </div>
+            
                 {/* Dialogs */}
 
                 <Dialog
@@ -181,15 +189,15 @@ const ContentDataBox = ({data}) => {
                           onChange={(e) => setContentName(e.target.value)}
                         />
                         <TextField
-                          label="Description"
-                        defaultValue={desc}
+                          label="Expected Value"
+                        defaultValue={value}
                           variant="outlined"
                           margin="normal"
                           required
                           fullWidth
-                          name="desc"
-                          onChange={(e) => setContentDescription(e.target.value)}
-                          id="desc"
+                          name="value"
+                          onChange={(e) => setValue(e.target.value)}
+                          id="value"
                           multiline
                         />
                         <TextField

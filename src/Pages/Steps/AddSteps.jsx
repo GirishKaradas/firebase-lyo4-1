@@ -1,4 +1,4 @@
-import { Button, Container, InputLabel, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Card, Container, Grid, InputLabel, makeStyles, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone';
@@ -6,30 +6,28 @@ import {db, storageRef} from '../../firebase'
 import { DropzoneArea } from 'material-ui-dropzone';
 import Alert from '@material-ui/lab/Alert';
 import { v4 as uuid } from 'uuid'
+import StepDashboardLayout from '../../components/StepSidebar/StepDashboardLayout';
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: '#141256',
   },
   form: {
-    width:"1000px",
+    width:"100%",
     marginTop: theme.spacing(1),
   },
   submit: {
-    maxWidth: "650px",
-      background: "#4a47a3",
+    maxWidth: "50%",
+      background: "#ff7a00",
       borderRadius: '20px',
       margin: theme.spacing(3, 0, 2),
   },
   drag: {
-  width: "500px",
-  height: "200px",
+  width: "50%",
+  height: "20%",
   border: "4px dashed #fff",
   },
   drop: {
@@ -44,6 +42,27 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "20px",
         marginRight: "30px",
         marginLeft: "20px",
+    },
+    wrapper: {
+  display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden',
+  paddingTop: 64,
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: 256
+  },
+   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  },
+  container: {
+      display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden'
+  },
+  content: {
+     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+      flex: '1 1 auto',
+  height: '100%',
+  overflow: 'auto'
     },
 }));
 
@@ -76,7 +95,7 @@ const AddSteps = ({match}) => {
        setMedia({url: durl})
        console.log(durl)
      })
-   
+  
     const link = media.mediaData[0].name
     const steps = {title, desc, createdAt, cid, link, uniqueKey };
     setLoading(true);
@@ -93,8 +112,18 @@ const AddSteps = ({match}) => {
   const classes= useStyles();
     return (
       <>
-       <Button onClick={handleReturn} variant="contained" className={classes.backButton} >Go back</Button>
-        <Container maxWidth="xs" component="main">
+      <StepDashboardLayout match={match}/>
+        <div className={classes.wrapper}>
+        <div className={classes.container}>
+          <Card className={classes.content}>
+            <Box
+               py={3}
+              style={{
+                backgroundColor: 'background.default',
+                minHeight: '100%',
+              }}
+            >
+              <Container  maxWidth={false}>
           <div className={classes.paper}>
             <Alert severity="info">You are currently Adding New Steps</Alert>
             <br/>
@@ -103,56 +132,76 @@ const AddSteps = ({match}) => {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div style={{display: 'flex'}}>
-          <div style={{marginRight: "50px"}} >
-          <TextField
-          label="Content id"
-           value={cid}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          disabled
-          onChange={(e) => setCid(e.target.value)}
-          />
-          <TextField
-          value={title}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="title"
-            label="Step Title"
-            name="title"
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <TextField
-          value={desc}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            rows={7}
-            name="step_description"
-            label="Description"
-            onChange={(e) => setDesc(e.target.value)}
-            id="step_description"
-            multiline
-            
-          />
-           <TextField
-           value={uniqueKey}
-           variant="outlined"
-            id="date"
-            label="unique id"
-            disabled
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={(e) => setCreatedAt(e.target.value)}
-          />
-    </div>
-    <div>
+          <Grid 
+           container
+           spacing={3}
+          style={{marginRight: "50px"}} >
+          <Grid
+          item
+            lg={12}
+            sm={12}
+            xl={6}
+            xs={12}
+          >
+            <TextField
+              label="Content id"
+              value={cid}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              disabled
+              onChange={(e) => setCid(e.target.value)}
+              />
+              <TextField
+              value={title}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="title"
+                label="Step Title"
+                name="title"
+                autoFocus
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <TextField
+              value={desc}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                rows={7}
+                name="step_description"
+                label="Description"
+                onChange={(e) => setDesc(e.target.value)}
+                id="step_description"
+                multiline
+                
+              />
+              <TextField
+              value={uniqueKey}
+              variant="outlined"
+                id="date"
+                label="unique id"
+                disabled
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setCreatedAt(e.target.value)}
+              />
+          </Grid>
+         
+          </Grid>
+          <Grid
+          container
+           spacing={3}
+          >
+              <Grid
+            xs={6}
+            lg={8}
+            sm={12}
+            >
       <Alert severity="warning">Don't leave Media Field empty !</Alert>
       <br/>
        <InputLabel variant="contained">Add Media</InputLabel>
@@ -165,7 +214,9 @@ const AddSteps = ({match}) => {
         showAlerts={false}
         filesLimit={1}
       />
-     </div>
+     </Grid>       
+          </Grid>
+   
      </div>
 
          {!loading && <Button
@@ -189,7 +240,13 @@ const AddSteps = ({match}) => {
          }   
           </form>
           </div>
+          
         </Container>
+        </Box>
+          </Card>
+        </div>
+      </div>
+        
         </>
     )
 }
