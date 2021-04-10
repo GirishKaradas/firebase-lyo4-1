@@ -46,7 +46,7 @@ const Results = ({ className, customers, ...rest }) => {
             setCalls(data)
            
         })
-      })
+      }, [])
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;

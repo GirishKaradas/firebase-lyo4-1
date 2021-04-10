@@ -12,9 +12,8 @@ import { db } from '../../firebase';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 
-
 export default function RecipeData({rows, length, match}) {
-
+    
     const [open, setOpen] = useState(false)
 
     const handleOpen = () =>{
@@ -38,10 +37,10 @@ export default function RecipeData({rows, length, match}) {
          
             <TableRow key={rows.id}>
               <TableCell component="th" scope="row">
-                {rows.title}
+                <b>{rows.title}</b>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                 Created By
+                {rows.createdBy}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                <Button ><Link to={`/Recipe/${rows.id}/Recipe-values`} style={{textDecoration: 'none', color: 'inherit'}}>Open</Link></Button>

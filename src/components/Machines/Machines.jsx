@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import MachineList from './MachineList';
 import {Link} from 'react-router-dom';
@@ -8,20 +8,21 @@ import {firebaseLooper} from '../../utils/tools'
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Page from '../Page';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) =>( {
     add: {
     background:'#ff7a00',
     borderRadius: '20px',
     margin: theme.spacing(3, 0, 2),
+    marginLeft: '5%'
     },
    backButton: {
         backgroundColor: "black",
         width: "100px",
         color: "white",
-        borderRadius: "20px",
-        marginRight: "30px",
-        marginLeft: "20px",
+        borderRadius: "15px",
+      
     },
 }))
 const Machines = () => {
@@ -49,7 +50,25 @@ const Machines = () => {
             }}
     >
         <Container maxWidth={false} >
-                    <Button startIcon={<HomeIcon/>} href="/" className={classes.backButton}>Home</Button>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                 <div style={{ width: 300 }}>
+                <Autocomplete
+                    freeSolo
+                    id="free-solo-2-demo"
+                    disableClearable
+                    options={machines.map((option) => option.title)}
+                    renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label="Search input"
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{ ...params.InputProps, type: 'search' }}
+                    />
+                    )}
+                />
+                </div>
+
                 {error && <Typography variant="h6">{error}</Typography>}
                
                 <Button
@@ -59,7 +78,9 @@ const Machines = () => {
                     <Link style={{color: "white" ,textDecoration: "none"}} to="/add-machine">
                             Add Machine
                     </Link>
-                    </Button>
+                    </Button> 
+            </div>
+                   
                      {isLoading && <Typography variant="h3">
                     Loading...<CircularProgress size={50}/> 
                     </Typography>}

@@ -55,7 +55,7 @@ const Results = ({values, className, customers, ...rest }) => {
             setBatch(data)
            
         })
-      })
+      }, [])
 
     const handleClickOpen = () => {
         setOpen(true);

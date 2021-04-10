@@ -26,7 +26,7 @@ import {
   Download as AddIcon,
   Home as HomeIcon
 } from 'react-feather';
-import VideoCallIcon from '@material-ui/icons/VideoCall'
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import NavItem from './NavItem';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../../firebase';
@@ -51,10 +51,10 @@ const items = [
         icon: BarChartIcon
 
     },
-     {
-        title: 'Add-module',
-        href: '/machine-data',
-        icon: AddIcon
+    {
+        title: 'Job',
+        href: '/machine-data/Job',
+        icon: WorkOutlineIcon
 
     }
     

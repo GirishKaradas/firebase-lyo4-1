@@ -1,6 +1,7 @@
 import { Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Line } from "react-chartjs-2";
+import FetchRecipee from '../MiddlePage/Graph/FetchRecipee';
 
 const TestData = ({ data}) => {
   let time = []
@@ -11,45 +12,17 @@ const TestData = ({ data}) => {
   let deltaP =[]
   const [timeData, setTimeData] = useState([])
   const [stillTimeData, setStillTimeData] = useState([])
+  const [deltaTemp, setDeltaTemp] = useState([])
+  const [deltaPressure, setDeltaP] = useState([])
   const [tempData, setTempData] = useState([])
   const [pressureData, setPressureData] = useState([])
-  const [deltaData, setDeltaData] = useState([])
-  const [deltaDataPressure, setDeltaDataPressure] = useState([])
 const totalDuration = 10000;
 const delayBetweenPoints = totalDuration / data.length;
-const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
-const animation = {
-  x: {
-    type: 'number',
-    easing: 'linear',
-    duration: delayBetweenPoints,
-    from: NaN, // the point is initially skipped
-    delay(ctx) {
-      if (ctx.type !== 'data' || ctx.xStarted) {
-        return 0;
-      }
-      ctx.xStarted = true;
-      return ctx.index * delayBetweenPoints;
-    }
-  },
-  y: {
-    type: 'number',
-    easing: 'linear',
-    duration: delayBetweenPoints,
-    from: previousY,
-    delay(ctx) {
-      if (ctx.type !== 'data' || ctx.yStarted) {
-        return 0;
-      }
-      ctx.yStarted = true;
-      return ctx.index * delayBetweenPoints;
-    }
-  }
-};
+
   
   useEffect(() => {
       var x, y, z;
-      var randomTemp;
+      var randomTemp, randomPressure;
       let currTemp=25; let currPressure= 800; let currTime = 0;
     for (let index = 0; index < data.length; index++) {
       x = (data[index].temp1 - currTemp)/data[index].time1
@@ -58,12 +31,14 @@ const animation = {
       for (let j = 0; j < data[index].time1 ; j++) {
           currTime++;
           currTemp = currTemp + x;
-        
+          randomTemp = currTemp + Math.floor(Math.random() * x)
           currPressure = currPressure + y
+           randomPressure = currPressure+ Math.floor(Math.random() * y)
           time.push(currTime)
           temp.push(currTemp)
           pressure.push(currPressure)
-          
+          delta.push(randomTemp)
+          deltaP.push(randomPressure)
           
       }
 
@@ -72,6 +47,8 @@ const animation = {
           time.push(currTime)
           temp.push(currTemp)
           pressure.push(currPressure)
+          delta.push(randomTemp)
+          deltaP.push(randomPressure)
          
           
       }
@@ -80,9 +57,10 @@ const animation = {
   setTempData(temp)
   setStillTimeData(stillTime)
   setPressureData(pressure)
-  setDeltaData(delta)
-  setDeltaDataPressure(deltaP)
-  })
+  setDeltaP(deltaP)
+  setDeltaTemp(delta)
+
+  },[])
 
   const dataTwo = {
   labels: timeData,
@@ -92,14 +70,14 @@ const animation = {
       label: 'Temprature',
       fill: false,
       lineTension: 0.1,
-      backgroundColor: '#ff7a00',
-      borderColor: '#ff7a00',
+      backgroundColor: 'yellow',
+      borderColor: 'yellow',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
-      pointBorderColor: '#ff7a00',
-      pointBackgroundColor: '#ff7a00',
+      pointBorderColor: 'yellow',
+      pointBackgroundColor: 'yellow',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
       pointHoverBackgroundColor: '#ff7a00',
@@ -131,6 +109,50 @@ const animation = {
       pointRadius: 1,
       pointHitRadius: 10,
       data: pressureData
+    },
+    {
+      yAxisID: "y2",
+      label: 'Expected Temp',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'green',
+      borderColor: 'green',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'green',
+      pointBackgroundColor: 'green',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'green',
+      pointHoverBorderColor: '#7868e6',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: deltaTemp
+    },
+    {
+      yAxisID: "y3",
+      label: 'Expected Pressure',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'red',
+      borderColor: 'red',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'red',
+      pointBackgroundColor: 'red',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'red',
+      pointHoverBorderColor: 'red',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: deltaPressure
     }
   
   ]
@@ -157,6 +179,7 @@ const animation = {
     },
     responsive: true,
     scales: {
+     
       xAxes: [{
         display: true,
         stacked: true,
@@ -188,9 +211,38 @@ const animation = {
           fontColor: 'white',
           fontSize: 14
         },
-        animation
+      
          
-      }, {
+      },
+      {
+        stacked: true,
+        display: false,
+        position: "left",
+        id: "y2",
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 12,
+          fontColor: 'white',
+          fontSize: 14
+        },
+      
+         
+      },
+      {
+        stacked: false,
+        display: false,
+        position: "right",
+        id: "y3",
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 12,
+          fontColor: 'white',
+          fontSize: 14
+        },
+      
+         
+      },
+      {
         stacked: false,
         position: "right",
         id: "y-axis-1",
@@ -201,7 +253,8 @@ const animation = {
           fontColor: 'white',
           fontSize: 14
         },
-         animation
+        
+        
       }]
     } 
   }
@@ -218,8 +271,10 @@ const animation = {
         >
         <Line  data={dataTwo} options={options}/>
         {/* <Line  data={dataOne}/> */}
+        {/* <FetchRecipee time={timeData} pressure={pressureData} temp={tempData}/> */}
         </Container>
     )
+    
 }
 
 export default TestData

@@ -133,7 +133,7 @@ const ContentsData = ({match}) => {
             const data = firebaseLooper(doc)
             setContent(data)
         })
-    })
+    }, [])
         
      const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);

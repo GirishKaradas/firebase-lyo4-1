@@ -51,7 +51,7 @@ export default function RecipeeValuesView({match}) {
       const data = firebaseLooper(doc)
       setRecipeeData(data)
     })
-  })
+  }, [])
 
   const handleOpen = () => {
     setOpen(true)

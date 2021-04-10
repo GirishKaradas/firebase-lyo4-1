@@ -20,24 +20,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1)
   },
   dataBox:{
-      borderRadius: "20px",
-      boxShadow: "10px 20px 30px whitesmoke",
       marginBottom: "50px",
       alignItems: "center"
   },
   divButton: {
-      backgroundColor: "#32e0c4",
+      color: "#32e0c4",
       marginRight: "20px",
-      color: "white",
+     
       borderRadius: "10px",
       width: "100px",
 
   },
   del:{
-    backgroundColor: "red",
-    color: "white",
-    borderRadius:"15px"
-  }
+    color: "red",
+   
+    borderRadius:"10px"
+  },
+   large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
 }));
 
 export default function UserItem({ users}) {
@@ -97,7 +99,8 @@ const updateUser=(id) => {
           <Container xs style={{background: 'white', borderRadius: '20px', }}>
             <div className={classes.dataBox}>
             <Grid xs={12}>
-                 <Typography align="center" variant="h6"><Avatar></Avatar>{users.firstName} {users.lastName}</Typography>
+              <Avatar className={classes.large} src={users.url}></Avatar>
+                 <Typography align="center" variant="h6">{users.firstName} {users.lastName}</Typography>
                  <Typography align="center" variant="body2">{users.email} ||  {users.phone}</Typography>
                  
                  <Grid
@@ -115,10 +118,10 @@ const updateUser=(id) => {
           </Grid>   
             </Grid>
             <div>
-            <Button startIcon={<EditIcon/>} style={{marginRight: "20%", marginLeft: "20%", borderRadius: "15px"}} variant="contained" onClick={handleEdit}  color="primary">Edit</Button>
+            <Button startIcon={<EditIcon/>} style={{marginRight: "20%", marginLeft: "20%", borderRadius: "15px"}}  onClick={handleEdit}  color="primary">Edit</Button>
             <Button style={{marginRight: "20%"}} className={classes.divButton} startIcon={<VisibilityIcon/>} onClick={handleView}>View</Button>
 
-            <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen} variant="contained" className={classes.del}>Delete</Button>
+            <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen}  className={classes.del}>Delete</Button>
             </div>
 
               <Dialog
@@ -344,7 +347,7 @@ const updateUser=(id) => {
                 </Dialog>
 
             </div>
-            
+            <hr/>
         </Container>
       
     )

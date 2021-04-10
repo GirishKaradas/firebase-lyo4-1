@@ -67,7 +67,7 @@ const BatchInfo = ({match}) => {
             setBatch(data)
 
         })
-    })
+    }, [])
     return (
         <>
         <ContentDashboardLayout match={match}/>

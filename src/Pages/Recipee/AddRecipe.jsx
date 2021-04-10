@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, makeStyles, TextField, Typograp
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
+import { useAuth } from '../../components/context/AuthContext';
 import { db } from '../../firebase';
 
 
@@ -42,13 +43,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const AddRecipe = ({match}) => {
+  const {currentUser} = useAuth()
     const classes = useStyles()
     const [title, setTitle] = useState('')
     const [mid, setMid] = useState(`${match.params.id}`)
     const history = useHistory()
 
     const handleSubmit = () => {
-        const data = {title, mid}
+      const createdBy = `${currentUser.email}`
+        const data = {title, mid, createdBy}
         db.collection('recipes').add(data)
         history.push(`/machine-data/Reports/${match.params.id}/Recipes`)
     }

@@ -31,7 +31,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       const data = firebaseLooper(doc)
       setNotifications(data)
     })
-  })
+  }, [])
 
   function handleOpen(e){
     setOpen(true)
@@ -51,11 +51,11 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       <Toolbar>
         <RouterLink to="/" style={{textDecoration: "none", color: "white", display: "flex"}}>
        <Logo/>
-       <Typography style={{margin: "10px"}} variant="button">ARIZON Systems</Typography>
+       <Typography style={{margin: "10px",}} variant="button"><b>ARIZON Systems</b></Typography>
         </RouterLink>
         <Box style={{ flexGrow: 1 }} />
         <Hidden smDown>
-          <IconButton aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="inherit">
+          <IconButton  aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -66,12 +66,12 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
           
           </IconButton>
            
-          <IconButton color="inherit">
+          <IconButton href='/machine-data' color="inherit">
             <InputIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="inherit">
+          <IconButton  aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -98,7 +98,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         open={Boolean(anchorE1)}
         onClose={handleClose}
       >{
-        notifications.slice((notifications.length - 4), notifications.length).map(data => (
+        notifications.slice(0, 4).map(data => (
           <div style={{display: 'flex', justifyContent: 'space-between'}} key={data.id}>
           <MenuItem onClick={handleClose}>{data.notification} </MenuItem>
           <Button color="primary" href={`/${data.link}`}>Open <AllOutIcon/></Button>

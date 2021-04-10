@@ -5,16 +5,9 @@ import {
   Container,
   fade,
   Grid,
-  makeStyles
+  makeStyles,
+  Typography
 } from '@material-ui/core';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import PersonIcon from '@material-ui/icons/Person';
-import GroupIcon from '@material-ui/icons/Group';
-import BuildIcon from '@material-ui/icons/Build';
-import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
-import VideoCallIcon from '@material-ui/icons/VideoCall'
-import { database } from '../../firebase';
-import { firebaseLooperTwo } from '../../utils/tools';
 import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../components/context/AuthContext';
@@ -23,7 +16,17 @@ import LineDemo from '../../components/LineDemo';
 import ListUsers from './ListUsers';
 import CustomerListView from '../../components/LogsData/Logs';
 import LogsList from './LogsList';
- 
+import RecipeeList from './Graph/RecipeeList';
+import JobGraph from './JobGraph';
+import WorkFlow from './WorkFlow';
+import MachineBox from './MachineBox';
+import UsersBox from './UsersBox';
+import JobsBox from './JobsBox';
+import ManualBox from './ManualBox';
+import { db } from '../.././firebase'
+import { firebaseLooper } from '../.././utils/tools'
+import TestData from '../Tests/TestData';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -89,26 +92,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MiddlePage = () => {
-  const classes = useStyles()
-  const [values, setValues] = useState([])
-
-  
-    const [error, setError] = useState("")
-    const { currentUser, logout } = useAuth()
+const MiddlePage = () =>{
+  const rid = '3W4hP5zaRRkyQfsbCAop'
+   const [rData, setRData] = useState([])
     const history = useHistory()
-
-    async function handleLogout() {
-    setError("")
-
-    try {
-      await logout()
-      history.push("/login")
-    } catch {
-      setError("Failed to log out")
-    }
-  }
-
+  useEffect(() => {
+          db.collection('recipeeData').where('rid', '==', rid).onSnapshot(doc => {
+              const data = firebaseLooper(doc)
+            setRData(data)
+            console.log(data)
+            
+          })
+      },[])
 
     return (
       <>
@@ -134,7 +129,8 @@ const MiddlePage = () => {
             xl={3}
             xs={12}
           >
-            <Button startIcon={<BuildIcon/>} style={{backgroundColor: "#ff7a00",width:"150px", marginRight: "30px", marginTop: "3%"}} color="primary" variant="contained" href="/machine-data"> Machines</Button>
+            <MachineBox/>
+            {/*  */}
           </Grid>
           <Grid
             item
@@ -143,7 +139,7 @@ const MiddlePage = () => {
             xl={3}
             xs={12}
           >
-            <Button startIcon={<GroupIcon/>} style={{backgroundColor: "#ff7a00",width:"150px",marginRight: "30px", marginTop: "3%"}} color="primary" variant="contained" href="/users"> Users</Button>
+            <UsersBox/>
           </Grid>
           <Grid
             item
@@ -152,7 +148,7 @@ const MiddlePage = () => {
             xl={3}
             xs={12}
           >
-            <Button startIcon={<PhoneCallbackIcon/>} style={{backgroundColor: "#ff7a00",width:"150px",marginRight: "30px", marginTop: "3%"}} color="primary" variant="contained" href="/call-logs"> Call Logs</Button>
+           <JobsBox/>
           </Grid>
           <Grid
             item
@@ -161,7 +157,7 @@ const MiddlePage = () => {
             xl={3}
             xs={12}
           >
-            <Button startIcon={<VideoCallIcon/>} style={{backgroundColor: "#ff7a00",width:"150px",marginRight: "30px", marginTop: "3%"}} color="primary" variant="contained" href="/video-call"> Video Call</Button>
+            <ManualBox/>
           </Grid>
           <Grid
             item
@@ -170,25 +166,26 @@ const MiddlePage = () => {
             xl={9}
             xs={12}
           >
-             <LineDemo style={{height: "100%"}}/>
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-           <ListMachines style={{height: "100%"}}/>
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
             
+            {/* <RecipeeList/> */}<TestData data={rData} />
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >  <JobGraph/>
+           
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+         {/* <ListMachines style={{height: "100%"}}/> > */}
            <ListUsers style={{height: "100%"}}/>
           </Grid>
           <Grid
@@ -198,7 +195,7 @@ const MiddlePage = () => {
             xl={9}
             xs={12}
           >
-            <LogsList/>
+            <WorkFlow/>
           </Grid>
         </Grid>
       </Container>

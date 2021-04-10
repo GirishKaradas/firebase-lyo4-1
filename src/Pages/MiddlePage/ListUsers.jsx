@@ -32,7 +32,7 @@ const ListUsers = (props) =>{
         }).catch(err => {
             console.log(err)
         })
-    })
+    }, [])
 
   return (
   <Card {...props}>
@@ -42,24 +42,21 @@ const ListUsers = (props) =>{
     />
     <Divider />
     <List>
-      {users.slice(0,5).map((user, i) => (
+      {users.slice(0,4).map((user, i) => (
         <ListItem
           divider={i < users.length - 1}
           key={user.id}
         >
-          <Avatar >
-              <PeopleAltIcon/>
-          </Avatar>
+          <Avatar 
+          style={{width: '6%', height: '6%'}}
+          src={user.url} />
+          
           <ListItemText
+          style={{marginLeft: '2%'}}
             primary={user.firstName}
-            secondary={`~>  ${user.email}`}
+           
           />
-          <IconButton
-            edge="end"
-            size="small"
-          >
-            <MoreVertIcon />
-          </IconButton>
+        {user.email}
         </ListItem>
       ))}
     </List>

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) =>( {
     }
 }))
 const Users = () => {
+    const count = 0
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [users, setUsers] = useState([{}]);
@@ -34,7 +35,7 @@ const Users = () => {
     const history = useHistory()
     useEffect(() => {
 
-        db.collection('users').onSnapshot(snapshot => {
+        db.collection('users').orderBy('role', 'asc').onSnapshot(snapshot => {
             const userData = firebaseLooper(snapshot)
             setUsers(userData)
             setIsLoading(false)

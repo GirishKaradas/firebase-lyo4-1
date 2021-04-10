@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+   background:'white' 
   },
   container: {
      
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-    background:'linear-gradient(#f3f3f3, #e7e7e7)',
+    background:'white',
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -178,7 +178,7 @@ const UserList = ({users}) => {
             const data = firebaseLooper(doc)
             setUserData(data)
         })
-    })
+    }, [])
         
      const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -200,8 +200,7 @@ const UserList = ({users}) => {
         
          
             <Container >
-             <Typography variant='h2' align='center' gutterBottom><b>User List</b> </Typography>
-        <div className={classes.container}>
+        <div >
           <Card className={classes.content}>
           
               {(rowsPerPage > 0

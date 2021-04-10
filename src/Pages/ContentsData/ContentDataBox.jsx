@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import {db} from '../../firebase'
 import EditIcon from '@material-ui/icons/Edit';
-import AccessTimeIcon from '@material-ui/icons/AccessTime'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -111,18 +111,23 @@ const ContentDataBox = ({data}) => {
          
             <TableRow key={data.id}>
               <TableCell component="th" scope="row">
-                {data.title}
+               <b> {data.title} </b>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                 {data.value}
+
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              <Button style={{ marginRight: "20%", marginTop: '0', marginBottom: '0'}} startIcon={<EditIcon/>} onClick={handleEdit} variant="contained"  color="primary">Edit</Button>
+              <Button style={{ marginRight: "20%", marginTop: '0', marginBottom: '0'}} startIcon={<EditIcon/>} onClick={handleEdit}   color="primary">Edit</Button>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                <Button style={{ marginLeft: "20%"}} onClick={handleClickOpen} variant="contained" color="secondary" startIcon={<DeleteIcon/>}>Delete</Button>
+                <Button style={{ marginLeft: "20%"}} onClick={handleClickOpen}  color="secondary" startIcon={<DeleteIcon/>}>Delete</Button>
            
               </TableCell>
+               <TableCell style={{ width: 160 }} align="right">
+                <Button style={{ marginLeft: "20%", color: 'orangered'}} href={`/Module/${data.id}/Components`}  startIcon={<ArrowForwardIosIcon/>}>Open</Button>
+           
+              </TableCell>
+
             </TableRow>
         </TableBody>
       </Table>
@@ -188,32 +193,7 @@ const ContentDataBox = ({data}) => {
                           autoFocus
                           onChange={(e) => setContentName(e.target.value)}
                         />
-                        <TextField
-                          label="Expected Value"
-                        defaultValue={value}
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="value"
-                          onChange={(e) => setValue(e.target.value)}
-                          id="value"
-                          multiline
-                        />
-                        <TextField
-                          label="Created At"
-                          defaultValue={createdAt}
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth                          
-                          type="date"
-                          onChange={(e) => setCreatedAt(e.target.value)}
-                          InputLabelProps={{
-                              shrink: true,
-                            }}
-                         
-                        />
+                       
                     
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>

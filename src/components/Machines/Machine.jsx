@@ -49,25 +49,16 @@ const useStyles = makeStyles((theme) => ({
 const Machine= ({data, ...rest}) => {
 
   const classes = useStyles();
-   const [isLoading, setIsLoading] = useState(true);
-    const [machines, setMachines] = useState();
    const {currentUser} = useAuth()
     const [openEdit, setOpenEdit] = useState(false)
     const [open, setOpen] = useState(false)
    const [title, setTitle] = useState(data.title)
   const [location, setLocation] = useState(data.location);
   const [createdBy, setCreatedBy] = useState(data.createdBy);
-  const [media, setMedia] = useState({
-    mediaData: null ,
-    url: "",
-  })
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false);  
   
-  const history = useHistory();
-  const handleReturn = () => {
-    history.go(-1)
-  }
+  
+  
       const handleClickOpen = () => {
     setOpen(true);
   };
@@ -119,13 +110,13 @@ const Machine= ({data, ...rest}) => {
            
             <Box
             pb={3}
-            sx={{
+            style={{
             display: 'flex',
             justifyContent: 'center',
             
             }}
             >
-              <Avatar>M</Avatar>
+
             </Box>
                 
                
@@ -177,14 +168,18 @@ const Machine= ({data, ...rest}) => {
                   <Grid
                   item
                   style={{
-                    alignItems: "center",
-                    display: "flex"
+                    display: "flex",
+                    justifyContent: 'space-between'
+              
                   }}
                   >
-                     <Button startIcon={<OpenWithIcon/>} variant="contained" style={{width:"120px",backgroundColor: "#ff7a00", color:"white", margin: "2%"}}><Link style={{color: "white" ,textDecoration: "none"}} to={`/machine-data/${data.id}/Module`}>Open</Link></Button>
-                    <Button startIcon={<EditIcon/>} onClick={handleEdit} variant="contained" style={{width:"120px",backgroundColor: "#4a47a3", color:"white", margin: "2%"}}>Edit</Button>
-                    <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen} variant="contained" style={{width:"120px",backgroundColor: "#e40017", color:"white", margin: "2%"}}>Delete</Button>
-                  </Grid>
+                    
+                    <Button startIcon={<OpenWithIcon/>}  style={{width:"120px",color: "#ff7a00", margin: "2%"}}><Link style={{ textDecoration: "none", color: '#ff7a00'}} to={`/machine-data/${data.id}/Module`}>Open</Link></Button>
+                    <Button startIcon={<EditIcon/>} onClick={handleEdit}  style={{width:"120px",color: "#4a47a3", margin: "2%"}}>Edit</Button>
+                    <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen}  style={{width:"120px",color: "#e40017", margin: "2%"}}>Delete</Button>
+                  
+                 
+                     </Grid>
                
                 </Grid>
               </Box>

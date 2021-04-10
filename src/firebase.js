@@ -6,11 +6,11 @@ import 'firebase/database'
 
 
 export const config = {
-  apiKey: "AIzaSyDI3ptricL3aRITUGTa8GeKqHxew8kU3T0",
+   apiKey: "AIzaSyDI3ptricL3aRITUGTa8GeKqHxew8kU3T0",
   authDomain: "lyodata.firebaseapp.com",
+  databaseURL: "https://lyodata-default-rtdb.firebaseio.com",
   projectId: "lyodata",
   storageBucket: "lyodata.appspot.com",
-  databaseURL: 'https://lyodata-default-rtdb.firebaseio.com/',
   messagingSenderId: "953537304712",
   appId: "1:953537304712:web:5573059cca9a6896d4273d",
   measurementId: "G-3QHHE1Y44B"

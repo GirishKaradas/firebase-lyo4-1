@@ -54,8 +54,6 @@ const useStyles = makeStyles((theme) => ({
 const AddContent = ({match}) => {
   const classes= useStyles();
   const [title, setContentName] = useState('')
-  const [value, setValue] = useState('');
-  const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
   const [mid, setMid] = useState(match.params.id)
   const history = useHistory();
@@ -63,7 +61,7 @@ const AddContent = ({match}) => {
     
     const handleSubmit = (e) => {
     e.preventDefault();
-    const content = {title, value, mid, createdAt};
+    const content = {title, mid};
     setLoading(true);
       db.collection('moduleData').add(content).then((data) =>{
         console.log(data)
@@ -107,33 +105,7 @@ const AddContent = ({match}) => {
             onChange={(e) => setContentName(e.target.value)}
             
           />
-          <TextField
-          
-          value={value}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="content_description"
-            label="Expected Value"
-            onChange={(e) => setValue(e.target.value)}
-            id="content_description"
-            style={{marginBottom: '20px'}}
-           
-          />
-          <TextField
-           value={createdAt}
-           variant="outlined"
-            id="date"
-            label="Created At"
-            type="date"
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={(e) => setCreatedAt(e.target.value)}
-          />
-           
+              
           
          {!loading && <Button
             type="submit"

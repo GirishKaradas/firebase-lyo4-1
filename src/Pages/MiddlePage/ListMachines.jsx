@@ -11,7 +11,8 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -30,7 +31,7 @@ const ListMachines = (props) =>{
             setMachines(machine)            
             
         })
-    })
+    }, [])
 
   return (
   <Card {...props}>
@@ -44,20 +45,20 @@ const ListMachines = (props) =>{
         <ListItem
           divider={i < machines.length - 1}
           key={machines.id}
+          
         >
           <Avatar >
               <BuildIcon/>
           </Avatar>
-          <ListItemText
-            primary={machine.title}
-            secondary={`Location:  ${machine.location}`}
-          />
-          <IconButton
-            edge="end"
-            size="small"
-          >
-            <MoreVertIcon />
-          </IconButton>
+          
+             
+               <ListItemText
+              primary={machine.title}
+              style={{marginLeft: '3%', fontWeight: '900'}}
+            />
+            
+            
+            {machine.location}
         </ListItem>
       ))}
     </List>

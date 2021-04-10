@@ -24,8 +24,8 @@ import { useStorage } from '../../utils/useStorage';
 
 const useStyles = makeStyles(() => ({
   root: {
-      width: "50%",
-      marginLeft: "5%"
+     
+      
   },
   avatar: {
     height: 100,
@@ -116,10 +116,19 @@ const AccountDetails = () => {
   }
   
     return (
-        <Container style={{display: "flex", marginTop: "5%"}}>
-           <form 
-         
+        <Container maxWidth={false} style={{marginTop: '3%', marginBottom: '3%'}}>
+            <Grid
+            container
+            spacing={3}
+            >
+             <Grid
+          item
+            lg={6}
+            sm={12}
+            xl={3}
+            xs={12}
            >
+             
       <Card >
       <CardContent>
         <Box
@@ -156,7 +165,7 @@ const AccountDetails = () => {
       </CardContent>
       <Divider />
        <CardActions style={{alignItems: "center"}}>
-      <InputLabel alignItems="center">Upload Avatar image</InputLabel>
+     
        <input type="file"  onChange={handleChange} />
        <Button   variant="outlined" color="primary" onClick={handleUpload} >Upload</Button>
       </CardActions>
@@ -164,13 +173,20 @@ const AccountDetails = () => {
     <Grid>
       {file && <p>{progress}% uploaded</p>}
     </Grid>
-    </form>
+    </Grid>
 
     
     
     {/* Details */}
-        <form className={classes.root} onSubmit={handleSubmit}>
-     <Card >
+    <Grid
+      item
+      lg={6}
+      sm={12}
+      xl={3}
+      xs={12}
+    >
+          <form className={classes.root} onSubmit={handleSubmit}>
+     <Card>
         <CardHeader
           subheader="The information can be edited"
           title="Profile"
@@ -240,8 +256,14 @@ const AccountDetails = () => {
             Cancel
           </Button>
         </Box>
-      </Card>
+     </Card>
       </form>
+    </Grid>
+            </Grid>
+
+       
+
+        
     </Container>
     )
 }

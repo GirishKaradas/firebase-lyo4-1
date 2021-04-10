@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import { Link as RouterLink, Redirect, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -86,10 +86,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
-    db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
+    if(currentUser){
+      db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
       setUserData(data[0])
     })
+    } else {
+      <Redirect to='/login'/>
+    }
+    
   }, [location.pathname]);
 
   const content = (
@@ -111,7 +116,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={userData.url}
+          src={userData.url? `${userData.url}`: ''}
           style={{
             cursor: 'pointer',
             width: 64,
