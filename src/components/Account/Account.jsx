@@ -39,7 +39,8 @@ const Account = () => {
       setAccountTwo(accountData[0])
     })
   })
-
+ 
+  
   return (
     <Page
       className={classes.root}

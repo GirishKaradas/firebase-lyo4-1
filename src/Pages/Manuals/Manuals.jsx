@@ -64,12 +64,11 @@ export default function Manuals({match}) {
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div>
               <Typography variant='h1'><b>Manuals Data</b></Typography>
-               <Typography variant='caption' >These are all your Manuals</Typography>
+               <Typography variant='body2' >These are all your Manuals</Typography>
               </div>
-              <Button href={`/machine-data/${match.params.id}/Add-Manuals`} color='primary' style={{width: '15%'}}>Add Manuals</Button>
+              <Button href={`/machine-data/${match.params.id}/Add-Manuals`} color='primary' style={{width: '15%', color: 'orangered'}}>Add Manuals</Button>
               </div>
-            
-            
+            <br/>
             
             <Grid container spacing={3}>
                 <>

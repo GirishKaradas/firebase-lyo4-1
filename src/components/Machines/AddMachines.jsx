@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     borderRadius: "20px"
-   
+  
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: '#141256',
   },
   form: {
-    width: '90%', // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
     alignItems: "center"
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
       background: "#ff7a00",
       align: "center",
       color: "white",
-      width: "20%",
+      width: "100%",
       borderRadius: '20px',
       margin: theme.spacing(3, 0, 2),
   }
@@ -39,6 +39,7 @@ const AddMachines = () => {
   const [title, setMachineName] = useState('')
   const [location, setMachineLocation] = useState('');
   const [createdBy, setCreatedBy] = useState(currentUser.email);
+   const [desc, setDesc] = useState([]);
   const [loading, setLoading] = useState(false);
   const notification = `${currentUser.email} has created a new Machine!`
   const link = 'machine-data'
@@ -53,7 +54,7 @@ const AddMachines = () => {
     const handleSubmit = (e) => {
      
     e.preventDefault();
-    var result = {title,location,createdBy }
+    var result = {title,location,createdBy,desc }
         db.collection('machineData').add(result).then(data => {
           history.push('/machine-data')
           console.log(data)
@@ -75,7 +76,7 @@ const AddMachines = () => {
           Add Machine
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <Card style={{borderRadius: "25px", background: "linear-gradient(white, #e7e7e7)"}}>
+          <Card >
             <CardContent>
 
               <TextField
@@ -112,6 +113,18 @@ const AddMachines = () => {
             type="text"
             disabled
             onChange ={(e) => setCreatedBy(e.target.value)}
+           style={{marginBottom: '20px'}}
+          />
+           <TextField
+           fullWidth
+           value={desc}
+           variant="outlined"
+            id="desc"
+            label="Dsecription"
+            type="text"
+            multiline
+            rows={7}
+            onChange ={(e) => setDesc(e.target.value)}
            
           />
           

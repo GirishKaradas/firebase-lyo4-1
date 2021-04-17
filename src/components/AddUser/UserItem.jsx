@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divButton: {
       color: "#32e0c4",
-      marginRight: "20px",
+      
      
       borderRadius: "10px",
       width: "100px",
@@ -98,7 +98,7 @@ const updateUser=(id) => {
     return (
           <Container xs style={{background: 'white', borderRadius: '20px', }}>
             <div className={classes.dataBox}>
-            <Grid xs={12}>
+            <Grid  xs={12}>
               <Avatar className={classes.large} src={users.url}></Avatar>
                  <Typography align="center" variant="h6">{users.firstName} {users.lastName}</Typography>
                  <Typography align="center" variant="body2">{users.email} ||  {users.phone}</Typography>
@@ -117,9 +117,9 @@ const updateUser=(id) => {
                 
           </Grid>   
             </Grid>
-            <div>
-            <Button startIcon={<EditIcon/>} style={{marginRight: "20%", marginLeft: "20%", borderRadius: "15px"}}  onClick={handleEdit}  color="primary">Edit</Button>
-            <Button style={{marginRight: "20%"}} className={classes.divButton} startIcon={<VisibilityIcon/>} onClick={handleView}>View</Button>
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+            <Button startIcon={<EditIcon/>}  onClick={handleEdit}  color="primary">Edit</Button>
+            <Button  className={classes.divButton} startIcon={<VisibilityIcon/>} onClick={handleView}>View</Button>
 
             <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen}  className={classes.del}>Delete</Button>
             </div>
@@ -339,7 +339,7 @@ const updateUser=(id) => {
                     </Grid>
                     <DialogActions>
                       <Button color="secondary" onClick={handleViewClose}>Cancel</Button>
-                    
+                   
                     </DialogActions>
                      
                   </form>

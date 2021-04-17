@@ -130,7 +130,7 @@ export default function ContentItem({content}) {
                 display="inline"
                 variant="body2"
                 >
-
+                  
                 </Typography>
           </Grid>   
             </Grid>

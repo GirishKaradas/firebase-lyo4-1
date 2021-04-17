@@ -101,11 +101,11 @@ const updateStep=(id) => {
                 display="inline"
                 variant="body2"
                 >
-               
+              {data.type}
                 </Typography>
           </Grid>   
             </Grid>
-            <div style={{display: 'flex', justifyContent: 'space-evenly', width: '100%',}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', width: '100%',}}>
             <Button startIcon={<EditIcon/>}  onClick={handleEdit}  color="primary">Edit</Button>
             <Button startIcon={<VisibilityIcon/>} 
             onClick={() =>

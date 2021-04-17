@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+   
   },
   container: {
       display: 'flex',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+    
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'

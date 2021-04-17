@@ -58,11 +58,7 @@ const items = [
     icon: VideoIcon,
     title: 'Video Call'
   },
- {
-    href: '/call-logs',
-    icon: PhoneIcon,
-    title: 'Call Logs'
-  },
+
 
 ];
 

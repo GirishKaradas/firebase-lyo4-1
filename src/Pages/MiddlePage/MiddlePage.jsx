@@ -4,8 +4,12 @@ import {
   Button,
   Container,
   fade,
+  FormControl,
   Grid,
+  InputLabel,
   makeStyles,
+  MenuItem,
+  Select,
   Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router';
@@ -28,6 +32,9 @@ import { firebaseLooper } from '../.././utils/tools'
 import TestData from '../Tests/TestData';
 import GraphData from './Graph/GraphData';
 import Skeleton from '@material-ui/lab/Skeleton';
+import TestHome from '../Tests/TestHome';
+import GraphDataRecipee from './Graph/GraphDataRecipee';
+import TestGraph from '../../TestGraph/TestGraph';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -93,19 +100,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+ 
+const updateChart = (title) => {
+      let gData = []
+          
+       console.log(gData)
+        return(
+          <TestData data={gData}/>
+        )
+      }
+
 const MiddlePage = () =>{
-  const rid = '3W4hP5zaRRkyQfsbCAop'
+ 
+ 
    const [rData, setRData] = useState([])
+  
+   const [title, setTitle] = useState('')
     const history = useHistory()
+
+     
   useEffect(() => {
-          db.collection('recipeeData').where('rid', '==', rid).get().then(doc => {
-              const data = firebaseLooper(doc)
+         db.collection('recipeeData').onSnapshot(doc => {
+          const data = firebaseLooper(doc)
             setRData(data)
-            console.log(data)
             
           })
-      },[rData.length])
+      },[])
 
+     
     return (
       <>
     <Helmet>
@@ -132,16 +154,18 @@ const MiddlePage = () =>{
           spacing={3}
         >
           <Grid
+          style={{height: '100%'}}
             item
             lg={3}
             sm={6}
             xl={3}
             xs={12}
           >
-            <MachineBox/>
+            <MachineBox />
             {/*  */}
           </Grid>
           <Grid
+          style={{height: '100%'}}
             item
             lg={3}
             sm={6}
@@ -151,6 +175,7 @@ const MiddlePage = () =>{
             <UsersBox/>
           </Grid>
           <Grid
+          style={{height: '100%'}}
             item
             lg={3}
             sm={6}
@@ -160,6 +185,7 @@ const MiddlePage = () =>{
            <JobsBox/>
           </Grid>
           <Grid
+         
             item
             lg={3}
             sm={6}
@@ -175,13 +201,32 @@ const MiddlePage = () =>{
             xl={9}
             xs={12}
           >
-            <div>
+            
               {/* <GraphData data={rData} /> */}
-              {/* <RecipeeList/> */}
+              {/* <RecipeeList/>
                 <Skeleton variant="circle" width={40} height={40} />
-              <Skeleton variant="rect" style={{width: '100%'}} height={360} />
-            </div>
-           
+              <Skeleton variant="rect" style={{width: '100%'}} height={360} /> */}
+              {/* <FormControl style={{width: '100%'}} >
+        <InputLabel id="demo-simple-select-label">Recipee Name</InputLabel>
+        <Select
+          value={title}
+          defaultValue=''
+          onChange={(e) => setTitle(e.target.value)}
+        >
+          {
+            rData.map((data) => (
+              <MenuItem value={data.id}>{data.title}</MenuItem>
+            ))
+          }
+      
+        </Select>
+      </FormControl> */}
+      
+        {/* <h1>{title}</h1> */}
+        
+       <TestGraph/>
+            
+           {/* <GraphDataRecipee data={gData}/> */}
           </Grid>
           <Grid
             item
@@ -190,9 +235,9 @@ const MiddlePage = () =>{
             xl={3}
             xs={12}
           >  
-          
-          <JobGraph/>
-           
+         
+           <JobGraph/>
+            
           </Grid>
           <Grid
             item
@@ -202,7 +247,7 @@ const MiddlePage = () =>{
             xs={12}
           >
          {/* <ListMachines style={{height: "100%"}}/> > */}
-           <ListUsers style={{height: "100%"}}/>
+         <ListUsers style={{height: "100%"}}/>
           </Grid>
           <Grid
             item
@@ -211,7 +256,8 @@ const MiddlePage = () =>{
             xl={9}
             xs={12}
           >
-            <WorkFlow/>
+            {/* <WorkFlow/> */}
+            <LogsList/>
           </Grid>
         </Grid>
       </Container>

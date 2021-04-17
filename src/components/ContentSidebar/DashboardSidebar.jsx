@@ -26,6 +26,8 @@ import {
   Download as AddIcon,
   Home as HomeIcon
 } from 'react-feather';
+import ReportIcon from '@material-ui/icons/Report';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import NavItem from './NavItem';
 import { useAuth } from '../context/AuthContext';
@@ -57,12 +59,25 @@ const items = [
         icon: WorkOutlineIcon
 
     },
+    {
+        title: 'Call-Logs',
+        href: '/machine-data',
+        icon: PhoneIcon
+
+    },
       {
         title: 'Manuals',
         href: '/machine-data/Manuals',
-        icon: WorkOutlineIcon
+        icon: AssessmentIcon
 
-    }
+    },
+    {
+        title: 'DQ-Reports',
+        href: '/machine-data/DQ-Reports',
+        icon: ReportIcon
+
+    },
+
     
 ];
 

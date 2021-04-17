@@ -25,7 +25,7 @@ const UsersBox = (props) =>{
     }, [])
     return (
     
-  <Card {...props}>
+  <Card style={{height: '130px'}} {...props}>
     <CardContent>
       <Grid
         container
@@ -63,7 +63,7 @@ const UsersBox = (props) =>{
         style={{
           alignItems: 'center',
           display: 'flex',
-          pt: 2
+          paddingTop: 2
         }}
       >
         <ArrowUpwardIcon sx={{ color: green[900] }} />

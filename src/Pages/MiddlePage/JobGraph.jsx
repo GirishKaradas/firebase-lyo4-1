@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Doughnut, Pie } from 'react-chartjs-2';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
+import LinearIndeterminate from './LinearInderminate';
 
 const JobGraph = () => {
     const [pending, setPending] = useState([])
@@ -58,14 +59,21 @@ const JobGraph = () => {
 };
 
     return (
-        <Card>
+      <div>
+        <LinearIndeterminate/>
+        <Card style={{marginTop: '10%', marginBottom: '20%' }}>
             <Typography variant='h1' align='center'><b>Job Data</b></Typography>
             <Doughnut data={data}/>
             <br/>
             <Alert severity='warning'>Pending Jobs</Alert>
             <br/>
             <Alert severity='success'>Completed Jobs</Alert>
+            <br/>
+           <br/>
         </Card>
+        <LinearIndeterminate/>
+      </div>
+        
     )
 }
 

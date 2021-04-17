@@ -60,7 +60,7 @@ const ContentDashboardLayout = ({ match}) => {
         </div>
       </div> */}
       </div>
-   
+  
   );
 };
 

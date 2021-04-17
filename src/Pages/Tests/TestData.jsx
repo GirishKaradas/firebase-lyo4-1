@@ -1,9 +1,11 @@
 import { Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Line } from "react-chartjs-2";
+import { db } from '../../firebase';
+import { firebaseLooper } from '../../utils/tools';
 import FetchRecipee from '../MiddlePage/Graph/FetchRecipee';
 
-const TestData = ({ data}) => {
+const TestData = ({reid, data}) => {
   let time = []
   let temp = []
   let stillTime = []
@@ -11,9 +13,11 @@ const TestData = ({ data}) => {
   let delta =  []
   let deltaP =[]
   const [timeData, setTimeData] = useState([])
+  const [realData, setRealData] = useState([])
   const [stillTimeData, setStillTimeData] = useState([])
   const [deltaTemp, setDeltaTemp] = useState([])
   const [deltaPressure, setDeltaP] = useState([])
+ 
   const [tempData, setTempData] = useState([])
   const [pressureData, setPressureData] = useState([])
 const totalDuration = 10000;
@@ -21,9 +25,13 @@ const delayBetweenPoints = totalDuration / data.length;
 
   
   useEffect(() => {
+    db.collection('realtimeData').where('recipe_id','==', `${reid}`).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      setRealData(data[0].temp_points)
+    })
       var x, y, z;
       var randomTemp, randomPressure;
-      let currTemp=25; let currPressure= 800; let currTime = 0;
+      let currTemp=0; let currPressure= 800; let currTime = 0;
     for (let index = 0; index < data.length; index++) {
       x = (data[index].temp1 - currTemp)/data[index].time1
       y = (data[index].pressure - currPressure)/data[index].time1
@@ -31,7 +39,7 @@ const delayBetweenPoints = totalDuration / data.length;
       for (let j = 0; j < data[index].time1 ; j++) {
           currTime++;
           currTemp = currTemp + x;
-          randomTemp = currTemp + Math.floor(Math.random() * x)
+          randomTemp = currTemp + (Math.random() * x) 
           currPressure = currPressure + y
            randomPressure = currPressure+ Math.floor(Math.random() * y)
           time.push(currTime)
@@ -45,13 +53,11 @@ const delayBetweenPoints = totalDuration / data.length;
       for (let k = 0; k < data[index].time2; k++) {
           currTime++
           time.push(currTime)
-          delta.push(randomTemp + Math.random() * x)
+          delta.push(randomTemp+ Math.random()*x*1.75)
           deltaP.push (randomPressure + Math.random()*y)
           temp.push(currTemp)
           pressure.push(currPressure)
-         
-         
-          
+
       }
     }
   setTimeData(time)
@@ -67,8 +73,8 @@ const delayBetweenPoints = totalDuration / data.length;
   labels: timeData,
   datasets: [
     {
-      yAxisID: "y-axis-0",
-      label: 'Temprature',
+      yAxisID: "y-axis-1",
+      label: 'Pressure',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'yellow',
@@ -86,34 +92,12 @@ const delayBetweenPoints = totalDuration / data.length;
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: tempData
-    },
-     {
-       yAxisID: "y-axis-1",
-       position: "right",
-      label: 'Pressure',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: 'orange',
-      borderColor: 'orange',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'orange',
-      pointBackgroundColor: 'orange',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'orange',
-      pointHoverBorderColor: '#7868e6',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
       data: pressureData
     },
-    {
-      yAxisID: "y2",
-      label: 'Expected Temp',
+     {
+       yAxisID: "y2",
+       position: "right",
+      label: 'RealTime',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'green',
@@ -131,31 +115,32 @@ const delayBetweenPoints = totalDuration / data.length;
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: deltaTemp
+      data: realData
     },
-    {
-      yAxisID: "y3",
-      label: 'Expected Pressure',
+{
+       yAxisID: "y-axis-0",
+       position: "right",
+      label: 'Temprature',
       fill: false,
       lineTension: 0.1,
-      backgroundColor: 'red',
-      borderColor: 'red',
+      backgroundColor: 'orange',
+      borderColor: 'orange',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
-      pointBorderColor: 'red',
-      pointBackgroundColor: 'red',
+      pointBorderColor: 'orange',
+      pointBackgroundColor: 'orange',
       pointBorderWidth: 1,
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'red',
-      pointHoverBorderColor: 'red',
+      pointHoverBackgroundColor: 'orange',
+      pointHoverBorderColor: '#7868e6',
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: deltaPressure
-    }
-  
+      data: tempData
+    },
+
   ]
 };
   
@@ -174,10 +159,7 @@ const delayBetweenPoints = totalDuration / data.length;
     tooltips: {
       mode: 'label'
     },
-    interaction: {
-      mode: 'index',
-      intersect: false,
-    },
+    
     responsive: true,
     scales: {
      
@@ -186,7 +168,7 @@ const delayBetweenPoints = totalDuration / data.length;
         stacked: true,
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 12,
+
           fontColor: 'white',
           fontSize: 10,
           animation: {
@@ -208,7 +190,7 @@ const delayBetweenPoints = totalDuration / data.length;
         id: "y-axis-0",
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 12,
+         
           fontColor: 'white',
           fontSize: 14
         },
@@ -216,13 +198,13 @@ const delayBetweenPoints = totalDuration / data.length;
          
       },
       {
-        stacked: true,
+        stacked: false,
         display: false,
         position: "left",
         id: "y2",
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 12,
+         
           fontColor: 'white',
           fontSize: 14
         },
@@ -236,7 +218,7 @@ const delayBetweenPoints = totalDuration / data.length;
         id: "y3",
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 12,
+         
           fontColor: 'white',
           fontSize: 14
         },
@@ -250,7 +232,7 @@ const delayBetweenPoints = totalDuration / data.length;
         fontColor: 'white',
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 12,
+        
           fontColor: 'white',
           fontSize: 14
         },

@@ -136,6 +136,13 @@ const Machine= ({data, ...rest}) => {
                 >
                   {data.location}
                 </Typography>
+                <Typography
+                  
+                  color="textPrimary"
+                  variant="body1"
+                >
+                 <b>:- {data.desc}</b> 
+                </Typography>
              
                </CardContent>
               <Box flexGrow={1} />

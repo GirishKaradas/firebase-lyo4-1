@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     width: '100%',
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+    
   },
   avatar: {
     margin: theme.spacing(1),
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  
   },
   container: {
       display: 'flex',
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+    
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -155,7 +155,8 @@ const ModuleComponents = ({match}) => {
           <Card className={classes.content}>
             <Container >
              <Typography variant='h2' align='center' gutterBottom><b>Modules Components</b> </Typography>
-        <div className={classes.container}>
+       <br/>
+       <div className={classes.container}>
           <Card className={classes.content}>
           
               {(rowsPerPage > 0

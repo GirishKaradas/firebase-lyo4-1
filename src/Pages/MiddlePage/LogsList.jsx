@@ -1,37 +1,106 @@
-import { v4 as uuid } from 'uuid';
-import moment from 'moment';
-import {
-    Avatar,
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText
-} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { MDBDataTable } from 'mdbreact';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
-import CustomerListView from '../../components/LogsData/Logs';
+import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
+import { Card, makeStyles, Typography } from '@material-ui/core';
+const useStyles = makeStyles((theme) => ({
+  layoutRoot: {
+    backgroundColor: 'white',
+    display: 'flex',
+    height: '100%',
+    overflow: 'hidden',
+    width: '100%',
+    
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: '#141256',
+  },
+ wrapper: {
+  display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden',
+  paddingTop: 64,
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: 256
+  },
+   
+  },
+  container: {
+      display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden'
+  },
+  content: {
+     
+      flex: '1 1 auto',
+  height: '100%',
+  overflow: 'auto'
+    },
+}));
 
-const LogsList = (props) =>{
+const CallLogs = () => {
+    const classes = useStyles()
+    const [callLogData, setCallLogData] = useState([])
+    useEffect(() => {
+        db.collection('CallLogData').onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setCallLogData(data)
+            console.log(data)
+        })
+    }, [])
+  const data = {
+    columns: [
+      {
+        label: 'Manual ',
+        field: 'manual_name',
+        sort: 'asc',
+        width: 150
+      },
+      {
+        label: 'Step',
+        field: 'step',
+        sort: 'asc',
+        width: 270
+      },
+      {
+        label: 'User',
+        field: 'user_id',
+        sort: 'asc',
+        width: 200
+      },
+      {
+        label: 'Time',
+        field: 'time',
+        sort: 'asc',
+        width: 100
+      },
+      
+    ],
+    rows: callLogData
+  };
 
   return (
-  <Card {...props}>
-    <CardHeader
-      title="Call Logs"
-    />
-    <Divider />
-    <CustomerListView/>
+      <>
+      
+     
+          <Card >
+              <b>CALL LOGS</b>
+             <br/>
+            <MDBDataTable
+                striped
+               hover={true}
+               responsive
+               sortable
+               entriesOptions={[ 5, 10, 15 ]}
+                data={data}
+                />
+          </Card>
+        
     
-  </Card>
-)};
+    </>
+  );
+}
 
-export default LogsList;
+export default CallLogs;

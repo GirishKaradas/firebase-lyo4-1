@@ -1,4 +1,4 @@
-import { Box, Button, Card, Container, Grid, InputLabel, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Card, Container, Grid, InputLabel, makeStyles, Select, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone';
@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
   },
   drag: {
-  width: "50%",
-  height: "20%",
+ 
   border: "4px dashed #fff",
   },
   drop: {
@@ -42,9 +41,7 @@ const useStyles = makeStyles((theme) => ({
       margiinTop: "30px",
         backgroundColor: "#A997DF",
         color: "white",
-        borderRadius: "20px",
-        marginRight: "30px",
-        marginLeft: "20px",
+        
     },
     wrapper: {
   display: 'flex',
@@ -54,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+
   },
   container: {
       display: 'flex',
@@ -62,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+    
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -76,7 +73,7 @@ const AddSteps = ({match}) => {
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('');
   const [createdAt, setCreatedAt] = useState('');
-   const [uniqueKey, setUniqueKey] = useState(uuid());
+   const [type, setType] = useState('');
   const [manual_id, setCid] = useState(match.params.id)
   const [file, setFile] = useState(null);
   const [error, setError] = useState('')
@@ -117,7 +114,7 @@ const AddSteps = ({match}) => {
     const handleSubmit = (e) => {
     e.preventDefault();
     const index = indexD.length
-    const steps = {title, desc, createdAt, manual_id, url, uniqueKey, index };
+    const steps = {title, desc, manual_id, url, type, index };
     setLoading(true);
     db.collection('stepData').add(steps).then(()=>{
       setLoading(false)
@@ -126,7 +123,7 @@ const AddSteps = ({match}) => {
     })
   }
 
-  
+ 
  
 
   const classes= useStyles();
@@ -196,30 +193,33 @@ const AddSteps = ({match}) => {
                 onChange={(e) => setDesc(e.target.value)}
                 id="step_description"
                 multiline
+                style={{marginBottom: '20px'}}
                 
               />
-              <TextField
-              value={uniqueKey}
-              variant="outlined"
-                id="date"
-                label="unique id"
-                disabled
+              <InputLabel variant='outlined'>Select Type</InputLabel>
+              <Select
+              value={type}
+              
+               
+                label="Type"
+               
                 fullWidth
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setCreatedAt(e.target.value)}
-              />
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value='info'>Info</option>
+                 <option value='camera'>Camera</option>
+                  <option value='critical'>Critical</option>
+                   <option value='normal'>Normal</option>
+              </Select>
           </Grid>
          
-          </Grid>
-          <Grid
-          container
-           spacing={3}
-          >
+          
               <Grid
-            xs={6}
-            lg={8}
+            xs={12}
+            lg={12}
             sm={12}
             >
       <Alert severity="warning">Don't leave Media Field empty !</Alert>
@@ -233,7 +233,7 @@ const AddSteps = ({match}) => {
         showAlerts={false}
         filesLimit={1}
       />
-     
+    
      <h5>{progress}% Uploaded</h5>
      
      </Grid>       

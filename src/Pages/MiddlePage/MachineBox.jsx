@@ -24,7 +24,7 @@ const MachineBox = (props) =>{
     }, [])
     return(
   <Card
-    style={{ height: '100%' }}
+      style={{height: '130px'}}
     {...props}
   >
     <CardContent>

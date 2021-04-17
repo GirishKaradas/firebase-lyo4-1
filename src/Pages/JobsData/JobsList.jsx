@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
-import { Card, Checkbox } from '@material-ui/core';
+import { Card, Checkbox, Typography } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+   
   },
   container: {
       display: 'flex',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+     
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -64,6 +64,11 @@ export default function JobsList({match}) {
        <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
+            <div>
+              <Typography align='center' variant='h1'><b>--Jobs--</b></Typography>
+               <Typography align='center' variant='body2' >- These are all the Job status -</Typography>
+              </div>
+              <br/>
                  <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>

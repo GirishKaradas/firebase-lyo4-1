@@ -38,7 +38,11 @@ import ModuleComponents from "./Pages/ContentsData/ComponentData/ModuleComponent
 import Manuals from "./Pages/Manuals/Manuals";
 import AddManuals from "./Pages/Manuals/AddManuals";
 import AddComponent from "./Pages/ContentsData/ComponentData/AddComponents";
-
+import DQReport from "./Pages/DQReport/DQReport";
+import BatchReport from "./Pages/BatchInfo/BatchInfo";
+import QualityReport from './Pages/QualityReport/QualityReport'
+import CallLogs from "./Pages/CallLogs/CallLogs";
+import TestGraph from "./TestGraph/TestGraph";
 
 function App() {
 
@@ -55,7 +59,7 @@ function App() {
     <Router>
       <Switch>
         <AppRoute path='/machine-data/:id/Reports' exact component={Reports} layout={MainLayout}/>
-         <AppRoute path='/call-logs' exact component={CustomerListView} layout={DashboardLayout} />
+         <AppRoute path='/machine-data/:id/Call-Logs' exact component={CallLogs} layout={MainLayout} />
         <AppRoute path='/machine-data/Reports/:id/Recipes' exact component={Recipes} layout={MainLayout} />
          <AppRoute path='/machine-data/Reports/:id/Add-Recipes' exact component={AddRecipe} layout={MainLayout} />
         <AppRoute path='/machine-data/reports/:id/process' exact component={Process} layout={MainLayout} />
@@ -68,6 +72,7 @@ function App() {
         <Route path="/login" exact component={LogIn} />
         <Route path="/forgotPass" exact component={ForgotPass}/>
         <AppRoute path="/machine-data/Job/:id/Job" exact component={JobsList} layout={MainLayout} />
+        <AppRoute path="/DQ/:id" exact component={QualityReport} layout={MainLayout} />
          <AppRoute path="/Module/:id/Components" exact component={ModuleComponents} layout={MainLayout} />
         <AppRoute path="/users/add-user" exact component={AddUser} layout={DashboardLayout}/>
         <AppRoute path="/account" exact component={AccountDetails} layout={DashboardLayout}/> 
@@ -75,14 +80,15 @@ function App() {
         <AppRoute path="/Manuals/:id/Add-Step" exact component={AddSteps} layout={MainLayout}/>
         <AppRoute path="/" exact component={MiddlePage} layout={DashboardLayout}/>
         <AppRoute path="/users" exact component={Users} layout={DashboardLayout}/>
-        <AppRoute path="/machine-data/Batch/:id/Batch" exact component={BatchInfo} layout={MainLayout}/>
+        <AppRoute path="/machine-data/Batch/:id/Batch" exact component={BatchReport} layout={MainLayout}/>
         <AppRoute path="/chat" exact component={VideoChat} layout={DashboardLayout} />
         <AppRoute path="/machine-data/:id/Add-Manuals" exact component={AddManuals} layout={MainLayout} />
          <AppRoute path="/Module/:id/Add-Component" exact component={AddComponent} layout={MainLayout} />
         {/*/machine-data/Reports/BXLmS3MAwjf25qEdubL6/Recipes*/}
          <AppRoute path="/machine-data/Manuals/:id/Manuals" exact component={Manuals} layout={MainLayout} />
           <AppRoute path="/video-call" exact component={RenderVc} layout={DashboardLayout} />
-            <AppRoute path="/test" exact component={Tests} layout={MainLayout} />
+           <AppRoute path="/machine-data/DQ-Reports/:id/DQ-Reports" exact component={DQReport} layout={MainLayout} />
+          <AppRoute path="/test" exact component={TestGraph} layout={MainLayout} />
 
       </Switch>
     </Router>

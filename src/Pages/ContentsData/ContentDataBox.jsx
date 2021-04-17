@@ -92,7 +92,7 @@ const ContentDataBox = ({data}) => {
 
   const updateContent=(id) => {
     setLoading(true)
-    db.collection('moduleData').doc(id).update({title, value}).then((data) => {
+    db.collection('moduleData').doc(id).update({title}).then((data) => {
         console.log(data)
         window.location.reload()
         setLoading(false)
@@ -106,7 +106,7 @@ const ContentDataBox = ({data}) => {
              <div className={classes.dataBox}>
                <Container maxWindth="sm" sm={12}>
               <TableContainer component={Paper}>
-      <Table style={{minWidth: 500}} aria-label="custom pagination table">
+      <Table  aria-label="custom pagination table">
         <TableBody>
          
             <TableRow key={data.id}>
@@ -114,7 +114,7 @@ const ContentDataBox = ({data}) => {
                <b> {data.title} </b>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-
+                {data.desc}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
               <Button style={{ marginRight: "20%", marginTop: '0', marginBottom: '0'}} startIcon={<EditIcon/>} onClick={handleEdit}   color="primary">Edit</Button>

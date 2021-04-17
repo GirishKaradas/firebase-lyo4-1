@@ -149,10 +149,14 @@ const Recipes = ({match}) => {
         <div className={classes.container}>
           <Card className={classes.content}>
             <Container >
-             <Typography variant='h2' align='center' gutterBottom><b>Recipe Data</b> </Typography>
+            
         <div className={classes.container}>
           <Card className={classes.content}>
-          
+         <div>
+              <Typography align='center' variant='h1'><b>--Recipe Data--</b></Typography>
+               <Typography align='center' variant='body2' >- These are all the required Recipe Data -</Typography>
+              </div>
+              <br/>
               {(rowsPerPage > 0
             ? recipe.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : recipe

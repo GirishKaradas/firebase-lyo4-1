@@ -53,21 +53,25 @@ const Steps = ({match}) => {
     const classes = useStyles();
     const history=useHistory()
     const [steps, setSteps] = useState([{}])
+    const dbRef =   db.collection('stepData').where('manual_id', '==', `${match.params.id}`)
 
     const handleReturn = () => {
         history.push('/machine-data')
     }
     useEffect(() => {
         
-        db.collection('stepData').where('manual_id', '==', `${match.params.id}`).onSnapshot((snapshot) => {
+      dbRef.onSnapshot((snapshot) => {
             const stepData = firebaseLooper(snapshot)
+            stepData.sort(function(a,b) {
+                return(a.index-b.index)
+            })
             setSteps(stepData)
             
         })
 
     }, [steps])
     
-  
+
 
     return (
         <Page title="Steps">

@@ -5,6 +5,8 @@ import {
   Card,
   CardContent,
   Grid,
+  InputLabel,
+  Select,
   Typography
 } from '@material-ui/core';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
@@ -12,19 +14,29 @@ import WorkIcon from '@material-ui/icons/Work';
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 const ManualBox = (props) =>{ 
-    
+    const [machines, setMachines] = useState([])
     const [manuals, setManuals] = useState([])
+    const [dataId, setDataId] = useState('')
     useEffect(() => {
+       db.collection('machineData').onSnapshot(doc => {
+        const data = firebaseLooper(doc)
+        setMachines(data)
+       })
         db.collection('manualData').onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setManuals(data)
         })
     }, [])
+
+    const handleChange = (e) => {
+     setDataId(e.target.value)
+    }
     return (
     
-  <Card {...props}>
+  <Card style={{height: '130px'}} {...props}>
     <CardContent>
       <Grid
         container
@@ -46,7 +58,8 @@ const ManualBox = (props) =>{
             {manuals.length}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item style={{display: 'flex'}}>
+         
           <Avatar
             style={{
               backgroundColor: 'darkblue',
@@ -62,20 +75,22 @@ const ManualBox = (props) =>{
         style={{
           alignItems: 'center',
           display: 'flex',
-          pt: 2
+          paddingTop: 2
         }}
       >
-        <InsertChartIcon/>
-        <Typography
-          variant="body2"
-          style={{
-            color: 'darkblue',
-            mr: 1
-          }}
-        >
-        List of Manuals
-        </Typography>
+        <InsertChartIcon style={{marginTop: 6}}/>
         
+         <Select onChange={handleChange} fullWidth >
+          {
+            machines.map(data => (
+             
+              <option value={data.id}>{data.title}</option>
+              // <Button style={{color: 'orangered'}} href={`/machine-data/Manuals/${data.id}/Manuals`}><LaunchIcon/></Button>
+             
+            ))
+          }
+          </Select>
+        <Button href={`/machine-data/Manuals/${dataId}/Manuals`}>Open</Button>
       </Box>
     </CardContent>
   </Card>

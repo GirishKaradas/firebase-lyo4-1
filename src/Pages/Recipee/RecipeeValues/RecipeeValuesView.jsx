@@ -12,6 +12,7 @@ import { firebaseLooper } from '../../../utils/tools';
 import { Button, Card, Container, Dialog, TablePagination } from '@material-ui/core';
 import StepDashboardLayout from '../../../components/StepSidebar/StepDashboardLayout'
 import TestData from '../../../Pages/Tests/TestData'
+import TestHome from '../../Tests/TestHome';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -49,6 +50,9 @@ export default function RecipeeValuesView({match}) {
   useEffect(() => {
     db.collection('recipeeData').where('rid', '==', `${match.params.id}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
+       data.sort(function(a,b) {
+                return(a.index-b.index)
+            })
       setRecipeeData(data)
     })
   }, [])
@@ -118,7 +122,7 @@ export default function RecipeeValuesView({match}) {
                    close
                 </Button>
             <Container style={{width: '75%'}}>
-                 <TestData data={recipeeData} />
+                 <TestData reid={match.params.id} data={recipeeData} />
             </Container>
                 </Dialog>
            
