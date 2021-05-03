@@ -42,39 +42,21 @@ const Machines = () => {
     
     }, [])
     return (
-        <Page title="Machines">
-            <Box
-            py={3}
-            style={{
-                backgroundColor: 'background.default',
-                minHeight: '100%',
-            }}
-    >
-        <Container maxWidth={false} >
+        <Page className='bg-gray-100' title="Machines">
+           
+        < >
             <Typography variant='h1'><b>Machines</b></Typography>
              <Typography variant='h5'>These are the available Machines</Typography>
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                 <div style={{ width: 300 }}>
+                 <div className="relative"> 
+                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Machines..."/>
+                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> 
+                  </div>
+                   </div>
+               <Button href={`/add-machine`}  style={{width: '15%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add Machine</Button>
+             
                 
-                    <TextField
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                       
-                        label="Search Machines"
-                        margin="normal"
-                        variant="outlined"
-                        />
-                </div>
-
-                {error && <Typography variant="h6">{error}</Typography>}
                
-                <Button
-                startIcon={<AddIcon/>} 
-                    variant="contained"
-                    color="primary" className={classes.add}>
-                    <Link style={{color: "white" ,textDecoration: "none"}} to="/add-machine">
-                            Add Machine
-                    </Link>
-                    </Button> 
             </div>
                    
                      {isLoading && <Typography variant="h3">
@@ -97,9 +79,7 @@ const Machines = () => {
                             })
                         .map((data) => (
                             <Grid
-                            style={{
-                            margin: "3%"
-                           }}
+
                             key={data.id}
                             lg={4}
                             md={6}
@@ -119,8 +99,8 @@ const Machines = () => {
                     
          
                 
-                </Container>
-        </Box>
+                </>
+        
         </Page>
        
     )

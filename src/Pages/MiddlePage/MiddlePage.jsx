@@ -9,6 +9,7 @@ import {
   InputLabel,
   makeStyles,
   MenuItem,
+  Paper,
   Select,
   Typography
 } from '@material-ui/core';
@@ -129,29 +130,25 @@ const MiddlePage = () =>{
 
      
     return (
-      <>
+      <Paper className='bg-gray-200'>
     <Helmet>
       <title>Dashboard | LyoIMS</title>
     </Helmet>
     <Box
+    className='bg-gray-100'
     py={3}
       style={{
         backgroundColor: 'background.default',
         minHeight: '100%',
       }}
     >
-      <Container maxWidth={false}>
+      <Container className='bg-gray-100' maxWidth={false}>
         
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <div>
-                      <Typography variant='h1'><b>Good Morning!</b></Typography>
-              <Typography variant='h5'>Here's an overview of the available data!</Typography>
-                  </div>
-                  </div>
-                  <br/>
+
         <Grid
           container
           spacing={3}
+          className='bg-grey-100'
         >
           <Grid
           style={{height: '100%'}}
@@ -160,6 +157,7 @@ const MiddlePage = () =>{
             sm={6}
             xl={3}
             xs={12}
+            className='bg-grey-100'
           >
             <MachineBox />
             {/*  */}
@@ -171,6 +169,7 @@ const MiddlePage = () =>{
             sm={6}
             xl={3}
             xs={12}
+            className='bg-grey-100'
           >
             <UsersBox/>
           </Grid>
@@ -181,11 +180,12 @@ const MiddlePage = () =>{
             sm={6}
             xl={3}
             xs={12}
+            className='bg-grey-100'
           >
            <JobsBox/>
           </Grid>
           <Grid
-         
+         className='bg-grey-100'
             item
             lg={3}
             sm={6}
@@ -200,6 +200,7 @@ const MiddlePage = () =>{
             md={12}
             xl={9}
             xs={12}
+            className='bg-grey-100'
           >
            
               {/* <GraphData data={rData} /> */}
@@ -234,6 +235,7 @@ const MiddlePage = () =>{
             md={6}
             xl={3}
             xs={12}
+            className='bg-grey-100'
           >  
          
            <JobGraph/>
@@ -245,6 +247,7 @@ const MiddlePage = () =>{
             md={12}
             xl={9}
             xs={12}
+            className='bg-grey-100'
           >
             {/* <WorkFlow/> */}
             <LogsList/>
@@ -255,6 +258,7 @@ const MiddlePage = () =>{
             md={6}
             xl={3}
             xs={12}
+            className='bg-grey-100'
           >
 
          <ListUsers style={{height: "100%"}}/>
@@ -263,7 +267,7 @@ const MiddlePage = () =>{
         </Grid>
       </Container>
     </Box>
-  </>
+  </Paper>
     )
 }
 

@@ -41,6 +41,8 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
  const [anchorE1, setAnchorE1] = useState(null)
  const {currentUser} = useAuth()
   const [anchorE2, setAnchorE2] = useState(null)
+  const [show, setShow] = useState(null);
+    const [profile, setProfile] = useState(false);
   const [notifications, setNotifications] = useState([])
    const [videoData, setVideoData] = useState([])
   const [status, setStatus] = useState('')
@@ -232,6 +234,7 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
       }
          <Button  onClick={handleVideoClose} color='secondary'>Close</Button>
       </Menu>
+      
     </>
    
   );

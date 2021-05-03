@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
-import { useAuth } from '../components/context/AuthContext';
 
 const NavItem = ({
   href,
@@ -14,6 +13,7 @@ const NavItem = ({
   ...rest
 }) => {
   const location = useLocation();
+
   const active = href ? !!matchPath({
     path: href,
     end: false
@@ -21,29 +21,84 @@ const NavItem = ({
 
   return (
     <>
-      <ListItem
-      className='navbar navbar-default navbar-static-top'
+    {location.pathname == href?
+    
+       <ListItem
       disableGutters
-      
+      style={{
+        display: 'flex',
+        
+       
+      }}
       {...rest}
     >
+      
       <Button
-        activeClassName="active"
+      
         component={RouterLink}
         style={{
-          color: 'white',
+          color: 'orange',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
-         
+          letterSpacing: 0,
+          py: 1.25,
+          textTransform: 'none',
+          width: '100%',
+          
         }}
         to={href}
       >
         {Icon && (
           <Icon size="20" />
         )}
-        <span className="ml-2 text-sm font-medium">{title}</span>
+        <span>
+          
+            <b >{title}</b> 
+         
+        </span>
       </Button>
-    </ListItem>
+      </ListItem> 
+    
+   : 
+      <ListItem
+      disableGutters
+      style={{
+        display: 'flex',
+        py: 0
+      }}
+      {...rest}
+      >
+        <Button
+      
+        component={RouterLink}
+        style={{
+          color: 'white',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          letterSpacing: 0,
+          py: 1.25,
+          textTransform: 'none',
+          width: '100%',
+          ...(active && {
+            color: 'blue'
+          }),
+        }}
+        to={href}
+      >
+        {Icon && (
+          <Icon size="20" />
+        )}
+        <span>
+          
+            <b >{title}</b> 
+         
+        </span>
+      </Button>
+      </ListItem>
+      
+      }
+           
+    
     </>
   );
 };

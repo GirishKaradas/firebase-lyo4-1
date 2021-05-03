@@ -9,7 +9,7 @@ import DashboardSidebar from './DashboardSidebar';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
-    backgroundColor: 'white',
+    backgroundColor: 'grey',
     display: 'flex',
     height: '100%',
     overflow: 'hidden',
@@ -51,7 +51,7 @@ const DashboardLayout = ({children}) => {
  
 
   return (
-    <Paper className={classes.layoutRoot}>
+    <Paper  className={classes.layoutRoot}>
       <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}

@@ -105,7 +105,7 @@ export default function CallLogs() {
                 }
               </select>
               
-              
+       
    
         <div className="relative"> <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search anything..."/>
             <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
@@ -117,11 +117,11 @@ export default function CallLogs() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{backgroundColor: '#325288', color: 'white'}}><b>Manual</b></TableCell>
-            <TableCell style={{backgroundColor: '#325288', color: 'white'}} align="left"><b>User</b></TableCell>
+            <TableCell style={{backgroundColor: '#43425D', color: 'white'}}><b>Manual</b></TableCell>
+            <TableCell style={{backgroundColor: '#43425D', color: 'white'}} align="left"><b>User</b></TableCell>
             
-            <TableCell style={{backgroundColor: '#325288', color: 'white'}} align="left"><b>Step</b></TableCell>
-           <TableCell style={{backgroundColor: '#325288', color: 'white'}} align="right"><b>Date & Time</b></TableCell>
+            <TableCell style={{backgroundColor: '#43425D', color: 'white'}} align="left"><b>Step</b></TableCell>
+           <TableCell style={{backgroundColor: '#43425D', color: 'white'}} align="right"><b>Date & Time</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

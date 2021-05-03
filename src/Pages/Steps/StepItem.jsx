@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   dataBox:{
       borderRadius: "20px",
       background: 'white',
-      marginBottom: "50px",
+     
       alignItems: "center"
   },
   divButton: {
@@ -86,15 +86,24 @@ const StepItem = ({ data})  => {
 
           function getMedia(){
             if (format === 'image'){
-              return <img height='300px' width='450px' src={data.url}/>
+              return <img className="h-64 bg-cover lg:rounded-lg lg:h-full"  src={data.url}/>
             }else if(format === 'video'){
-              return  (<video height='300px' width='450px' controls>
+              return  (
+                <div className="h-64 bg-cover lg:rounded-lg lg:h-full">
+                  <video  controls>
                 <source src={data.url}/>
-              </video>)
+              </video>
+                </div>
+              )
             }else if(format === 'audio'){
-              return (<audio controls>
+
+              return (
+              <div className="h-64 bg-cover lg:rounded-lg lg:h-full">
+                <audio style={{marginTop: '15%', marginRight: '50px'}} controls>
              <source src={data.url}/>
-              </audio>)
+              </audio>
+              </div>
+              )
             }
           }
 
@@ -147,12 +156,55 @@ const updateStep=(id) => {
         console.log(data)
       })
   }
+
+  function getType() {
+    if(type === 'info'){
+      return(
+        <div class="flex-shrink-0 w-24 h-24 text-blue-900 rounded-full inline-flex items-center justify-center">
+          <svg  class="bi bi-info-square w-12 h-12" viewBox="0 0 24 24" fill="currentColor"  >
+  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg>
+        </div>
+      )
+    }else if (type === 'critical'){
+      return(
+        <div class="flex-shrink-0 w-24 h-24  text-yellow-900 rounded-full inline-flex items-center justify-center">
+          
+          <svg  fill="currentColor"  class="w-12 h-12" viewBox="0 0 24 24">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+        </svg>
+        </div>
+      )
+    }else if ( type === 'normal'){
+      return(
+        <div class="flex-shrink-0 w-24 h-24  text-yellow-900 rounded-full inline-flex items-center justify-center">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-12 h-12" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+      )
+    }else if (type === 'camera'){
+      return(
+         <div class="flex-shrink-0 w-24 h-24  text-green-700 rounded-full inline-flex items-center justify-center">
+          <svg fill="currentColor"  class="w-12 h-12" viewBox="0 0 24 24" >
+  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+</svg>
+      </div>
+      )
+
+     
+      
+    }
+  }
     return (
         
         <Container>
             <div className={classes.dataBox}>
             <Grid xs={12}>
-                 <Typography align="center" variant="h4">{data.title}</Typography>
+                 {/* <Typography align="center" variant="h4">{data.title}</Typography>
                  <Typography align="center" variant="body2">{data.desc}</Typography> 
                  <Grid
                 className={classes.statsItem}
@@ -169,16 +221,41 @@ const updateStep=(id) => {
                 >
               {data.type}
                 </Typography>
-          </Grid>   
+
+    
+          </Grid>    */}
+         <section class="text-gray-600 body-font">
+  <div class="container  mx-auto flex flex-wrap">
+    <div class="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+      <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
+        <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+      </div>
+      <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-800 text-white relative z-10 title-font font-medium text-sm">{data.index + 1}</div>
+      <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+        {getType()}
+        <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+          <h2 class="font-medium title-font text-gray-900 mb-1 text-xl">{data.title}</h2>
+          <p class="leading-relaxed">{data.desc}</p>
+        </div>
+        <Button startIcon={<EditIcon/>}  onClick={handleEdit}  color="primary"></Button>
+            <Button startIcon={<VisibilityIcon/>} 
+            onClick={() =>
+             {handleView()}} 
+             className={classes.divButton}></Button>
+            <Button startIcon={<DeleteForeverIcon/>}  onClick={handleClickOpen}  color="secondary"></Button>
+      </div>
+    </div>   
+  </div>
+</section>
             </Grid>
-            <div style={{display: 'flex', justifyContent: 'space-between', width: '100%',}}>
+            {/* <div style={{display: 'flex', justifyContent: 'space-between', width: '100%',}}>
             <Button startIcon={<EditIcon/>}  onClick={handleEdit}  color="primary">Edit</Button>
             <Button startIcon={<VisibilityIcon/>} 
             onClick={() =>
              {handleView()}} 
              className={classes.divButton}>View</Button>
             <Button startIcon={<DeleteForeverIcon/>}  onClick={handleClickOpen}  color="secondary">Delete</Button>
-            </div>
+            </div> */}
               <Dialog
                     open={open}
                     onClose={handleClose}

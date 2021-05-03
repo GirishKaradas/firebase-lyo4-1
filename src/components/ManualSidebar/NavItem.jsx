@@ -20,15 +20,55 @@ const NavItem = ({
   }, location.pathname) : false;
 
   return (
-    <ListItem
+    <>
+    {location.pathname == href?
+    
+       <ListItem
+      disableGutters
+      style={{
+        display: 'flex',
+        
+       
+      }}
+      {...rest}
+    >
+      
+      <Button
+      
+        component={RouterLink}
+        style={{
+          color: 'orange',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          letterSpacing: 0,
+          py: 1.25,
+          textTransform: 'none',
+          width: '100%',
+          
+        }}
+        to={href}
+      >
+        {Icon && (
+          <Icon size="20" />
+        )}
+        <span>
+          
+            <b >{title}</b> 
+         
+        </span>
+      </Button>
+      </ListItem> 
+    
+   : 
+      <ListItem
       disableGutters
       style={{
         display: 'flex',
         py: 0
       }}
       {...rest}
-    >
-      <Button
+      >
+        <Button
       
         component={RouterLink}
         style={{
@@ -49,10 +89,17 @@ const NavItem = ({
           <Icon size="20" />
         )}
         <span>
-          {title}
+          
+            <b >{title}</b> 
+         
         </span>
       </Button>
-    </ListItem>
+      </ListItem>
+      
+      }
+           
+    
+    </>
   );
 };
 

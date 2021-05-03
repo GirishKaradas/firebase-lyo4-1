@@ -37,54 +37,47 @@ const MachineBox = (props) =>{
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="h4"
           >
+            <b>
               TOTAL MACHINES
+            </b>
+              
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h3"
-          >
-            {machines.length}
-          </Typography>
+          
         </Grid>
         <Grid item>
-          <Avatar
-            style={{
-             backgroundImage: 'linear-gradient(to left bottom, #f31527, #f82d3e, #fc4052, #fe5066, #ff6078)',
-              height: 56,
-              width: 56
-            }}
-          >
-            <MoneyIcon />
-          </Avatar>
+          
+           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-kanban-fill" viewBox="0 0 16 16">
+  <path d="M2.5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11zm5 2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm-5 1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm9-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
+</svg>
+          
         </Grid>
       </Grid>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <Typography
+            color="textPrimary"
+            variant="h2"
+          >
+            <b>
+              {machines.length}
+            </b>
+            
+          </Typography>
       <Box
         style={{
           pt: 2,
           display: 'flex',
-          alignItems: 'center'
+          justifyContent: 'flex-end'
         }}
       >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          style={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-         List of Machines
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-          align='justify'
-        >
-       <Button  style={{color: "red"}} href="/machine-data"> Open</Button>
-        </Typography>
+       
+        
+       <Button  style={{color: "blue"}} href="/machine-data"> <b>Open</b></Button>
+        
       </Box>
+      </div>
+      
     </CardContent>
   </Card>
 );

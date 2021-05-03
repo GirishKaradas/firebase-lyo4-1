@@ -54,43 +54,44 @@ const JobsBox = (props) =>{
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h5"
+            variant="h4"
           >
-            TOTAL JOBS
+            <b>
+               TOTAL JOBS
+            </b>
+           
           </Typography>
 
          
       </div>
       
 
-          <Typography
-            color="textPrimary"
-            variant="h3"
-          >
-            {jobs.length}
-          </Typography>
         </Grid>
         <Grid item style={{display: 'flex'}}>
-          
-          <Avatar
-            style={{
-              backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
-              height: 56,
-              width: 56
-            }}
-          >
-            <WorkIcon />
-          </Avatar>
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-hdd-network-fill" viewBox="0 0 16 16">
+  <path d="M2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5.5v3A1.5 1.5 0 0 0 6 11.5H.5a.5.5 0 0 0 0 1H6A1.5 1.5 0 0 0 7.5 14h1a1.5 1.5 0 0 0 1.5-1.5h5.5a.5.5 0 0 0 0-1H10A1.5 1.5 0 0 0 8.5 10V7H14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm2 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z"/>
+</svg>
         </Grid>
       </Grid>
-      <Box
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+          <Typography
+            color="textPrimary"
+            variant="h2"
+          >
+            <b>
+              {jobs.length}
+            </b>
+            
+          </Typography>
+          <Box
         style={{
           alignItems: 'center',
           display: 'flex',
           paddingTop: 2
         }}
       >
-        <InsertChartIcon style={{ marginTop: '5%'}}/>
+        
          <select style={{border: '2px solid whitesmoke'}} onChange={handleChange} fullWidth >
            <option value="" disabled selected hidden>Select Machine</option>
           {
@@ -103,9 +104,12 @@ const JobsBox = (props) =>{
           }
          
           </select>
-      <Button disabled={disabled} href={`/machine-data/Job/${dataId}/Job`}>Open</Button>
+      <Button style={{color: 'blue'}} disabled={disabled} href={`/machine-data/Job/${dataId}/Job`}><b>Open</b></Button>
          
       </Box>
+
+      </div>
+      
       
     </CardContent>
   </Card>

@@ -52,8 +52,8 @@ const JobGraph = () => {
       fill: false,
       lineTension: 0.1,
       backgroundColor: [
-      'green',
-      '#FAAC0F'
+      '#10B90A',
+      '#FF9A40'
     ],
     hoverOffset: 4,
       borderColor: 'white',
@@ -77,7 +77,7 @@ const JobGraph = () => {
 }
 
     return (
-      <div>
+      <div className='bg-grey-100'>
         
         <Card >
             <Typography variant='h1' align='center' gutterBottom><b>Job Data</b></Typography>
@@ -96,7 +96,7 @@ const JobGraph = () => {
           </select>
             </div>
             
-            <Pie data={data}/>
+            <Doughnut data={data}/>
             <br/>
             <Alert severity='warning'>Pending Jobs</Alert>
             <br/>
@@ -104,7 +104,7 @@ const JobGraph = () => {
             <br/>
             <Alert severity='info'>Change Machines for individual data</Alert>
             <br/>
-           
+          
           
         </Card>
        

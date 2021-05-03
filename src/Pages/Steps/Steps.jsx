@@ -87,8 +87,9 @@ const Steps = ({match}) => {
             <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-                <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
-        <Typography variant='h3' align='center' gutterBottom><b>These are all the steps of selected Manual</b></Typography>
+              <br/>
+                <Typography variant='h2' align='center' gutterBottom><b>{mTitle}</b></Typography>
+             <hr/>
                 {steps&&
                     steps.map((data) => (
                         <StepItem key={data.id} data={data} />

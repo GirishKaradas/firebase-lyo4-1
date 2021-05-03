@@ -94,12 +94,13 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   const content = (
     <Box
       style={{
+        
         display: 'flex',
         flexDirection: 'column',
         height: '100%'
       }}
     >
-      <a style={{textDecoration: 'none', color:'white'}} className="flex items-center w-full px-3 mt-3" href="#">
+      <a style={{textDecoration: 'none', color:'white', backgroundColor: 'black',}} className="flex items-center w-full px-3 mt-3" href="#">
 			
                  <img
     alt="Logo"
@@ -181,7 +182,8 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           variant="temporary"
           PaperProps={{
             style: {
-              width: 256
+              width: 256,
+              backgroundColor: '#43425D'
             }
           }}
         >
@@ -198,7 +200,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           PaperProps={{
             style: {
               width: 256,
-             backgroundColor: 'black'
+             backgroundColor: '#43425D'
              
             }
           }}

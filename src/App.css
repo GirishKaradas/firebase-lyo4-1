@@ -3,7 +3,7 @@
 html{
    scroll-behavior: auto;
   scroll-snap-type: y mandatory;
-  background:linear-gradient(#f3f3f3, #ffffff); 
+  background-color: #e0e0e0; 
 }
 
 ::-webkit-scrollbar {

@@ -83,7 +83,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         height: '100%'
       }}
     >
-        <a style={{textDecoration: 'none', color:'white'}} className="flex items-center w-full px-3 mt-3" href="#">
+        <a style={{textDecoration: 'none', color:'white', backgroundColor: 'black'}} className="flex items-center w-full px-3 mt-3" href="#">
 			
                  <img
     alt="Logo"
@@ -98,7 +98,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
       <Box m={2} >
         <List>
          <ListItem>
-            <a style={{textDecoration: 'none', color:'orange'}} className="flex items-center w-full h-12 px-3 mt-2 text-gray-200 bg-gray-700 rounded" href="/">
+            <a style={{textDecoration: 'none', color:'orange'}} className="flex items-center w-full h-12 px-3 mt-2 text-gray-200 bg-black rounded" href="/">
                     <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
  				</svg>
@@ -169,7 +169,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           PaperProps={{
             style: {
               width: 256,
-              backgroundColor:'black'
+              backgroundColor:'#43425D'
             }
           }}
         >
@@ -186,7 +186,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           PaperProps={{
             style: {
               width: 256,
-              backgroundColor:'black'
+              backgroundColor:'#43425D'
             }
           }}
         >

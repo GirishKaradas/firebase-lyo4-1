@@ -46,12 +46,13 @@ import TestGraph from "./TestGraph/TestGraph";
 import Settings from "./Pages/settings/Settings";
 import OpenTokPage from "./Pages/VideoCallPage/OpenTokPage";
 import RenderCall from "./Pages/VideoCallPage/RenderCall";
+import { Paper } from "@material-ui/core";
 
 function App() {
  
   return (
-    <>
-    
+    <Paper className='bg-grey-100'>
+   
       <GlobalStyles/>
     <AuthProvider>
       <Page
@@ -102,7 +103,7 @@ function App() {
     </Page>
     </AuthProvider>
     
-    </>
+    </Paper>
     
   );
 }

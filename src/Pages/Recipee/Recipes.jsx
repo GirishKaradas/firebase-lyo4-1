@@ -166,10 +166,15 @@ const Recipes = ({match}) => {
               <br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                
-                   <TextField onChange={(e) => setSearchTerm(e.target.value)} label="Search Recipes" variant="outlined" />
-            
-            <br/>
+                    <div className="relative"> 
+                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Recipes..."/>
+                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
               </div>
+                    <Button style={{width: '15%', marginLeft: '4%', marginRight: '3%', backgroundColor: 'orange', color: 'white'}}  href={`/machine-data/Reports/${match.params.id}/Add-Recipes`}>ADD New </Button>
+            
+            <hr/>
+              </div>
+              <br/>
               {(rowsPerPage > 0
             ? recipe.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : recipe
@@ -208,7 +213,7 @@ const Recipes = ({match}) => {
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
-              <Button style={{width: '15%', height: '50px', color: '#ff7a00', borderRadius: '20px'}} variant='outlined' href={`/machine-data/Reports/${match.params.id}/Add-Recipes`}>ADD New </Button>
+              
         </TableFooter>
           </Card>
         </div>

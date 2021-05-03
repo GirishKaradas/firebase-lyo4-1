@@ -1,8 +1,7 @@
 import {
   NavLink as RouterLink,
   matchPath,
-  useLocation,
-  Link
+  useLocation
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
@@ -21,18 +20,57 @@ const NavItem = ({
   }, location.pathname) : false;
 
   return (
-    <ListItem
+    <>
+    {location.pathname == href?
+    
+       <ListItem
+      disableGutters
+      style={{
+        display: 'flex',
+        
+       
+      }}
+      {...rest}
+    >
       
+      <Button
+      
+        component={RouterLink}
+        style={{
+          color: 'orange',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          letterSpacing: 0,
+          py: 1.25,
+          textTransform: 'none',
+          width: '100%',
+          
+        }}
+        to={href}
+      >
+        {Icon && (
+          <Icon size="20" />
+        )}
+        <span>
+          
+            <b >{title}</b> 
+         
+        </span>
+      </Button>
+      </ListItem> 
+    
+   : 
+      <ListItem
       disableGutters
       style={{
         display: 'flex',
         py: 0
       }}
       {...rest}
-    >
-      <Button
-     
-        component={Link}
+      >
+        <Button
+      
+        component={RouterLink}
         style={{
           color: 'white',
           fontWeight: 'medium',
@@ -51,10 +89,17 @@ const NavItem = ({
           <Icon size="20" />
         )}
         <span>
-          {title}
+          
+            <b >{title}</b> 
+         
         </span>
       </Button>
-    </ListItem>
+      </ListItem>
+      
+      }
+           
+    
+    </>
   );
 };
 

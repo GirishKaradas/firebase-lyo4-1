@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState} from 'react'
 import ContentDataBox from './ContentDataBox'
-import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
+import { Button, Card, Container, Grid, makeStyles, Paper, TableCell, TableFooter, TablePagination, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,7 +16,7 @@ import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
-    backgroundColor: 'white',
+    
     display: 'flex',
     height: '100%',
     overflow: 'hidden',
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   
   },
   container: {
+   
       display: 'flex',
   flex: '1 1 auto',
   overflow: 'hidden'
@@ -157,15 +158,15 @@ const ContentsData = ({match}) => {
 
 
     return (
-        <>
+        <Paper className='bg-gray-100'>
         <ContentDashboardLayout match={match} />
          <div className={classes.wrapper}>
         <div className={classes.container}>
-          <Card className={classes.content}>
-            <Container >
+          <Card  className={classes.content}>
+            < >
             
-        <div className={classes.container}>
-          <Card className={classes.content}>
+        <div >
+          <Card >
             <Typography align='left' variant='h4'><b>{mTitle}</b></Typography>
           <div>
               <Typography align='center' variant='h1'><b>Modules</b></Typography>
@@ -180,9 +181,9 @@ const ContentsData = ({match}) => {
               <Button style={{width: '15%',marginLeft: '4%', marginRight: '3%', backgroundColor: 'orange', color: 'white'}} href={`/machine-data/${match.params.id}/Add-module`}>ADD New </Button>
               </div>
               <hr/>
-              {(rowsPerPage > 0
-            ? content.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : content
+              <Grid  className='bg-gray-100' container spacing={3}>
+                {(
+             content
           ).
           filter((data) => {
               if(title === ""){
@@ -194,40 +195,16 @@ const ContentsData = ({match}) => {
           .map((data) => (
             <ContentDataBox key={data.id} data={data} match={match} />
           ))}
-          
-          
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-            <TableFooter style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={content.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
+              </Grid>
               
-        </TableFooter>
           </Card>
         </div>
-      </Container>
+      </>
           </Card>
         </div>
       </div>
          
-      </>
+      </Paper>
      
     )
 }
