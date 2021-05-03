@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 html{
+   scroll-behavior: auto;
+  scroll-snap-type: y mandatory;
   background:linear-gradient(#f3f3f3, #ffffff); 
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  
+}
+::-webkit-scrollbar-thumb {
+ background-image: linear-gradient(to right top, #faa40f, #f99805, #f98b00, #f87e00, #f67100); 
+  outline: 1px solid slategrey;
+  max-width: 3px;
+}
+

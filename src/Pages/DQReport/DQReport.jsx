@@ -154,9 +154,15 @@ export default function DQReport({match}) {
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
+   const [mTitle, setMTitle] = useState('')
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [dq, setDq] = useState([])
     useEffect(() => {
+       db.collection('machineData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         db.collection('DQReport').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setDq(data)
@@ -181,9 +187,10 @@ export default function DQReport({match}) {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
+             <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
               <div>
-          <Typography variant='h2' align='center'><b>--- Quality Reports ---</b></Typography>
-          <Typography variant='body1' align='center'>- These are all your Reports -</Typography>
+          <Typography variant='h2' align='center'><b> Quality Reports </b></Typography>
+          <Typography variant='body1' align='center'> These are all your Reports </Typography>
              </div>
              <br/>
                     <TableContainer component={Paper}>
@@ -191,7 +198,7 @@ export default function DQReport({match}) {
         <TableBody>
           {(rowsPerPage > 0
             ? dq.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
+            : dq
           ).map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
@@ -212,7 +219,10 @@ export default function DQReport({match}) {
             </TableRow>
           )}
         </TableBody>
-        <TableFooter>
+        
+      </Table>
+    </TableContainer>
+    <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
@@ -230,8 +240,6 @@ export default function DQReport({match}) {
             />
           </TableRow>
         </TableFooter>
-      </Table>
-    </TableContainer>
           </Card>
         </div>
       </div>

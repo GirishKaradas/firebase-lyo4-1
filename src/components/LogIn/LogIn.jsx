@@ -15,6 +15,8 @@ import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../Logo';
+import Navbar from './Navbar';
+
 
 function Copyright() {
   return (
@@ -77,74 +79,50 @@ export default function LogIn() {
   }
 
   return (
-      <>
-     <img src="./" alt=""/>
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-         
-        </Avatar> 
-       
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        {error && <Alert severity="error">{error}</Alert>}
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-          value={email}
-            style={{borderColor: "#ff7a00"}}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-           onChange={(e) => setEmail(e.target.value)}
-           
-          />
-          <TextField
-          
-          value={password}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          
-           onChange={(e) => setPassword(e.target.value)}
-          />
+        <div>
 
-          <Button
-          disabled={loading}
-            type="submit"
-            fullWidth
-            variant="contained"
-            
-            className={classes.button_submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/forgotPass" variant="body2" >
-               <Typography variant="body1" style={{color: "#ff7a00"}}>Forgot password?</Typography> 
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-    </>
+        <div className="bg-white font-family-karla h-screen">
+
+    <div className="w-full flex flex-wrap">
+
+        <div className="w-full md:w-1/2 flex flex-col">
+
+            <div className="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
+                <a href="#" style={{display: 'inline-flex'}}  className="bg-black text-white font-bold text-xl p-4">
+              
+               Arizon Systems</a>
+            </div>
+           
+            <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                <p className="text-center text-3xl">Welcome!</p>
+                 {error && <b style={{color: 'red'}}>{error}</b>}
+                <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
+                    <div className="flex flex-col pt-4">
+                        <label for="email" className="text-lg">Email</label>
+                        <input onChange={(e) => setEmail(e.target.value)} type="email" id="email" placeholder="your@email.com" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
+                    </div>
+    
+                    <div className="flex flex-col pt-4">
+                        <label for="password" className="text-lg">Password</label>
+                        <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="Password" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
+                    </div>
+    
+                   <button type='submit' style={{backgroundColor: 'orange'}} className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Log In</button>
+                </form>
+                <div className="text-center pt-12 pb-12">
+                    <p>Don't remember password? <a href="/forgotPass" className="underline font-semibold">Reset Password.</a></p>
+                </div>
+            </div>
+
+        </div>
+
+        
+        <div className="w-1/2 shadow-2xl">
+            <img className="object-cover w-full h-screen hidden md:block" src="https://i.ibb.co/gSRHtrs/ARIZON-SYSTEMS-1.png"/>
+        </div>
+    </div>
+
+</div>
+        </div>
   );
 }

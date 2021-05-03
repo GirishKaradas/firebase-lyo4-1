@@ -1,7 +1,8 @@
 import {
   NavLink as RouterLink,
   matchPath,
-  useLocation
+  useLocation,
+  Link
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
@@ -30,10 +31,10 @@ const NavItem = ({
       {...rest}
     >
       <Button
-      
-        component={RouterLink}
+     
+        component={Link}
         style={{
-          color: 'black',
+          color: 'white',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
           letterSpacing: 0,

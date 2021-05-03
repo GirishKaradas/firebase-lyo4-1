@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, InputLabel, makeStyles, Select, Snackbar, TextField, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { db, storageRef } from '../../firebase';
@@ -7,6 +7,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { useStepStorage } from '../../utils/useStepStorage';
 const useStyles = makeStyles((theme) => ({
   root: {
     borderBottomColor: "black",
@@ -39,9 +40,64 @@ const StepItem = ({ data})  => {
     const [openView, setOpenView] = useState(false)
     const [title, setTitle] = useState(data.title)
     const [desc, setDesc] = useState(data.desc)
+     const [file, setFile] = useState(null)
+     const [format, setFormat] = useState(data.format)
     const [createdAt, setCreatedAt] = useState(data.createdAt)
+     const [type, setType] = useState(data.type);
+    const [error,setError] = useState('')
+    const [disabled, setDisabled] = useState(true)
     const [loading, setLoading] = useState(false);
-    
+    const types = ["image/png", "image/jpeg", "image/jpg"];
+    const videoTypes = ["video/mp4", "video/mkv", "video/mov"];
+   const audioTypes = ["audio/mp3", "audio/mpeg"]
+       const handleChange = (e) => {
+        let selectedFile = e.target.files[0]
+        setDisabled(false)
+           if (selectedFile) {
+          if(format === 'image'){
+             if (types.includes(selectedFile.type)) {
+                setError(null);
+                setFile(selectedFile);
+            } else {
+                setFile(null);
+                setError("Please select an image file (png or jpg)");
+            }
+          }else if(format === 'video'){
+            if (videoTypes.includes(selectedFile.type)) {
+                setError(null);
+                setFile(selectedFile);
+            } else {
+                setFile(null);
+                setError("Please select a video file (mp4 or mkv)");
+            }
+          }else if(format === 'audio'){
+            if (audioTypes.includes(selectedFile.type)) {
+                setError(null);
+                setFile(selectedFile);
+            } else {
+                setFile(null);
+                setError("Please select an audi file (mp3 )");
+            }
+          }
+           
+        }
+      }
+          const { progress, url } = useStepStorage(file);
+
+          function getMedia(){
+            if (format === 'image'){
+              return <img height='300px' width='450px' src={data.url}/>
+            }else if(format === 'video'){
+              return  (<video height='300px' width='450px' controls>
+                <source src={data.url}/>
+              </video>)
+            }else if(format === 'audio'){
+              return (<audio controls>
+             <source src={data.url}/>
+              </audio>)
+            }
+          }
+
     const handleView = () => {
       setOpenView(true)
       
@@ -73,12 +129,22 @@ const StepItem = ({ data})  => {
       )
     })
 }
-
+const handleImageUpdate = (id) => {
+  const reqData = {url}
+      db.collection('stepData').doc(id).update(reqData).then((data)=>{
+        setLoading(false)
+      
+        console.log(data)
+      })
+}
 const updateStep=(id) => {
     setLoading(true)
-    const data = {title,desc}
-      db.collection('stepData').doc(id).update(data).then(()=>{
+    
+    const reqData = {title,desc,type,format}
+      db.collection('stepData').doc(id).update(reqData).then((data)=>{
         setLoading(false)
+        
+        console.log(data)
       })
   }
     return (
@@ -144,14 +210,9 @@ const updateStep=(id) => {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{`Edit ${title}`}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{<b>Edit {title}</b>}</DialogTitle>
                     <DialogContent>
-                   <Alert severity="info" variant="standard">
-                      <AlertTitle>
-                        You are currently editing a Step
-                      </AlertTitle>
-      
-                   </Alert>
+                 
                     <form className={classes.form}  >
                         <TextField
                        
@@ -176,23 +237,70 @@ const updateStep=(id) => {
                           id="desc"
                           multiline
                         />
-                       
+                        <InputLabel>Select Type</InputLabel>
+                        <Select
+                        variant='outlined'
+                        value={type}                      
+                          fullWidth
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          onChange={(e) => setType(e.target.value)}
+                          style={{marginBottom: '15px'}}
+                        >
+                          <option value='info'>Info</option>
+                          <option value='camera'>Camera</option>
+                            <option value='critical'>Critical</option>
+                            <option value='normal'>Normal</option>
+                        </Select>
+                        <br/>
+                        <InputLabel >Select Format </InputLabel>
+                          <Select
+                          variant='outlined'
+                          value={format}
+                            label="Select Format"
+                          required
+                            fullWidth
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            onChange={(e) => setFormat(e.target.value)}
+                          >
+                            <option value='image'>Image</option>
+                            <option value='video'>Video</option>
+                              <option value='audio'>Audio</option>
+                              
+                          </Select>
+                          {getMedia()}
+                         <Alert>To Update Media Click <b>'Update Media'</b> After uploading a new Media file</Alert>
+                        <InputLabel>Replace the current Media file</InputLabel>
+                         <input type="file"  onChange={handleChange} />
+                         {
+                           <div>
+                              <h4>{progress}% uploaded</h4>
+                           </div>
+                          
+                         }
+                       <Button disabled={disabled} style={{color: 'orangered'}} variant='outlined' fullWidth onClick={() => handleImageUpdate(data.id)}>Update Media</Button>
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
                        {!loading && <Button
                           type="submit"
-                          fullWidth
+                          
                           variant="outlined"
                           color="primary"
                           className={classes.submit}
-                          onClick={(e)=> updateStep(data.id)}
+                          onClick={(e)=> 
+                            {updateStep(data.id);
+                               handleEditClose();
+                          }}
                         >
                           Update
                           </Button>}
                       {
                         loading && <Button
                           type="submit"
-                          fullWidth
+                         
                           variant="outlined"
                           color="primary"
                           disabled
@@ -236,11 +344,7 @@ const updateStep=(id) => {
                           id="desc"
                           multiline
                         />
-                        
-                        
-                        <img height="400" width="500" src={data.url} alt="no data"/>
-                      
-                     
+                        {getMedia()}
                     <DialogActions>
                       <Button color="secondary" onClick={handleViewClose}>Cancel</Button>
                     </DialogActions>

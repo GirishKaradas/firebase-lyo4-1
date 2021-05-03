@@ -63,7 +63,7 @@ const ContentDataBox = ({data}) => {
     const [openEdit, setOpenEdit] = useState(false)
     const [title, setContentName] = useState(data.title)
     const [value, setValue] = useState(data.value);
-    const [createdAt, setCreatedAt] = useState(data.createdAt);
+    const [desc, setDesc] = useState(data.desc);
    const [loading, setLoading] = useState(false);
    const [message, setMessage] = useState()
    const history = useHistory();
@@ -92,7 +92,7 @@ const ContentDataBox = ({data}) => {
 
   const updateContent=(id) => {
     setLoading(true)
-    db.collection('moduleData').doc(id).update({title}).then((data) => {
+    db.collection('moduleData').doc(id).update({title,desc}).then((data) => {
         console.log(data)
         window.location.reload()
         setLoading(false)
@@ -113,17 +113,17 @@ const ContentDataBox = ({data}) => {
               <TableCell component="th" scope="row">
                <b> {data.title} </b>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell style={{ width: 220 }} align="right">
                 {data.desc}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell style={{ width: 140 }} align="right">
               <Button style={{ marginRight: "20%", marginTop: '0', marginBottom: '0'}} startIcon={<EditIcon/>} onClick={handleEdit}   color="primary">Edit</Button>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell style={{ width: 140}} align="right">
                 <Button style={{ marginLeft: "20%"}} onClick={handleClickOpen}  color="secondary" startIcon={<DeleteIcon/>}>Delete</Button>
            
               </TableCell>
-               <TableCell style={{ width: 160 }} align="right">
+               <TableCell style={{ width: 140 }} align="right">
                 <Button style={{ marginLeft: "20%", color: 'orangered'}} href={`/Module/${data.id}/Components`}  startIcon={<ArrowForwardIosIcon/>}>Open</Button>
            
               </TableCell>
@@ -193,7 +193,20 @@ const ContentDataBox = ({data}) => {
                           autoFocus
                           onChange={(e) => setContentName(e.target.value)}
                         />
-                       
+                        <TextField
+                        label="Description"
+                        defaultValue={desc}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          multiline
+                          rows={5}
+                          id="desc"
+                          name="desc"
+                          autoFocus
+                          onChange={(e) => setDesc(e.target.value)}
+                        />
                     
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>

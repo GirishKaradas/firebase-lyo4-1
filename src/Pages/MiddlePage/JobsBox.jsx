@@ -23,12 +23,13 @@ const JobsBox = (props) =>{
     const [machines, setMachines] = useState([])
     const [jobs, setJobs] = useState([])
     const [dataId, setdataId] = useState('')
+    const [disabled, setDisabled] = useState(true)
     useEffect(() => {
       db.collection('machineData').onSnapshot(doc => {
         const data = firebaseLooper(doc)
         setMachines(data)
       })
-        db.collection('jobData').where('status', '==', false).onSnapshot(doc => {
+        db.collection('jobData').onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setJobs(data)
         })
@@ -36,6 +37,7 @@ const JobsBox = (props) =>{
 
     const handleChange = (e) => {
       setdataId(e.target.value)
+      setDisabled(false)
     }
     return (
     
@@ -72,7 +74,7 @@ const JobsBox = (props) =>{
           
           <Avatar
             style={{
-              backgroundColor: orange[600],
+              backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
               height: 56,
               width: 56
             }}
@@ -89,7 +91,8 @@ const JobsBox = (props) =>{
         }}
       >
         <InsertChartIcon style={{ marginTop: '5%'}}/>
-         <Select onChange={handleChange} fullWidth >
+         <select style={{border: '2px solid whitesmoke'}} onChange={handleChange} fullWidth >
+           <option value="" disabled selected hidden>Select Machine</option>
           {
             machines.map(data => (
               
@@ -98,9 +101,9 @@ const JobsBox = (props) =>{
               
             ))
           }
-          
-          </Select>
-      <Button href={`/machine-data/Job/${dataId}/Job`}>Open</Button>
+         
+          </select>
+      <Button disabled={disabled} href={`/machine-data/Job/${dataId}/Job`}>Open</Button>
          
       </Box>
       

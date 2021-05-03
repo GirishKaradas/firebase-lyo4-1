@@ -51,7 +51,7 @@ const MachineBox = (props) =>{
         <Grid item>
           <Avatar
             style={{
-              backgroundColor: red[600],
+             backgroundImage: 'linear-gradient(to left bottom, #f31527, #f82d3e, #fc4052, #fe5066, #ff6078)',
               height: 56,
               width: 56
             }}
@@ -75,7 +75,7 @@ const MachineBox = (props) =>{
           }}
           variant="body2"
         >
-         List of Machines!
+         List of Machines
         </Typography>
         <Typography
           color="textSecondary"

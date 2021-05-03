@@ -347,6 +347,7 @@ const updateUser=(id) => {
                 </Dialog>
 
             </div>
+            
             <hr/>
         </Container>
       

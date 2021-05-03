@@ -189,8 +189,9 @@ const delayBetweenPoints = totalDuration / data.length;
         position: "left",
         id: "y-axis-0",
         ticks: {
-          autoSkip: true,
-         
+          steps: 10,
+          min: -100,
+         max: 40,
           fontColor: 'white',
           fontSize: 14
         },
@@ -203,8 +204,10 @@ const delayBetweenPoints = totalDuration / data.length;
         position: "left",
         id: "y2",
         ticks: {
-          autoSkip: true,
          
+         steps: 10,
+          min: -100,
+          max:  40,
           fontColor: 'white',
           fontSize: 14
         },

@@ -43,6 +43,7 @@ const AccountDetails = () => {
     const [password, setPassword] = useState("")
      const [file, setFile] = useState(null);
      const [id, setId] = useState()
+     const [disabled, setDisabled] = useState(true)
     const [passwordConfirm, setPasswordConfirm] = useState("")
     const classes = useStyles();
     const history = useHistory()
@@ -59,7 +60,7 @@ const AccountDetails = () => {
 
     const handleChange = (e) => {
         let selectedFile = e.target.files[0];
-
+        setDisabled(false)
         if (selectedFile) {
             if (types.includes(selectedFile.type)) {
                 setError(null);
@@ -96,10 +97,11 @@ const AccountDetails = () => {
     }
     setLoading(true)
     setError("")
-     
+     db.collection('users').doc(id).update({password})
     
     try {
       await  updatePassword(password)
+      
        history.push("/")
     } catch (error) {
         setError("Failed to create an account")
@@ -176,7 +178,7 @@ const AccountDetails = () => {
        <CardActions style={{alignItems: "center"}}>
      
        <input type="file"  onChange={handleChange} />
-       <Button   variant="outlined" color="primary" onClick={handleUpload} >Upload</Button>
+       <Button disabled={disabled}  variant="outlined" color="primary" onClick={handleUpload} >Upload</Button>
       </CardActions>
     </Card>
     <Grid>
@@ -249,7 +251,7 @@ const AccountDetails = () => {
         >
           <Button
           type="submit"
-          color="primary"
+          style={{backgroundImage: 'linear-gradient(to left bottom, #420ffa, #004dff, #006eff, #238aff, #59a3ff)', color: 'white'}}
           variant="contained"
           onClick={handleSubmit}
           >
@@ -257,7 +259,7 @@ const AccountDetails = () => {
           </Button>
 
            <Button
-        style={{width: "100px", marginLeft: "5%"}}
+        style={{backgroundImage: ' linear-gradient(to right top, #fa0f0f, #fb3434, #f84d50, #f36268, #ea757e)' ,width: "100px", marginLeft: "5%"}}
           color="secondary"
           variant="contained"
           href="/"

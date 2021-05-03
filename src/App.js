@@ -1,4 +1,4 @@
-import LogIn from "./components/LogIn/LogIn";
+import LogIn from "./components/LogIn/LogIn"
 import {BrowserRouter as Router, Switch, Route, BrowserRouter} from 'react-router-dom';
 //import Sidebar from "./components/Sidebar/Sidebar";
 import { Process, Reports } from "./Pages/Reports/Reports";
@@ -15,7 +15,7 @@ import MiddlePage from "./Pages/MiddlePage/MiddlePage";
 import AppRoute from "./routes/AppRoute";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import Users from "./components/AddUser/Users";
-import { AuthProvider } from "./components/context/AuthContext";
+import { AuthProvider, useAuth } from "./components/context/AuthContext";
 import ForgotPass from "./components/ForgotPass/ForgotPass";
 import ContentsData from "./Pages/ContentsData/ContentsData";
 import Page from "./components/Page";
@@ -43,12 +43,15 @@ import BatchReport from "./Pages/BatchInfo/BatchInfo";
 import QualityReport from './Pages/QualityReport/QualityReport'
 import CallLogs from "./Pages/CallLogs/CallLogs";
 import TestGraph from "./TestGraph/TestGraph";
+import Settings from "./Pages/settings/Settings";
+import OpenTokPage from "./Pages/VideoCallPage/OpenTokPage";
+import RenderCall from "./Pages/VideoCallPage/RenderCall";
 
 function App() {
-
+ 
   return (
     <>
-       
+    
       <GlobalStyles/>
     <AuthProvider>
       <Page
@@ -58,6 +61,7 @@ function App() {
     <BrowserRouter>
     <Router>
       <Switch>
+         <Route path="/login" exact component={LogIn} />
         <AppRoute path='/machine-data/:id/Reports' exact component={Reports} layout={MainLayout}/>
          <AppRoute path='/machine-data/:id/Call-Logs' exact component={CallLogs} layout={MainLayout} />
         <AppRoute path='/machine-data/Reports/:id/Recipes' exact component={Recipes} layout={MainLayout} />
@@ -68,8 +72,8 @@ function App() {
         <AppRoute path='/machine-data/:id/Module' exact component={ContentsData} layout={MainLayout} />
         <AppRoute path="/machine-data/:id/Add-module" exact component={AddContent} layout={MainLayout}/>
         <AppRoute path="/machine-data" exact component={Machines} layout={DashboardLayout}/> 
+        <AppRoute path="/settings" exact component={Settings} layout={DashboardLayout}/> 
         <AppRoute path="/add-machine" exact component={AddMachines} layout={DashboardLayout} />
-        <Route path="/login" exact component={LogIn} />
         <Route path="/forgotPass" exact component={ForgotPass}/>
         <AppRoute path="/machine-data/Job/:id/Job" exact component={JobsList} layout={MainLayout} />
         <AppRoute path="/DQ/:id" exact component={QualityReport} layout={MainLayout} />
@@ -87,8 +91,9 @@ function App() {
         {/*/machine-data/Reports/BXLmS3MAwjf25qEdubL6/Recipes*/}
          <AppRoute path="/machine-data/Manuals/:id/Manuals" exact component={Manuals} layout={MainLayout} />
           <AppRoute path="/video-call" exact component={RenderVc} layout={DashboardLayout} />
+          <AppRoute path="/video-call/:id" exact component={RenderVc} layout={DashboardLayout} />
            <AppRoute path="/machine-data/DQ-Reports/:id/DQ-Reports" exact component={DQReport} layout={MainLayout} />
-          <AppRoute path="/test" exact component={TestGraph} layout={MainLayout} />
+          <AppRoute path="/test" exact component={Tests}  layout={MainLayout}/>
 
       </Switch>
     </Router>

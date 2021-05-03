@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState} from 'react'
 import ContentDataBox from './ContentDataBox'
-import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, Typography, useTheme } from '@material-ui/core';
+import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,6 +12,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import PropTypes from 'prop-types';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { useHistory } from 'react-router-dom';
+import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -119,12 +120,19 @@ function TablePaginationActions(props) {
 
 const ContentsData = ({match}) => {
     
-    
+    const [title, setTitle] = useState('')
+     const [mTitle, setMTitle] = useState('')
         const [content, setContent] = useState([{}])
     const history = useHistory()
    const classes = useStyles()
 
     useEffect (() => {
+       db.collection('machineData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
+
         db.collection('moduleData')
         .where('mid' , '==' , `${match.params.id}`)
         .onSnapshot(doc => {
@@ -158,20 +166,36 @@ const ContentsData = ({match}) => {
             
         <div className={classes.container}>
           <Card className={classes.content}>
+            <Typography align='left' variant='h4'><b>{mTitle}</b></Typography>
           <div>
-              <Typography align='center' variant='h1'><b>--Modules--</b></Typography>
-               <Typography align='center' variant='body2' >- These are all the required Modules -</Typography>
+              <Typography align='center' variant='h1'><b>Modules</b></Typography>
+               <Typography align='center' variant='body2' >These are all the required Modules</Typography>
               </div>
               <br/>
-              
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+             <div className="relative"> 
+                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Modules..."/>
+                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
+              </div>
+              <Button style={{width: '15%',marginLeft: '4%', marginRight: '3%', backgroundColor: 'orange', color: 'white'}} href={`/machine-data/${match.params.id}/Add-module`}>ADD New </Button>
+              </div>
+              <hr/>
               {(rowsPerPage > 0
             ? content.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : content
-          ).map((data) => (
+          ).
+          filter((data) => {
+              if(title === ""){
+              return data
+          } else if (data.title.toLowerCase().includes(title.toLocaleLowerCase())){
+                  return data
+                  }
+          })
+          .map((data) => (
             <ContentDataBox key={data.id} data={data} match={match} />
           ))}
-           
-           
+          
+          
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
@@ -194,7 +218,7 @@ const ContentsData = ({match}) => {
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
-              <Button style={{width: '15%', height: '50px', color: '#ff7a00', borderRadius: '20px'}} variant='outlined' href={`/machine-data/${match.params.id}/Add-module`}>ADD New </Button>
+              
         </TableFooter>
           </Card>
         </div>

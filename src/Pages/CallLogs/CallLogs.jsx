@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable } from 'mdbreact';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+import { Button, Card, Container, Dialog, Grid, InputLabel, Select, TablePagination, TextField, Typography } from '@material-ui/core';
+ import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
-import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
-import { Card, makeStyles, Typography } from '@material-ui/core';
+
+
+
 const useStyles = makeStyles((theme) => ({
-  layoutRoot: {
-    backgroundColor: 'white',
-    display: 'flex',
-    height: '100%',
-    overflow: 'hidden',
-    width: '100%',
-    
+  table: {
+    minWidth: 650,
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: '#141256',
-  },
- wrapper: {
+   wrapper: {
   display: 'flex',
   flex: '1 1 auto',
   overflow: 'hidden',
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   
+  
   },
   container: {
       display: 'flex',
@@ -33,79 +35,104 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     
+    
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
     },
 }));
 
-const CallLogs = ({match}) => {
-    const classes = useStyles()
-    const [callLogData, setCallLogData] = useState([])
-    useEffect(() => {
-        db.collection('CallLogData').where('machine_id', '==', `${match.params.id}`).onSnapshot(doc => {
-            const data = firebaseLooper(doc)
-            setCallLogData(data)
-            console.log(data)
-        })
-    }, [])
-  const data = {
-    columns: [
-      {
-        label: 'Manual ',
-        field: 'manual_name',
-        sort: 'asc',
-        width: 150
-      },
-      {
-        label: 'Step',
-        field: 'step',
-        sort: 'asc',
-        width: 270
-      },
-      {
-        label: 'User',
-        field: 'user_id',
-        sort: 'asc',
-        width: 200
-      },
-      {
-        label: 'Time',
-        field: 'time',
-        sort: 'asc',
-        width: 100
-      },
-      
-    ],
-    rows: callLogData
-  };
 
+
+export default function CallLogs({match}) {
+  const classes = useStyles();
+  const [title, setTitle] = useState('')
+  const [mTitle, setMTitle] = useState('')
+  const [open, setOpen] = useState(false)
+  const [batch, setBatch] = useState([])
+  useEffect(() => {
+     db.collection('machineData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
+    db.collection('CallLogData').where('machine_id', '==', `${match.params.id}`).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+       setBatch(data)
+     console.log(data)
+    })
+    
+  }, [])
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
-      <>
+    <div>
+   
       <ContentDashboardLayout match={match}/>
-       <div className={classes.wrapper}>
+      <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-               <div>
-          <Typography variant='h2' align='center'><b>--- Call Logs ---</b></Typography>
-          <Typography variant='body1' align='center'>- List of Calls Made ! -</Typography>
-             </div>
-             <br/>
-            <MDBDataTable
-                striped
-                bordered
-               responsive
-               sortable
-               
-                data={data}
-                />
+            <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
+            <Typography variant='h1' align='center'><b>Call Logs</b></Typography>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <TextField onChange={(e) => setTitle(e.target.value)}  label="Search Call Logs.." variant="outlined" />
+              </div>
+              <br/>
+               <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell><b>Manual</b></TableCell>
+            <TableCell align="right"><b>User</b></TableCell>
+            
+            <TableCell align="right"><b>Step</b></TableCell>
+           <TableCell align="right"><b>Date & Time</b></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {batch.
+          filter((data) => {
+              if(title === ""){
+                  return data
+              } else if (data.manual_name.toLowerCase().includes(title.toLocaleLowerCase())){
+                      return data
+              }else if (data.user_id.toLowerCase().includes(title.toLocaleLowerCase())){
+                      return data
+              }else if (data.step.toLowerCase().includes(title.toLocaleLowerCase())){
+                      return data
+              }
+              
+            })
+          .map((row) => (
+            <TableRow key={row.id}>
+              <TableCell component="th" scope="row">
+                {row.manual_name}
+              </TableCell>
+              <TableCell align="right">{row.user_id}</TableCell>
+              <TableCell align="right">{row.step}</TableCell>
+              <TableCell align="right">{row.time}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+         
+         
+      </div>
+      <div style={{width: '100%'}}>
+           
+      </div>
+    </TableContainer>
           </Card>
         </div>
       </div>
-    
-    </>
-  );
+    </div>
+   
+  )
 }
-
-export default CallLogs;

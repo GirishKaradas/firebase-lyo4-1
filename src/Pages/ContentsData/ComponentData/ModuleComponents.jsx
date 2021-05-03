@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     width: '100%',
-    
+   
   },
   avatar: {
     margin: theme.spacing(1),
@@ -118,12 +118,17 @@ function TablePaginationActions(props) {
 
 const ModuleComponents = ({match}) => {
     
-    
+    const [mTitle, setMTitle] = useState('')
         const [content, setContent] = useState([{}])
     const history = useHistory()
    const classes = useStyles()
 
     useEffect (() => {
+       db.collection('moduleData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         db.collection('componentData')
         .where('module_id' , '==' , `${match.params.id}`)
         .onSnapshot(doc => {
@@ -154,6 +159,7 @@ const ModuleComponents = ({match}) => {
         <div className={classes.container}>
           <Card className={classes.content}>
             <Container >
+               <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
              <Typography variant='h2' align='center' gutterBottom><b>Modules Components</b> </Typography>
        <br/>
        <div className={classes.container}>

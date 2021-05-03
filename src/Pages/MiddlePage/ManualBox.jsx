@@ -15,11 +15,12 @@ import { useEffect, useState } from 'react';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import LaunchIcon from '@material-ui/icons/Launch';
-
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 const ManualBox = (props) =>{ 
     const [machines, setMachines] = useState([])
     const [manuals, setManuals] = useState([])
     const [dataId, setDataId] = useState('')
+     const [disabled, setDisabled] = useState(true)
     useEffect(() => {
        db.collection('machineData').onSnapshot(doc => {
         const data = firebaseLooper(doc)
@@ -33,6 +34,7 @@ const ManualBox = (props) =>{
 
     const handleChange = (e) => {
      setDataId(e.target.value)
+     setDisabled(false)
     }
     return (
     
@@ -62,12 +64,12 @@ const ManualBox = (props) =>{
          
           <Avatar
             style={{
-              backgroundColor: 'darkblue',
+              backgroundImage: 'linear-gradient(to left bottom, #7a51f4, #4d58e0, #225ac8, #0057ac, #09528e)',
               height: 56,
               width: 56
             }}
           >
-            <WorkIcon />
+            <MenuBookIcon/>
           </Avatar>
         </Grid>
       </Grid>
@@ -80,7 +82,8 @@ const ManualBox = (props) =>{
       >
         <InsertChartIcon style={{marginTop: 6}}/>
         
-         <Select onChange={handleChange} fullWidth >
+         <select style={{border: '2px solid whitesmoke'}} onChange={handleChange} fullWidth >
+            <option value="" disabled selected hidden>Select Machine</option>
           {
             machines.map(data => (
              
@@ -89,8 +92,8 @@ const ManualBox = (props) =>{
              
             ))
           }
-          </Select>
-        <Button href={`/machine-data/Manuals/${dataId}/Manuals`}>Open</Button>
+          </select>
+        <Button disabled={disabled} href={`/machine-data/Manuals/${dataId}/Manuals`}>Open</Button>
       </Box>
     </CardContent>
   </Card>

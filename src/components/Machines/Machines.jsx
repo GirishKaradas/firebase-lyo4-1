@@ -12,7 +12,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) =>( {
     add: {
-    background:'#ff7a00',
+    backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
     borderRadius: '20px',
     margin: theme.spacing(3, 0, 2),
     marginLeft: '5%'
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) =>( {
 }))
 const Machines = () => {
     const classes = useStyles();
+    const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(true);
     const [machines, setMachines] = useState([{}]);
     const [error, setError] = useState(null)
@@ -54,21 +55,14 @@ const Machines = () => {
              <Typography variant='h5'>These are the available Machines</Typography>
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                  <div style={{ width: 300 }}>
-                <Autocomplete
-                    freeSolo
-                    id="free-solo-2-demo"
-                    disableClearable
-                    options={machines.map((option) => option.title)}
-                    renderInput={(params) => (
+                
                     <TextField
-                        {...params}
-                        label="Search input"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                       
+                        label="Search Machines"
                         margin="normal"
                         variant="outlined"
-                        InputProps={{ ...params.InputProps, type: 'search' }}
-                    />
-                    )}
-                />
+                        />
                 </div>
 
                 {error && <Typography variant="h6">{error}</Typography>}
@@ -93,7 +87,15 @@ const Machines = () => {
                         spacing={3}
                     >
                         {
-                        machines.map((data) => (
+                        machines.
+                            filter((data) => {
+                                if(searchTerm === ""){
+                                    return data
+                                } else if (data.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                                        return data
+                                        }
+                            })
+                        .map((data) => (
                             <Grid
                             style={{
                             margin: "3%"

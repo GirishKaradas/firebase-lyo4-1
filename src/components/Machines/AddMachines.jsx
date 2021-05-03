@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center"
   },
   submit: {
-      background: "#ff7a00",
+      backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
       align: "center",
       color: "white",
       width: "100%",

@@ -50,7 +50,7 @@ const UsersBox = (props) =>{
         <Grid item>
           <Avatar
             style={{
-              backgroundColor: green[600],
+              backgroundImage: 'linear-gradient(to left bottom, #7bf315, #5dcb1e, #44a320, #2e7d1d, #1c5917)',
               height: 56,
               width: 56
             }}

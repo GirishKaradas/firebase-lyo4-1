@@ -1,5 +1,9 @@
-import { Card, Container, makeStyles } from '@material-ui/core';
-import { useState } from 'react';
+import { Card, Container, makeStyles, Paper } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
+import { useAuth } from '../components/context/AuthContext';
+import { db } from '../firebase';
+import { firebaseLooper } from '../utils/tools';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
 
@@ -10,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     width: '100%',
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+
   },
   avatar: {
     margin: theme.spacing(1),
@@ -22,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden',
   paddingTop: 64,
   [theme.breakpoints.up('lg')]: {
-    paddingLeft: 256
+    paddingLeft: 250
   },
-   
+  
   },
   container: {
       display: 'flex',
@@ -44,8 +48,10 @@ const DashboardLayout = ({children}) => {
   const classes = useStyles()
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
+ 
+
   return (
-    <div className={classes.layoutRoot}>
+    <Paper className={classes.layoutRoot}>
       <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
@@ -58,7 +64,7 @@ const DashboardLayout = ({children}) => {
           </Card>
         </div>
       </div>
-      </div>
+      </Paper>
     
   );
 };

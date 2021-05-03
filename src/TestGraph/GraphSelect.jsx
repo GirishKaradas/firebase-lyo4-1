@@ -16,7 +16,7 @@ const chartConfig = {
           fill: 'false',
         label: "Temprature",
          yAxisID: "y-axis-0",
-        data: [12, 19, 3, 5, 2, 3],
+        data: [],
         borderWidth: 1,
         lineTension: 0.1,
       backgroundColor: 'yellow',
@@ -40,7 +40,7 @@ const chartConfig = {
           fill: 'false',
            yAxisID: "y-axis-1",
         label: "Pressure",
-        data: [12, 19, 3, 5, 2, 3],
+        data: [],
         lineTension: 0.1,
       backgroundColor: 'orangered',
       borderColor: 'orangered',
@@ -80,7 +80,7 @@ const chartConfig = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [12,14,17,23]
+      data: []
     },
      
 
@@ -95,7 +95,7 @@ const chartConfig = {
               },
     title: {
       display: true,
-      text: "Graph Data for selected Recipe"
+      text: "Select/Change The Required to Showcase Data"
     },
     
     tooltips: {
@@ -133,11 +133,14 @@ const chartConfig = {
         stacked: true,
         position: "left",
         id: "y-axis-0",
+        title: 'Temp Set Point',
         ticks: {
-          autoSkip: true,
          
+          steps: 10,
+          max: 50,
           fontColor: 'white',
-          fontSize: 14
+          fontSize: 14,
+           min: -100
         },
       
          
@@ -147,11 +150,14 @@ const chartConfig = {
         display: false,
         position: "left",
         id: "y2",
+        title: 'Realtime',
         ticks: {
-          autoSkip: true,
          
+          steps: 10,
+        max: 50,
           fontColor: 'white',
-          fontSize: 14
+          fontSize: 14,
+          min: -100
         },
       
          
@@ -162,7 +168,7 @@ const chartConfig = {
         id: "y-axis-1",
         fontColor: 'white',
         ticks: {
-          autoSkip: true,
+         steps: 100,
           
           fontColor: 'white',
           fontSize: 14
@@ -269,10 +275,10 @@ const GraphSelect = ({realData,rData}) => {
   };
 
   return (
-    <Container>
+    <Container  style={{marginTop: '10px'}}>
        
-       <div style={{justifyContent: 'flex-end'}}>
-         <Button startIcon={<TimelineIcon/>} style={{color:'darkblue'}}  onClick={onButtonClick}>Set Graph</Button>
+       <div>
+         <Button startIcon={<TimelineIcon/>} style={{color:'white', backgroundImage: 'linear-gradient(to right top, #6b75d1, #6373d3, #5a70d6, #4f6ed8, #426cdb, #3d66d1, #3960c7, #345abd, #364fa5, #35448e, #323a78, #2d3063)', marginBottom: '7px'}}  onClick={onButtonClick}>Set Graph</Button>
      
        </div>
          

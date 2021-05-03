@@ -1,0 +1,5 @@
+.navbar .nav-pills .active {
+   background-color: gold;
+   color:Black ;
+   font-weight:bold;
+}

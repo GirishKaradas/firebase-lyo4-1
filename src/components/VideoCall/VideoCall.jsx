@@ -1,12 +1,14 @@
 import React from 'react';
 import { OTSession, OTPublisher, OTStreams, OTSubscriber } from 'opentok-react';
 import { Button, Typography } from '@material-ui/core';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 
 export default class VideoCall extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      message: '',
       error: null,
       connection: 'Connecting',
       publishVideo: true,
@@ -93,10 +95,14 @@ export default class VideoCall extends React.Component {
           onError={this.onSessionError}
           eventHandlers={this.sessionEventHandlers}
         >
-          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}> 
-            <Button style={{color: 'blue', width: '20%'}} id="videoButton" onClick={this.toggleVideo}>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginBottom: '20px'}}> 
+           
+              <Button startIcon={<VideocamOffIcon/>} style={{marginBottom: '2%',marginLeft: '10%',backgroundImage: 'linear-gradient(to left bottom, #420ffa, #004dff, #006eff, #238aff, #59a3ff)', color: 'white', width: '15%'}}id="videoButton" onClick={this.toggleVideo}>
             {publishVideo ? 'Disable' : 'Enable'} Video
           </Button>
+         
+           
+           
           <OTPublisher
             properties={{ publishVideo, width: 500, height: 300, }}
             onPublish={this.onPublish}
@@ -104,14 +110,17 @@ export default class VideoCall extends React.Component {
             eventHandlers={this.publisherEventHandlers}
           />
           </div>
-          
+         
           <OTStreams>
-            <OTSubscriber
-              properties={{ width: 100, height: 100 }}
+            <div style={{ marginRight: '5%', marginTop: '2%'}}>
+               <OTSubscriber
+              properties={{ width: 400, height: 250 }}
               onSubscribe={this.onSubscribe}
               onError={this.onSubscribeError}
               eventHandlers={this.subscriberEventHandlers}
             />
+            </div>
+           
           </OTStreams>
         </OTSession>
       </div>

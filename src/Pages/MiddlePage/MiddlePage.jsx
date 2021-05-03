@@ -201,7 +201,7 @@ const MiddlePage = () =>{
             xl={9}
             xs={12}
           >
-            
+           
               {/* <GraphData data={rData} /> */}
               {/* <RecipeeList/>
                 <Skeleton variant="circle" width={40} height={40} />
@@ -239,17 +239,7 @@ const MiddlePage = () =>{
            <JobGraph/>
             
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-         {/* <ListMachines style={{height: "100%"}}/> > */}
-         <ListUsers style={{height: "100%"}}/>
-          </Grid>
-          <Grid
+           <Grid
             item
             lg={8}
             md={12}
@@ -259,6 +249,17 @@ const MiddlePage = () =>{
             {/* <WorkFlow/> */}
             <LogsList/>
           </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+
+         <ListUsers style={{height: "100%"}}/>
+          </Grid>
+         
         </Grid>
       </Container>
     </Box>

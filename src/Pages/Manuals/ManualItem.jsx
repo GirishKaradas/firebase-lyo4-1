@@ -44,9 +44,9 @@ const ManualItem = ({data}) => {
         
 
     return (
-       
+      
             <Grid item xs={12} sm={6} md={4} key={data.id}>
-                    <Card className="mb-4">
+                    {/* <Card className="mb-4">
                         
                         <CardContent className="p-3">
                         <h5 className="card-title font-weight-bold font-size-lg">
@@ -55,14 +55,50 @@ const ManualItem = ({data}) => {
                         <p className="card-text">
                             {data.desc}
                         </p>
-                        <Button href={`/Manuals/${data.id}/Steps`} style={{backgroundColor:'orangered', color: 'white'}} variant="contained">
+                        <Button href={`/Manuals/${data.id}/Steps`} style={{backgroundImage: 'linear-gradient(to right top, #f0782b, #ed7d2a, #ea8229, #e68729, #e38b29, #e39326, #e39b24, #e2a323, #e3b21f, #e1c21e, #ded122, #d8e12b)', color: 'white'}} variant="contained">
                             Steps
                         </Button>
                          <Button onClick={() => handleEditOpen()} style={{color: 'darkblue'}}>Edit</Button>
                           <Button onClick={() => handleClickOpen()} style={{color: 'red'}}>Delete</Button>
                         </CardContent>
-                      
-                    </Card>
+                     
+                    </Card> */}
+
+    <div className="w-full max-w-sm px-4 py-3 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+        {/* <div className="flex items-center justify-between">
+            <span className="text-sm font-light text-gray-800 dark:text-gray-400">Courses and MOOCs</span>
+            <span className="px-3 py-1 text-xs text-indigo-800 uppercase bg-indigo-200 rounded-full dark:bg-indigo-300 dark:text-indigo-900">psychology</span>
+        </div> */}
+
+        <div>
+            
+            <div className="flex items-center justify-between">
+              <h1 className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
+            
+            <a  href={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</a>
+        </div>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc}</p>
+        </div>
+
+        <div>
+            
+
+            <div className="flex items-center justify-center mt-4">
+                <button onClick={() => handleEditOpen()} class="mr-2 text-gray-800 cursor-pointer dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+                </button>
+
+                <button onClick={() => handleClickOpen()} className="mr-2 text-gray-800 cursor-pointer dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                  </svg>
+                </button>
+            </div>
+        </div>
+    </div>
                     <div>
                     <Dialog
                     open={openEdit}

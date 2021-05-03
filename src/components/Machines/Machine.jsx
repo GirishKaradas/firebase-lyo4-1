@@ -21,7 +21,7 @@ import {
   DialogActions,
   TextField,
   Container,
-  
+ 
 } from '@material-ui/core';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -56,7 +56,7 @@ const Machine= ({data, ...rest}) => {
   const [location, setLocation] = useState(data.location);
   const [createdBy, setCreatedBy] = useState(data.createdBy);
   const [loading, setLoading] = useState(false);  
-  
+  const [desc, setDesc] = useState(data.desc)
   
   
       const handleClickOpen = () => {
@@ -77,7 +77,7 @@ const Machine= ({data, ...rest}) => {
 
  const updateMachine=(id) => {
     setLoading(true)
-    const data = {title,location}
+    const data = {title,location,desc}
       db.collection('machineData').doc(id).update(data).then(()=>{
         setLoading(false)
         const notify = `${currentUser.email} has Updated ${data.title}`
@@ -247,7 +247,7 @@ const Machine= ({data, ...rest}) => {
                         />
                         <TextField
                         label="Machine Location"
-                        style={{marginBottom: "20px"}}
+                        
                         defaultValue={location}
                           variant="outlined"
                           margin="normal"
@@ -258,7 +258,21 @@ const Machine= ({data, ...rest}) => {
                           id="desc"
                           multiline
                         />
-                        
+                         <TextField
+                        label="Machine Description"
+                        style={{marginBottom: "20px"}}
+                        defaultValue={desc}
+                        multiline
+                        rows={7}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="desc"
+                          onChange={(e) => setDesc(e.target.value)}
+                          id="desc"
+                          multiline
+                        />
                         <TextField
                       
                         defaultValue={createdBy}

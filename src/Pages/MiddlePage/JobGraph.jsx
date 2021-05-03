@@ -1,4 +1,4 @@
-import { Card, Container, Typography } from '@material-ui/core';
+import { Card, Container, InputLabel, Select, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react'
 import { Doughnut, Pie } from 'react-chartjs-2';
@@ -8,9 +8,14 @@ import LinearIndeterminate from './LinearInderminate';
 
 const JobGraph = () => {
     const [pending, setPending] = useState([])
+    const [machines, setMachines] = useState([])
     const [completed, setCompleted] = useState([])
 
     useEffect(() => {
+       db.collection('machineData').onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setMachines(data)
+        })
         db.collection('jobData').where('status', '==', false).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setPending(data)
@@ -21,6 +26,19 @@ const JobGraph = () => {
             setCompleted(data)
         })
     },[])
+
+    const handleChange = (e) => {
+      let mid = e.target.value
+       db.collection('jobData').where('status', '==', false).where('mid', '==', `${mid}`).onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setPending(data)
+        })
+
+        db.collection('jobData').where('status', '==', true).where('mid', '==', `${mid}`).onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setCompleted(data)
+        })
+    }
 
     const data = {
   labels: [
@@ -56,22 +74,40 @@ const JobGraph = () => {
     },
     
   ]
-};
+}
 
     return (
       <div>
-        <LinearIndeterminate/>
-        <Card style={{marginTop: '10%', marginBottom: '20%' }}>
-            <Typography variant='h1' align='center'><b>Job Data</b></Typography>
-            <Doughnut data={data}/>
+        
+        <Card >
+            <Typography variant='h1' align='center' gutterBottom><b>Job Data</b></Typography>
+            <div style={{width: '40%', border: '2px solid black', marginLeft: '25%'}}>
+               <select onChange={handleChange} fullWidth >
+                <option value="" disabled selected hidden>Select Machine</option>
+          {
+            machines.map(data => (
+              
+              <option value={data.id}>{data.title}</option>
+              // <Button style={{color: 'orangered'}} href={`/machine-data/Job/${data.id}/Job`}><LaunchIcon/></Button>
+              
+            ))
+          }
+         
+          </select>
+            </div>
+            
+            <Pie data={data}/>
             <br/>
             <Alert severity='warning'>Pending Jobs</Alert>
             <br/>
             <Alert severity='success'>Completed Jobs</Alert>
             <br/>
-           <br/>
+            <Alert severity='info'>Change Machines for individual data</Alert>
+            <br/>
+           
+          
         </Card>
-        <LinearIndeterminate/>
+       
       </div>
         
     )

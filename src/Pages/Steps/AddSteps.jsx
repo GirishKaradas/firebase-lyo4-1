@@ -73,6 +73,7 @@ const AddSteps = ({match}) => {
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('');
   const [createdAt, setCreatedAt] = useState('');
+  const [format, setFormat] = useState('')
    const [type, setType] = useState('');
   const [manual_id, setCid] = useState(match.params.id)
   const [file, setFile] = useState(null);
@@ -81,6 +82,8 @@ const AddSteps = ({match}) => {
     mediaData: null
   })
    const types = ["image/png", "image/jpeg", "image/jpg"];
+   const videoTypes = ["video/mp4", "video/mkv", "video/mov"];
+   const audioTypes = ["audio/mp3", 'audio/mpeg']
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('')
   const history = useHistory();
@@ -96,25 +99,44 @@ const AddSteps = ({match}) => {
   }, [])
   const handleChange = (loadedFiles) => {
         let selectedFile = loadedFiles[0]
-
+        
         if (selectedFile) {
-            if (types.includes(selectedFile.type)) {
+          if(format === 'image'){
+             if (types.includes(selectedFile.type)) {
                 setError(null);
                 setFile(selectedFile);
             } else {
                 setFile(null);
                 setError("Please select an image file (png or jpg)");
             }
+          }else if(format === 'video'){
+            if (videoTypes.includes(selectedFile.type)) {
+                setError(null);
+                setFile(selectedFile);
+            } else {
+                setFile(null);
+                setError("Please select a video file (mp4 or mkv)");
+            }
+          }else if(format === 'audio'){
+            if (audioTypes.includes(selectedFile.type)) {
+                setError(null);
+                setFile(selectedFile);
+            } else {
+                setFile(null);
+                setError("Please select an audi file (mp3 )");
+            }
+          }
+           
         }
        
-        
+       
     }
     const { progress, url } = useStorage(file);
 
     const handleSubmit = (e) => {
     e.preventDefault();
     const index = indexD.length
-    const steps = {title, desc, manual_id, url, type, index };
+    const steps = {title, desc, manual_id, url, type, index, format };
     setLoading(true);
     db.collection('stepData').add(steps).then(()=>{
       setLoading(false)
@@ -196,13 +218,12 @@ const AddSteps = ({match}) => {
                 style={{marginBottom: '20px'}}
                 
               />
-              <InputLabel variant='outlined'>Select Type</InputLabel>
+              <InputLabel>Select Type</InputLabel>
               <Select
+               variant='outlined'
               value={type}
-              
-               
                 label="Type"
-               
+               required
                 fullWidth
                 InputLabelProps={{
                   shrink: true,
@@ -213,6 +234,24 @@ const AddSteps = ({match}) => {
                  <option value='camera'>Camera</option>
                   <option value='critical'>Critical</option>
                    <option value='normal'>Normal</option>
+              </Select>
+              <br/>
+               <InputLabel>Select Format </InputLabel>
+              <Select
+               variant='outlined'
+              value={format}
+                label="Select Format"
+               required
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setFormat(e.target.value)}
+              >
+                <option value='image'>Image</option>
+                 <option value='video'>Video</option>
+                  <option value='audio'>Audio</option>
+                  
               </Select>
           </Grid>
          
@@ -226,6 +265,7 @@ const AddSteps = ({match}) => {
       <br/>
        <InputLabel variant="contained">Add Media</InputLabel>
        <DropzoneArea
+       
        dropzoneClass={classes.drop}
         showFileNames
         onChange={(loadedFiles) => handleChange(loadedFiles)}

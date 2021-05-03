@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
+import './NavItem.css'
 
 const NavItem = ({
   href,
@@ -29,10 +30,10 @@ const NavItem = ({
       {...rest}
     >
       <Button
-      
+     
         component={RouterLink}
         style={{
-          color: 'black',
+          color: 'white',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
           letterSpacing: 0,

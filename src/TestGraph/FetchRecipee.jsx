@@ -8,12 +8,12 @@ import { firebaseLooper } from '../utils/tools'
 import GraphSelect from './GraphSelect'
 import UpdateIcon from '@material-ui/icons/Update';
 
-const FetchRecipee = ({recipes, rid}) => {
+const FetchRecipee = ({batchId, recipes, rid}) => {
     const [rData, setRdata] = useState([])
      const [realData, setRealData] = useState([])
     const updateData = () => {
 
-        db.collection('realtimeData').where('recipe_id','==', `${rid}`).onSnapshot(doc => {
+        db.collection('realtimeData').where('recipe_id','==', `${rid}`).where('time', '==', `${batchId}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
       setRealData(data[0].temp_points)
     })

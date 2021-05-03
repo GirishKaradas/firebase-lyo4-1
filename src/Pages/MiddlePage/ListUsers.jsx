@@ -36,13 +36,13 @@ const ListUsers = (props) =>{
 
   return (
   <Card {...props}>
+    <h4><b>Users</b></h4>
     <CardHeader
       subheader={`${users.length} in total`}
-      title="Users"
     />
     <Divider />
     <List>
-      {users.slice(0,4).map((user, i) => (
+      {users.slice(0,10).map((user, i) => (
         <ListItem
           divider={i < users.length - 1}
           key={user.id}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -9,6 +9,7 @@ import {
   Drawer,
   Hidden,
   List,
+  ListItem,
   Typography
 } from '@material-ui/core';
 import {
@@ -26,6 +27,7 @@ import {
   Download as AddIcon,
   Home as HomeIcon
 } from 'react-feather';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import VideoCallIcon from '@material-ui/icons/VideoCall'
 import NavItem from './NavItem';
 import { useAuth } from '../context/AuthContext';
@@ -53,6 +55,12 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   const location = useLocation();
   const {currentUser} = useAuth()
   const [userData, setUserData] = useState([])
+  const [manual, setManual] = useState('')
+  const history = useHistory()
+
+  function handleReturn(){
+    history.push(`/machine-data/Reports/${manual}/Recipes`)
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -61,6 +69,9 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
     db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
       setUserData(data[0])
+    })
+     db.collection('recipes').doc(match.params.id).onSnapshot(doc => {
+      setManual(doc.data().mid)
     })
   }, [location.hrefname]);
 
@@ -72,50 +83,41 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         height: '100%'
       }}
     >
-      <Box
-      m={2}
-        style={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-         
-        }}
-      >
-        <Avatar
-          component={RouterLink}
-          src={userData.url}
-          style={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
-          }}
-          to="/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
-          {userData.firstName} {userData.lastName}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {userData.role}
-        </Typography>
-      </Box>
+        <a style={{textDecoration: 'none', color:'white'}} className="flex items-center w-full px-3 mt-3" href="#">
+			
+                 <img
+    alt="Logo"
+    width="50px"
+    src="https://i.ibb.co/7CKGfX5/Arizon-logo-2x.jpg"
+   
+  />
+			<span className="ml-2 text-sm font-bold">ARIZON SYSTEMS</span>
+
+		</a>
       <Divider />
       <Box m={2} >
         <List>
-         
+         <ListItem>
+            <a style={{textDecoration: 'none', color:'orange'}} className="flex items-center w-full h-12 px-3 mt-2 text-gray-200 bg-gray-700 rounded" href="/">
+                    <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+ 				</svg>
+					
+					<span className="ml-2 text-sm font-medium">Dashboard</span>
+ 			</a>
+          </ListItem>
+          
           
           {items.map((item) => (
-            <NavItem
+            <div key={item.title} className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300">
+               <NavItem
               href={`${item.href}/${match.params.id}/${item.title}`}
               key={item.title}
               title={item.title}
               icon={item.icon}
             />
+            </div>
+           
           ))}
         </List>
       </Box>
@@ -133,7 +135,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           gutterBottom
           variant="h4"
         >
-          Back To Dashboard?
+          Return to Recipes?
         </Typography>
         <Box
         pt= {2}
@@ -144,12 +146,12 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           }}
         >
           <Button
-          href='/'
-          style={{backgroundColor: "#ff7a00", color: "white", width: "150px"}}
-          startIcon={<HomeIcon/>}
+          onClick={handleReturn}
+          style={{backgroundImage: "linear-gradient(to left bottom, #a39df3, #8885e8, #6b6fdd, #4859d1, #0144c6)", color: "white", width: "150px"}}
+          startIcon={<KeyboardReturnIcon/>}
             variant="contained"
           >
-            Home
+           Return
           </Button>
         </Box>
       </Box>
@@ -166,7 +168,8 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           variant="temporary"
           PaperProps={{
             style: {
-              width: 256
+              width: 256,
+              backgroundColor:'black'
             }
           }}
         >
@@ -183,8 +186,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           PaperProps={{
             style: {
               width: 256,
-              top: 64,
-              height: 'calc(100% - 64px)'
+              backgroundColor:'black'
             }
           }}
         >

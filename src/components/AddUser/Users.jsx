@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Container, Fade, makeStyles, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Container, Fade, makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import UserList from './UserList';
 import {Link, useHistory} from 'react-router-dom';
@@ -11,7 +11,7 @@ import LogIn from '../LogIn/LogIn';
 const useStyles = makeStyles((theme) =>( {
     add: {
      
-    background:'#ff7a00',
+    backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
     borderRadius: '20px',
     margin: theme.spacing(3, 0, 2),
 
@@ -31,6 +31,7 @@ const Users = () => {
     const {currentUser} = useAuth()
     const [admin, setAdmin] = useState(false)
     const [error, setError] = useState(null)
+    const [searchTerm, setSearchTerm] = useState('')
     const history = useHistory()
     useEffect(() => {
 
@@ -46,7 +47,7 @@ const Users = () => {
       history.push('/')
   }
     return (
-        <>
+        <Paper>
         <Container xs={12}>
             
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -56,7 +57,7 @@ const Users = () => {
                   </div>
          
         {error && <Typography variant="h6">{error}</Typography>}
-       
+                
            <Button 
            startIcon={<AddIcon/>}
             variant="contained"
@@ -75,7 +76,7 @@ const Users = () => {
           
         </Container>
         
-        </>
+        </Paper>
     )
 }
 

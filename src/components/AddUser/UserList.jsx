@@ -1,52 +1,7 @@
-// import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, Typography } from '@material-ui/core'
-// import React, { useEffect, useState } from 'react'
-// import { db } from '../../firebase';
-// import { firebaseLooper } from '../../utils/tools';
-// import { useAuth } from '../context/AuthContext';
-// import UserItem from './UserItem';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     borderBottomColor: "black",
-//     backgroundColor: theme.palette.background.dark,
-   
-//   },
-// }));
-
-
-// const UserList = ({ users}) => {
-
-//     const {currentUser} = useAuth()
-//     const [user, setUser] = useState([])
-//     const classes = useStyles();
-//     useEffect(() => {
-//       db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
-//         const data = firebaseLooper(doc)
-//         setUser(data[0])
-//       })
-//     })
-//     return (
-
-//       <>
-//     {user.admin?
-//       <Container className={classes.root} >
-//         {users.map((users) => (
-//           <>
-//           <UserItem key={users.id} users={users} />
-//           </>
-//         ))}
-//     </Container>
-//     : <h1>You don't have required Permissions</h1>
-//   }
-//     </>
-//     )
-// }
-
-// export default UserList
 
 import React, {useEffect, useState} from 'react'
 
-import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, Typography, useTheme } from '@material-ui/core';
+import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import IconButton from '@material-ui/core/IconButton';
@@ -167,7 +122,7 @@ function TablePaginationActions(props) {
 
 const UserList = ({users}) => {
     
-    
+    const [searchTerm, setSearchTerm] = useState('')
         const [userData, setUserData] = useState([{}])
     const history = useHistory()
    const classes = useStyles()
@@ -202,11 +157,36 @@ const UserList = ({users}) => {
             <Container >
         <div >
           <Card className={classes.content}>
-          
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               <TextField
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                        label="Search User"
+                        margin="normal"
+                        variant="outlined"
+                        />
+                        <br/>
+            </div>
+         
               {(rowsPerPage > 0
             ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : users
-          ).map((data) => (
+          ).
+           filter((data) => {
+                                if(searchTerm === ""){
+                                    return data
+                                } else if (data.email.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return data
+                               }else if (data.firstName.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return data
+                               }
+                               else if (data.lastName.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return data
+                               }else if (data.phone.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return data
+                                }
+                                      
+                            })
+          .map((data) => (
             <UserItem key={data.id} users={data}  />
           ))}
            
@@ -237,6 +217,7 @@ const UserList = ({users}) => {
         </TableFooter>
           </Card>
         </div>
+        
       </Container>
           
          

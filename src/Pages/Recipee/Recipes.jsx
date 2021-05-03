@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, Typography, useTheme } from '@material-ui/core';
+import { Button, Card, Container, makeStyles, TableCell, TableFooter, TablePagination, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import RecipeData from './RecipeData';
@@ -10,6 +10,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import PropTypes from 'prop-types';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
+import { Autocomplete } from '@material-ui/lab';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     width: '100%',
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+     
   },
   avatar: {
     margin: theme.spacing(1),
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+     
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -116,9 +117,10 @@ function TablePaginationActions(props) {
 
 
 const Recipes = ({match}) => {
-    
+    const [searchTerm, setSearchTerm] = useState('')
     const classes = useStyles()
     const [ recipe, setRecipe] = useState([])
+     const [mTitle, setMTitle] = useState('')
      const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -135,11 +137,16 @@ const Recipes = ({match}) => {
 
 
     useEffect(() => {
+      db.collection('machineData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         db.collection('recipes').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setRecipe(data)
         })
-    })
+    }, [])
    
 
     return (
@@ -149,18 +156,32 @@ const Recipes = ({match}) => {
         <div className={classes.container}>
           <Card className={classes.content}>
             <Container >
-            
         <div className={classes.container}>
           <Card className={classes.content}>
+            <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
          <div>
-              <Typography align='center' variant='h1'><b>--Recipe Data--</b></Typography>
-               <Typography align='center' variant='body2' >- These are all the required Recipe Data -</Typography>
+              <Typography align='center' variant='h1'><b>Recipe Data</b></Typography>
+               <Typography align='center' variant='body2' > These are all the required Recipe Data </Typography>
               </div>
               <br/>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               
+                   <TextField onChange={(e) => setSearchTerm(e.target.value)} label="Search Recipes" variant="outlined" />
+            
+            <br/>
+              </div>
               {(rowsPerPage > 0
             ? recipe.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : recipe
-          ).map((data) => (
+          ).
+           filter((data) => {
+              if(searchTerm === ""){
+                  return data
+              } else if (data.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                      return data
+                      }
+          })
+          .map((data) => (
             <RecipeData key={data.id} rows={data} match={match} />
           ))}
            

@@ -10,9 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
-import { Card, Checkbox, Typography } from '@material-ui/core';
+import { Card, Checkbox, TextField, Typography, Button } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import DatePicker, { CalendarContainer } from "react-datepicker";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -50,7 +51,15 @@ function createData(name, calories, fat, carbs, protein) {
 export default function JobsList({match}) {
 
      const [job, setJob] = useState([])
+     const [mTitle, setMTitle] = useState('')
+     const [date, setDate] = useState('')
+     const [title, setTitle] = useState('')
     useEffect(() => {
+      db.collection('machineData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setJob(data)
@@ -58,40 +67,81 @@ export default function JobsList({match}) {
     }, [])
   const classes = useStyles();
 
+  const handleChangeDate = (e) => {
+     
+    const jobDate = e.target.value
+    db.collection('jobData').where('mid', '==', `${match.params.id}`).where('date', '==', `${jobDate}`).onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setJob(data)
+        })
+  }
+
+  const handleClick = () => {
+    db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
+            const data = firebaseLooper(doc)
+            setJob(data)
+        })
+  }
+  
   return (
       <>
       <ContentDashboardLayout match={match}/>
        <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
+            
             <div>
-              <Typography align='center' variant='h1'><b>--Jobs--</b></Typography>
+              <Typography align='center' variant='h1'><b>Jobs</b></Typography>
                <Typography align='center' variant='body2' >- These are all the Job status -</Typography>
               </div>
               <br/>
+              <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                 <TextField
+                id="date"
+                label="Select Date"
+                type="date"
+                onChange={handleChangeDate}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+             <Button onClick={handleClick}>Reset</Button>
+              {/* <DatePicker  calendarContainer={MyContainer} selected={date} onChange={(e) => setDate(e.target.value)} /> */}
+               
+              <TextField onChange={(e) => setTitle(e.target.value)}  label="Search Jobs" variant="outlined" />
+              </div>
+            
                  <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableRow>
-              <TableCell><b><Checkbox/></b></TableCell>
-            <TableCell><b>Title</b></TableCell>
-            <TableCell align="right"><b>Description</b></TableCell>
-            <TableCell align="right"><b>Status</b></TableCell>
+                 <Typography variant='h4' align='left' gutterBottom><b>{mTitle}</b></Typography>
+          <TableRow>  
+            <TableCell  style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
+            <TableCell style={{backgroundColor: '#d8e3e7'}} align="center"><b>Description</b></TableCell>
+            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"><b>Status</b></TableCell>
+            <TableCell  style={{backgroundColor: '#d8e3e7'}} align="right"><b>Date</b></TableCell>
             
           </TableRow>
         </TableHead>
         <TableBody>
-          {job.map((row) => (
+          {job.filter((row) => {
+            if(title == "" ){
+              return row
+            } else if (row.title.toLowerCase().includes(title.toLocaleLowerCase())){
+              return row
+            }
+          }).map((row) => (
             <TableRow key={row.id}>
-             <TableCell><b><Checkbox/></b></TableCell>
-              <TableCell component="th" scope="row">
-                {row.title}
+
+              <TableCell style={{width: 160, backgroundColor: '#e8ffff'}} component="th" scope="row">
+               <b> {row.title}</b>
               </TableCell>
-              <TableCell align="right">{row.desc}</TableCell>
+              <TableCell align="center">{row.desc}</TableCell>
               <TableCell align="right">{row.status ?
                <b style={{color: '#9ede73', display: 'flex', justifyContent: 'flex-end'}}><DoneIcon style={{color: '#9ede73'}}/>Completed</b> :
                <b style={{color: 'orange', display: 'flex', justifyContent: 'flex-end'}}><ErrorOutlineIcon style={{color: '#ff7a00d'}}/> Pending</b>}
                </TableCell>
+               <TableCell align="right">{row.date}</TableCell>
             </TableRow>
           ))}
         </TableBody>

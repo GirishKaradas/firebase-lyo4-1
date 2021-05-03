@@ -9,11 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { db } from '../../../firebase';
 import { firebaseLooper } from '../../../utils/tools';
-import { Button, Card, Container, Dialog, TablePagination } from '@material-ui/core';
+import { Button, Card, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, InputLabel, Select, TablePagination, TextField, Typography } from '@material-ui/core';
 import StepDashboardLayout from '../../../components/StepSidebar/StepDashboardLayout'
 import TestData from '../../../Pages/Tests/TestData'
-import TestHome from '../../Tests/TestHome';
 
+import ItemRow from './ItemRow';
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-   background:'linear-gradient(#f3f3f3, #e7e7e7)' 
+  
   },
   container: {
       display: 'flex',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-     background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
+    
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -47,7 +47,17 @@ export default function RecipeeValuesView({match}) {
   const classes = useStyles();
   const [recipeeData, setRecipeeData] = useState([])
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [mTitle, setMTitle] = useState('')
+  
+  
+  const [batch, setBatch] = useState([])
   useEffect(() => {
+     db.collection('recipes')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
     db.collection('recipeeData').where('rid', '==', `${match.params.id}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
        data.sort(function(a,b) {
@@ -55,8 +65,13 @@ export default function RecipeeValuesView({match}) {
             })
       setRecipeeData(data)
     })
-  }, [])
+    db.collection('realtimeData').where('recipe_id', '==', `${match.params.id}`).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
 
+      setBatch(data)
+    })
+  }, [])
+    
   const handleOpen = () => {
     setOpen(true)
   }
@@ -64,6 +79,10 @@ export default function RecipeeValuesView({match}) {
   const handleClose = () => {
     setOpen(false)
   }
+
+
+
+
   return (
     <div>
       <StepDashboardLayout match={match}/>
@@ -71,6 +90,20 @@ export default function RecipeeValuesView({match}) {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
+             <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
+            <Typography variant='h3' align='center'><b>Recipe Values</b></Typography>
+            {
+              <Grid>
+                <InputLabel  variant='standard'>Select Batch</InputLabel>
+                <Select style={{width: '45%'}}>
+                  {
+                    batch.map(data => (
+                      <option value={data.time}>{data.time}</option>
+                    ))
+                  }
+                </Select>
+              </Grid>
+            }
                <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -84,30 +117,13 @@ export default function RecipeeValuesView({match}) {
         </TableHead>
         <TableBody>
           {recipeeData.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.step}
-              </TableCell>
-              <TableCell align="right">{row.time1}</TableCell>
-              <TableCell align="right">{row.time2}</TableCell>
-              <TableCell align="right">{row.temp1}</TableCell>
-              <TableCell align="right">{row.pressure}</TableCell>
-            </TableRow>
+            <ItemRow row={row}/>
           ))}
         </TableBody>
       </Table>
       <div style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Button style={{color: 'orangered'}} href={`/Recipe/${match.params.id}/Add-Recipee-Data`}>Add Data</Button>
           <Button onClick={handleOpen}>Show Graph</Button>
-          {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={recipeeData.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      /> */}
       </div>
       <div style={{width: '100%'}}>
            <Dialog
@@ -125,7 +141,9 @@ export default function RecipeeValuesView({match}) {
                  <TestData reid={match.params.id} data={recipeeData} />
             </Container>
                 </Dialog>
-           
+
+                 
+          
       </div>
     </TableContainer>
           </Card>

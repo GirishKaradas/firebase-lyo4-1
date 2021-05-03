@@ -13,7 +13,7 @@ import OutlinedTimeline from './Timeline';
 const useStyles = makeStyles((theme) =>( {
     add: {
      
-    background:'#ff7a00',
+    backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
     borderRadius: '20px',
     margin: theme.spacing(3, 0, 2),
  
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) =>( {
 const Steps = ({match}) => {
     const classes = useStyles();
     const history=useHistory()
+     const [mTitle, setMTitle] = useState('')
     const [steps, setSteps] = useState([{}])
     const dbRef =   db.collection('stepData').where('manual_id', '==', `${match.params.id}`)
 
@@ -59,6 +60,12 @@ const Steps = ({match}) => {
         history.push('/machine-data')
     }
     useEffect(() => {
+
+         db.collection('manualData')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         
       dbRef.onSnapshot((snapshot) => {
             const stepData = firebaseLooper(snapshot)
@@ -69,7 +76,7 @@ const Steps = ({match}) => {
             
         })
 
-    }, [steps])
+    }, [])
     
 
 
@@ -80,16 +87,8 @@ const Steps = ({match}) => {
             <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-        <Button startIcon={<ArrowBackIcon/>} onClick={handleReturn} variant="contained" className={classes.backButton} >Machines</Button>
-        <Button
-        startIcon={<AddIcon/>} 
-        variant="contained"
-        color="primary" className={classes.add}>
-        <Link style={{color: "white" ,textDecoration: "none"}} to={`/Manuals/${match.params.id}/Add-Step`}>
-                Add Step
-        </Link>
-        </Button>
-            
+                <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
+        <Typography variant='h3' align='center' gutterBottom><b>These are all the steps of selected Manual</b></Typography>
                 {steps&&
                     steps.map((data) => (
                         <StepItem key={data.id} data={data} />
@@ -97,9 +96,6 @@ const Steps = ({match}) => {
                     ))
                    
                 }
-        
-              
-       
           </Card>
         </div>
       </div>

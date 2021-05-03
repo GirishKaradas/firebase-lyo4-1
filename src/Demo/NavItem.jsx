@@ -22,36 +22,26 @@ const NavItem = ({
   return (
     <>
       <ListItem
+      className='navbar navbar-default navbar-static-top'
       disableGutters
-      style={{
-        display: 'flex',
-        py: 0
-      }}
+      
       {...rest}
     >
       <Button
-      
+        activeClassName="active"
         component={RouterLink}
         style={{
-          color: 'black',
+          color: 'white',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
-          letterSpacing: 0,
-          py: 1.25,
-          textTransform: 'none',
-          width: '100%',
-          ...(active && {
-            color: 'blue'
-          }),
+         
         }}
         to={href}
       >
         {Icon && (
           <Icon size="20" />
         )}
-        <span>
-          {title}
-        </span>
+        <span className="ml-2 text-sm font-medium">{title}</span>
       </Button>
     </ListItem>
     </>

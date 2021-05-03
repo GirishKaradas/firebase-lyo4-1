@@ -6,16 +6,24 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 export default function RecipeData({rows, length, match}) {
-    
+    const [title, setTitle] = useState(rows.title)
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [openEdit, setOpenEdit] = useState(false)
 
+ const handleEditOpen = () => {
+      setOpenEdit(true)
+    }
+    const handleEditClose = () => {
+      setOpenEdit(false)
+    }
     const handleOpen = () =>{
         setOpen(true)
     }
@@ -28,7 +36,15 @@ export default function RecipeData({rows, length, match}) {
             console.log('data deleted')
         })
     }
-  
+   const updateRecipe=(id) => {
+    setLoading(true)
+    db.collection('recipes').doc(id).update({title}).then((data) => {
+        console.log(data)
+       
+        setLoading(false)
+    })
+    
+  }
  
   return (
     <TableContainer component={Paper}>
@@ -46,8 +62,13 @@ export default function RecipeData({rows, length, match}) {
                <Button ><Link to={`/Recipe/${rows.id}/Recipe-values`} style={{textDecoration: 'none', color: 'inherit'}}>Open</Link></Button>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
+              <Button onClick={() => handleEditOpen()} style={{color: 'darkblue'}}>Edit</Button>
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
                <Button onClick={handleOpen} style={{color: 'red'}}>Delete</Button>
               </TableCell>
+              
+               
             </TableRow>
         </TableBody>
       </Table>
@@ -75,6 +96,60 @@ export default function RecipeData({rows, length, match}) {
                     Agree
                 </Button>
                 </DialogActions>
+                </Dialog>
+
+                <Dialog
+                    open={openEdit}
+                    onClose={handleEditClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{`Edit ${title}`}</DialogTitle>
+                    <DialogContent>
+                     
+                    <form   >
+                        <TextField
+                        label="Recipe Name"
+                        defaultValue={title}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="title"
+                          name="title"
+                          autoFocus
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                    
+                    <DialogActions>
+                      <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
+                       {!loading && <Button
+                          type="submit"
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                         
+                          onClick={(e)=>{ 
+                            updateRecipe(rows.id);
+                            handleEditClose();
+                          }}
+                        >
+                          Update
+                          </Button>}
+                      {
+                        loading && <Button
+                          type="submit"
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          disabled
+                          
+                        >Updating values...</Button>
+                      }   
+                    </DialogActions>
+                     
+                  </form>
+                    </DialogContent>
                 </Dialog>
     </TableContainer>
   );

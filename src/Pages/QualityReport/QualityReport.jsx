@@ -16,13 +16,22 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import { db } from '../../firebase';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import { CSVLink } from "react-csv";
 import { firebaseLooper } from '../../utils/tools';
 import DashboardNavbar from './DashboardNavbar'
-import { Card, Typography } from '@material-ui/core';
+import { Button, Card, TableHead, Typography } from '@material-ui/core';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ClearIcon from '@material-ui/icons/Clear';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import UpdateIcon from '@material-ui/icons/Update';
+import { useHistory } from 'react-router-dom';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas'; 
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+
+
 const useStyles1 = makeStyles((theme) => ({
   root: {
     flexShrink: 0,
@@ -50,6 +59,8 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = (event) => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
+
+  
 
   return (
     <div className={classes.root}>
@@ -132,15 +143,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 export default function QualityReport({match}) {
-
+  const history = useHistory()
   const classes = useStyles();
+  const [mTitle, setMTitle] = useState('')
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [dq, setDq] = useState([])
     useEffect(() => {
+       db.collection('DQReport')
+       .doc(match.params.id)
+        .onSnapshot(doc => {
+         setMTitle(doc.data().title)
+        })
         db.collection('DQReportData').where('module_id', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setDq(data)
@@ -173,29 +188,95 @@ export default function QualityReport({match}) {
     }
   }
 
+
+  function handleReturn(){
+    history.go(-1)
+  }
+
+  const headers = [
+  { label: "Title", key: "title" },
+  { label: "Value", key: "value" },
+  { label: "Response", key: "response" }
+];
+
+function printDocument() {  
+    const input = document.getElementById('pdfdiv');  
+    html2canvas(input)  
+      .then((canvas) => {  
+        var imgWidth = 200;  
+        var pageHeight = 290;  
+        var imgHeight = canvas.height * imgWidth / canvas.width;  
+        var heightLeft = imgHeight;  
+        const imgData = canvas.toDataURL('image/png');  
+        const pdf = new jsPDF('p', 'in', [612, 792]) 
+        var position = 0;  
+        var heightLeft = imgHeight;  
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);  
+        pdf.save("dqReportx.pdf");  
+      });  
+  }
+
   return (
       <>
       <DashboardNavbar/>
+     
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
+            <br/>
+             <Button
+          onClick={handleReturn}
+          style={{backgroundImage: "linear-gradient(to left bottom, #a39df3, #8885e8, #6b6fdd, #4859d1, #0144c6)", color: "white", width: "150px"}}
+          startIcon={<KeyboardReturnIcon/>}
+            variant="contained"
+          >
+            Return
+          </Button>
               <div>
               <Typography align='center' variant='h1'><b>DQ Data</b></Typography>
                <Typography align='center' variant='body2' >These are all your Required Data</Typography>
               </div>
               <br/>
-                    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="custom pagination table">
+              <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               
+                 <Button startIcon={<CloudDownloadIcon/>} style={{backgroundImage: "linear-gradient(to left bottom, #a39df3, #8885e8, #6b6fdd, #4859d1, #0144c6)", color: 'white', marginRight: '3%'}}>
+             <CSVLink
+              data={dq}
+              headers={headers}
+              filename={"DQReport.csv"}
+              style={{ textDecoration: 'none', color: 'white'}}
+              target="_blank"
+            >
+              Export
+            </CSVLink>
+          </Button>
+         
+          <Button startIcon={<PictureAsPdfIcon/>} style={{backgroundImage: "linear-gradient(to right top, #f91c1c, #dc1e20, #be2022, #a12122, #852121)", color: 'white'}} onClick={printDocument} variant="contained">  
+            Generate Pdf  
+           </Button>  
+              </div>
+                    <TableContainer id='pdfdiv' component={Paper}>
+      <Table id='pdfdiv' className={classes.table} aria-label="custom pagination table">
+         <TableHead>
+            <Typography variant='h4' align='left' gutterBottom><b>{mTitle}</b></Typography>
+          <TableRow>
+            <TableCell style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
+            <TableCell style={{backgroundColor: '#d8e3e7'}} align="left"><b>Value</b></TableCell>
+            <TableCell style={{backgroundColor: '#d8e3e7'}} align="right"><b>Response</b></TableCell>
+           
+           
+          </TableRow>
+        </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? dq.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : dq
           ).map((row) => (
             <TableRow key={row.name}>
-              <TableCell style={{width: 160}} component="th" scope="row">
+              <TableCell style={{width: 160, backgroundColor: '#e8ffff'}} component="th" scope="row">
                 <b>{row.title}</b>
               </TableCell>
-              <TableCell style={{ width: 200 }} align="right">
+              <TableCell style={{ width: 200 }} align="left">
                 {row.value}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
@@ -210,10 +291,15 @@ export default function QualityReport({match}) {
             </TableRow>
           )}
         </TableBody>
-        <TableFooter>
-          <TableRow>
+      </Table>
+    </TableContainer>
+      <TableFooter>
+         
+           
+          <TableRow >
+            
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[10, 20, 30, { label: 'All', value: -1 }]}
               colSpan={3}
               count={dq.length}
               rowsPerPage={rowsPerPage}
@@ -228,8 +314,6 @@ export default function QualityReport({match}) {
             />
           </TableRow>
         </TableFooter>
-      </Table>
-    </TableContainer>
           </Card>
         </div>
       </div>
