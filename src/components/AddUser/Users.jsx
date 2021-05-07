@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useAuth } from '../context/AuthContext';
 import LogIn from '../LogIn/LogIn';
+import UserItem from './UserItem';
 const useStyles = makeStyles((theme) =>( {
     add: {
      
@@ -48,7 +49,7 @@ const Users = () => {
   }
     return (
         <Paper>
-        <Container xs={12}>
+        <Container style={{background: '#FFFFFF 0% 0% no-repeat padding-box', boxShadow: '0px 2px 6px #0000000A'}}>
             
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <div>
@@ -68,8 +69,29 @@ const Users = () => {
                </Button>
               </div>
              <br/>
+           
+                              
+             
+              
+                  <section class="text-gray-700 ">
+                   
+                    <div class="container">
+                        <div class="flex flex-wrap text-left">
+                           
+                                   { users.map((users) => (
+                                     
+                                           <UserItem users={users} />   
+                                      
+                 
+                        ))
+                            
+                        } 
+                        </div>
+                    </div>
+                </section>
+                                             
+                
                
-               <UserList users={users} /> 
                {isLoading && 
                     <CircularProgress  />
                    }

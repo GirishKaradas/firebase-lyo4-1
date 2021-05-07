@@ -107,7 +107,8 @@ class Publisher extends React.Component {
             publishAudio: this.state.audio,
             publishVideo: this.state.video,
             videoSource:  'screen' ,
-            showControls: true
+            showControls: true,
+          
           }}
           onPublish={this.onPublishScreen}
           eventHandlers={this.publisherScreenEventHandlers}

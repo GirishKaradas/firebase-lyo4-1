@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, InputLabel, makeStyles, Select, TextField, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, InputLabel, makeStyles, Select, TextField, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import {db} from '../../firebase'
@@ -37,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:"10px"
   },
    large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+     marginRight: '5%',
+    width: 70,
+    height: 70,
   },
 }));
 
@@ -96,9 +97,9 @@ const updateUser=(id) => {
     
 
     return (
-          <Container xs style={{background: 'white', borderRadius: '20px', }}>
-            <div className={classes.dataBox}>
-            <Grid  xs={12}>
+          <>
+            <>
+            {/* <Grid  xs={12}>
               <Avatar className={classes.large} src={users.url}></Avatar>
                  <Typography align="center" variant="h6">{users.firstName} {users.lastName}</Typography>
                  <Typography align="center" variant="body2">{users.email} ||  {users.phone}</Typography>
@@ -116,14 +117,42 @@ const updateUser=(id) => {
                 </Typography>
                 
           </Grid>   
-            </Grid>
-            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-            <Button startIcon={<EditIcon/>}  onClick={handleEdit}  color="primary">Edit</Button>
-            <Button  className={classes.divButton} startIcon={<VisibilityIcon/>} onClick={handleView}>View</Button>
+            </Grid> */}
+           
+         
 
-            <Button startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen}  className={classes.del}>Delete</Button>
-            </div>
+            
+                <div style={{display: 'flex', width: '35%', marginRight: '2%'}}>
+                    <Avatar src={users.url} className={classes.large}/>
+                    <div  >
+                      
+                          <Typography align="left" variant="h6" style={{opacity: 1, font: 'normal normal bold 18px/13px Roboto'}}><b>{users.firstName} {users.lastName}</b></Typography>
+                           <Typography align="left" variant="body2" style={{opacity: 0.5, font: 'normal normal normal 15px/25px Roboto'}}>{users.role}</Typography>
+                      
+                    <div style={{display: 'flex'}}>
+                     
+                        <Typography style={{opacity: 0.5, font: 'normal normal normal 15px/25px Roboto', marginRight: '20px'}} align="left" >Email : {users.email}</Typography>
+                     
+                     
+                        <Typography style={{opacity: 0.5, font: 'normal normal normal 15px/25px Roboto'}} align="left" >Phone: {users.phone}</Typography>
+                      
+                       
+                    </div>
+                      
+                    </div>
+                    
+                </div>
+                            <div style={{display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', marginRight: '5%', marginBottom: '8%'}}>
+                                      <Button style={{opacity: 0.5}} startIcon={<EditIcon/>}  onClick={handleEdit}  ></Button>
+                                      {/* <Button style={{opacity: 0.5}} startIcon={<VisibilityIcon/>} onClick={handleView}></Button> */}
 
+                                      <Button style={{opacity: 0.5}} startIcon={<DeleteForeverIcon/>} onClick={handleClickOpen}  ></Button>
+                                      </div>
+                                
+
+       
+    
+    
               <Dialog
                     open={open}
                     onClose={handleClose}
@@ -346,10 +375,10 @@ const updateUser=(id) => {
                     </DialogContent>
                 </Dialog>
 
-            </div>
+            </>
             
-            <hr/>
-        </Container>
+          
+        </>
       
     )
 }

@@ -81,7 +81,7 @@ const ManualItem = ({data}) => {
         </div>
 
         <div>
-            
+           
 
             <div className="flex items-center justify-center mt-4">
                 <button onClick={() => handleEditOpen()} class="mr-2 text-gray-800 cursor-pointer dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">

@@ -28,7 +28,7 @@ import DashboardLayout from './Demo/DashboardLayout'
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./theme/index";
 import GlobalStyles from "./components/GlobalStyles"; 
-import VideoChat from "./components/ChatApp/VideoChat";
+
 import Recipes from "./Pages/Recipee/Recipes";
 import AddRecipe from "./Pages/Recipee/AddRecipe";
 import RecipeeValuesView from "./Pages/Recipee/RecipeeValues/RecipeeValuesView";
@@ -86,7 +86,6 @@ function App() {
         <AppRoute path="/" exact component={MiddlePage} layout={DashboardLayout}/>
         <AppRoute path="/users" exact component={Users} layout={DashboardLayout}/>
         <AppRoute path="/machine-data/Batch/:id/Batch" exact component={BatchReport} layout={MainLayout}/>
-        <AppRoute path="/chat" exact component={VideoChat} layout={DashboardLayout} />
         <AppRoute path="/machine-data/:id/Add-Manuals" exact component={AddManuals} layout={MainLayout} />
          <AppRoute path="/Module/:id/Add-Component" exact component={AddComponent} layout={MainLayout} />
         {/*/machine-data/Reports/BXLmS3MAwjf25qEdubL6/Recipes*/}
