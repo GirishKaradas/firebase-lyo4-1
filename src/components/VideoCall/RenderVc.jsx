@@ -234,7 +234,8 @@ import {
   TOKEN
 } from './config';
 import Whiteboard from '../Whiteboard/Whiteboard';
-
+import InviteForm from '../InviteForm/InviteForm';
+import AddIcon from '@material-ui/icons/Add';
 
 const drawerWidth = 550;
 
@@ -308,13 +309,14 @@ export default function RenderVc() {
     const [configData, setConfigData] = useState([])
     const [disabled, setDisabled] = useState(true)
     const [open, setOpen] = useState(false)
+    const [openInvite, setOpenInvite] = useState(false)
     const [token, setToken] = useState(`${config.TOKEN}`)
     const [session_id, setSessionId] = useState(`${config.SESSION_ID}`)
     const types = ["image/png", "image/jpeg", "image/jpg"];
      const videoTypes = ["video/mp4", "video/mkv", "video/mov"];
    const audioTypes = ["audio/mp3", "audio/mpeg"]
-   const [message, setMessage] = useState('')
-
+      const [message, setMessage] = useState('')
+      const {currentUser} = useAuth()
      useEffect(() => {
       
         
@@ -393,6 +395,12 @@ export default function RenderVc() {
     const handleClose = () => {
       setOpen(false)
     }
+     const openInviteBox = () => {
+      setOpenInvite(true)
+    }
+    const closeInvite = () => {
+      setOpenInvite(false)
+    }
      const handleWhiteboardOpen = () => {
       setWhiteboardOpen(true)
     }
@@ -423,6 +431,9 @@ export default function RenderVc() {
           <Typography variant="h6" noWrap className={classes.title}>
             Persistent drawer
           </Typography>
+          <IconButton style={{color: 'orange'}} onClick={openInviteBox}>
+            <AddIcon/>
+          </IconButton>
           <IconButton style={{color: 'orange'}} onClick={handleWhiteboardOpen}>
             <OpenInBrowserIcon/>
           </IconButton>
@@ -466,8 +477,8 @@ export default function RenderVc() {
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        
-       <Chatbox call_id={call_id}/>
+       
+      {currentUser ? <Chatbox call_id={call_id}/> : <b>You need to <a href='/login'>Login</a> to enable chat</b>}
       </Drawer>
            <Dialog fullWidth open={open} onClose={handleClose}>
              <Toolbar>
@@ -500,7 +511,7 @@ export default function RenderVc() {
                     <span className="mt-2 text-base leading-normal">Select a file</span>
                     <input onChange={handleChange} type='file' class="hidden" />
                 </label>
-            
+           
                 {file && <p>{progress}% uploaded</p>}
                 <p className="mt-2 text-gray-600 dark:text-gray-400"></p>
                 
@@ -517,6 +528,13 @@ export default function RenderVc() {
               <Button onClick={handleWhiteboardClose}>Close</Button>
            </Toolbar> 
               <Whiteboard/>
+            </Dialog>
+
+            <Dialog open={openInvite} onClose={closeInvite} fullWidth>
+              <Toolbar>
+              <Button onClick={closeInvite}>Close</Button>
+           </Toolbar>
+              <InviteForm/>
             </Dialog>
            
     </div>

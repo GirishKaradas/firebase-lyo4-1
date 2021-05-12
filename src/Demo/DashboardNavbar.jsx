@@ -126,18 +126,8 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
      
       <Toolbar >
         <Box style={{ flexGrow: 1 }} />
-        <Hidden smDown>
-          {/* <IconButton  aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="default">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              
-              <NotificationsIcon />
-            </Badge>
-         
-          </IconButton> */}
+        <Hidden mdDown>
+        
             <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" onClick={handleVideoOpen} >
             <Badge
               badgeContent={videoData.length}
@@ -160,16 +150,7 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          {/* <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen}>
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          
-          </IconButton> */}
+         
            <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" onClick={handleVideoOpen} >
             <Badge
               badgeContent={videoData.length}

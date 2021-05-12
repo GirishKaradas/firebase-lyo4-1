@@ -77,7 +77,7 @@ class Subscriber extends React.Component {
          <OTSubscriber
           properties={
             {
-              width: 600, height:350,
+              width: 500, height:350,
             subscribeToAudio: this.state.audio,
             subscribeToVideo: this.state.video,
             showControls: true

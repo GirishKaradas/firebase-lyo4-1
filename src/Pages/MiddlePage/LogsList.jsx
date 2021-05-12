@@ -87,11 +87,12 @@ export default function CallLogs() {
       <div >
         <div >
           <Card className={classes.content}>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-               <Typography variant='h4'><b>Call Logs</b></Typography>
-            </div>
+            <br/>
+              
+               <Typography variant='h3' align='center'><b>Call Logs</b></Typography>
+            <br/>
          
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
             
               <select
              style={{width:"200px", border: '2px solid whitesmoke' }}
@@ -112,8 +113,8 @@ export default function CallLogs() {
         </div>
 
               </div>
-              <br/>
-               <TableContainer component={Paper}>
+             
+               <TableContainer style={{padding: '15px'}} component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -9,6 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Page from '../../components/Page';
 import ManualDashboardLayout from '../../components/ManualSidebar/ManualDashboardLayout'
 import OutlinedTimeline from './Timeline';
+import StepCarousel from './StepCarousel';
 
 const useStyles = makeStyles((theme) =>( {
     add: {
@@ -95,8 +96,10 @@ const Steps = ({match}) => {
                         <StepItem key={data.id} data={data} />
                         
                     ))
-                   
+                  
                 }
+
+                {/* <StepCarousel data={steps}/> */}
           </Card>
         </div>
       </div>

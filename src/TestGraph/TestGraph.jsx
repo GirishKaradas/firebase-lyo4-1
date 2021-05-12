@@ -310,7 +310,7 @@ const TestGraph = () => {
     }
 
   return (
-      <Card style={{backgroundColor: 'black'}}>
+      <Card >
           <Grid container spacing={3} style={{display: 'flex', justifyContent: 'space-evenly', marginLeft: '3%'}} >
              
                   <Grid item  lg={3}
@@ -319,7 +319,7 @@ const TestGraph = () => {
             xs={12} >
                       <Select
                      
-                      className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke', backgroundColor: 'black', color: 'gray'}}  fullWidth variant='outlined' onChange={handleSetChange} >
+                      className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke'}}  fullWidth variant='outlined' onChange={handleSetChange} >
                           
                     {
                         machines.map(data => (
@@ -337,7 +337,7 @@ const TestGraph = () => {
             xl={3}
             xs={12} >
                   
-                   <Select className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke', backgroundColor: 'black', color: 'gray'}} variant='outlined'  fullWidth onChange={handleChange} >
+                   <Select className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke'}} variant='outlined'  fullWidth onChange={handleChange} >
                        
                     {
                         recipes.map(data => (
@@ -352,7 +352,7 @@ const TestGraph = () => {
             xl={3}
             xs={12}>
                   
-                   <Select className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke', backgroundColor: 'black', color: 'gray'}}  fullWidth variant='outlined' onChange={(e) => {handleBatchChange(e) }}>
+                   <Select className='form-select mt-1 block w-full' style={{ border: '2px solid whitesmoke'}}  fullWidth variant='outlined' onChange={(e) => {handleBatchChange(e) }}>
                       
                     {
                         batch.map(data => (
@@ -372,9 +372,10 @@ const TestGraph = () => {
               </Grid>
               
           </Grid>
-                    {/* <GraphSelect rData={rData} realData={realData} /> */}
-    {/* <FetchRecipee batchId={batchId} recipes={recipes} rid={rid}/> */}
-    <canvas style={{background: 'black'}} ref={chartContainer} />
+                    <Card style={{padding: '15px'}}>
+                      <canvas style={{background: 'black'}} ref={chartContainer} />
+                    </Card>
+    
    
     </Card>
   );

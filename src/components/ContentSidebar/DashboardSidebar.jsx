@@ -29,17 +29,17 @@ import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
 
 
 const items = [
+   {
+        title: 'Module',
+      href: '/machine-data',
+        icon: ActivityIcon,
+       
+    },
   {
         title: 'Manuals',
         href: '/machine-data/Manuals',
         icon: AssessmentIcon
 
-    },
-  {
-        title: 'Module',
-      href: '/machine-data',
-        icon: ActivityIcon,
-       
     },
     {
         title: 'Recipes',

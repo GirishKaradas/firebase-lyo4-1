@@ -79,8 +79,10 @@ const Chatbox = ({call_id}) => {
         db.collection('CallMessages').add({url,username,email,message,index,call_id})
         setMessage('')
     }
+    
     return (
-      <Container style={{backgroundColor: 'white', border: '2px solid gray',height: '100vh'}}>
+ 
+        <Container style={{backgroundColor: 'white', border: '2px solid gray',height: '100vh'}}>
           <div className="chat">
               <div className="chat__header">
                   <h1>ChatBox</h1>
@@ -112,7 +114,9 @@ const Chatbox = ({call_id}) => {
           
             
           </p>
-        ))}
+        ))} 
+
+        
         </div>
          <div className="chat__footer" >
             
@@ -130,17 +134,9 @@ const Chatbox = ({call_id}) => {
           <Button type="submit" onClick={handleSubmit}>
             Send
           </Button>
-                
-            
-          
-        
          </div>
-        
-      
           </div>
-         
-	
-        </Container>
+        </Container> 
     )
 }
 

@@ -80,6 +80,7 @@ const JobGraph = () => {
       <div className='bg-grey-100'>
         
         <Card >
+          <br />
             <Typography variant='h1' align='center' gutterBottom><b>Job Data</b></Typography>
             <div style={{width: '40%', border: '2px solid black', marginLeft: '25%'}}>
                <select onChange={handleChange} fullWidth >
@@ -103,7 +104,7 @@ const JobGraph = () => {
             <Alert severity='success'>Completed Jobs</Alert>
             <br/>
             <Alert severity='info'>Change Machines for individual data</Alert>
-            <br/>
+           
           
           
         </Card>

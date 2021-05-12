@@ -11,7 +11,8 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -35,8 +36,9 @@ const ListUsers = (props) =>{
     }, [])
 
   return (
-  <Card {...props}>
-    <h4><b>Users</b></h4>
+  <Card style={{padding: 10}} {...props}>
+    <br />
+    <Typography variant='h4' align='center'><b>Users</b></Typography>
     <CardHeader
       subheader={`${users.length} in total`}
     />
@@ -82,4 +84,4 @@ const ListUsers = (props) =>{
   </Card>
 )};
 
-export default ListUsers;
+export default ListUsers

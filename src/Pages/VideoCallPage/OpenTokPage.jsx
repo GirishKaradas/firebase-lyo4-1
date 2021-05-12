@@ -90,22 +90,19 @@ class OpenTokPage extends React.Component {
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Connected Users</h1>
       
     </div>
+    <OTStreams>
     <div class="flex flex-wrap -m-4">
       
-          <OTStreams>
+          
         <div class="lg:w-1/3 sm:w-1/2 p-4">
         <div class="flex relative">
           <Subscriber />
         </div>
         </div>
-        </OTStreams>
-          <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
-            
-         
-      </div>
      
     
     </div>
+     </OTStreams>
   </div>
 </section>
 

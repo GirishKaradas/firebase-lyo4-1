@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Container,
+  Fab,
   fade,
   FormControl,
   Grid,
@@ -13,7 +14,7 @@ import {
   Select,
   Typography
 } from '@material-ui/core';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../components/context/AuthContext';
 import ListMachines from './ListMachines';
@@ -36,6 +37,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import TestHome from '../Tests/TestHome';
 import GraphDataRecipee from './Graph/GraphDataRecipee';
 import TestGraph from '../../TestGraph/TestGraph';
+import ChatBot from 'react-simple-chatbot';
+import { ThemeProvider } from 'styled-components';
+import DQtable from './subcomponents/DQtable';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -112,15 +116,32 @@ const updateChart = (title) => {
       }
 
 const MiddlePage = () =>{
- 
- 
+ const dqOptions = []
+ const options = []
+ var x;
    const [rData, setRData] = useState([])
-  
+  const {currentUser} = useAuth()
    const [title, setTitle] = useState('')
+   const [machines, setMachines] = useState([])
+   const [users, setUsers] = useState([])
     const history = useHistory()
 
      
   useEffect(() => {
+    db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      
+      setUsers(data)
+    })
+    db.collection('machineData').onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      console.log(data)
+      for (var i = 0; i<data.length; i++){
+        x = {value: data[i].id, label: data[i].title, trigger: '5'}
+        options.push(x)
+      }
+      console.log(options)
+    })
          db.collection('recipeeData').onSnapshot(doc => {
           const data = firebaseLooper(doc)
             setRData(data)
@@ -128,6 +149,36 @@ const MiddlePage = () =>{
           })
       },[])
 
+      const theme = {
+  background: '#f5f8fb',
+  fontFamily: 'Montserrat',
+  headerBgColor: '#EF6C00',
+  headerFontColor: '#fff',
+  headerFontSize: '15px',
+  botBubbleColor: '#EF6C00',
+  botFontColor: '#fff',
+  userBubbleColor: '#fff',
+  userFontColor: '#4a4a4a',
+};
+
+ function handleEnd({ steps, values }) {
+    // console.log(steps);
+    // console.log(values);
+  history.push(`/machine-data/DQ-Reports/${values[1]}/DQ-Reports`)
+  }
+
+  const getOptions = (previousValue) => {
+    db.collection('DQReport').where('mid', '==', `${previousValue}`).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      console.log(data)
+      for(var i = 0; i<data.length; i++){
+        const x = {value: data[i].id, label: data[i].title, trigger: '5'}
+        dqOptions.push(x)
+      }
+
+    })
+    return dqOptions
+  }
      
     return (
       <Paper className='bg-gray-200'>
@@ -202,28 +253,6 @@ const MiddlePage = () =>{
             xs={12}
             className='bg-grey-100'
           >
-           
-              {/* <GraphData data={rData} /> */}
-              {/* <RecipeeList/>
-                <Skeleton variant="circle" width={40} height={40} />
-              <Skeleton variant="rect" style={{width: '100%'}} height={360} /> */}
-              {/* <FormControl style={{width: '100%'}} >
-        <InputLabel id="demo-simple-select-label">Recipee Name</InputLabel>
-        <Select
-          value={title}
-          defaultValue=''
-          onChange={(e) => setTitle(e.target.value)}
-        >
-          {
-            rData.map((data) => (
-              <MenuItem value={data.id}>{data.title}</MenuItem>
-            ))
-          }
-      
-        </Select>
-      </FormControl> */}
-      
-        {/* <h1>{title}</h1> */}
         
        <TestGraph/>
             
@@ -266,6 +295,52 @@ const MiddlePage = () =>{
          
         </Grid>
       </Container>
+      <ThemeProvider theme={theme}>
+        <ChatBot
+   handleEnd={handleEnd}
+     floating={true}
+  headerTitle="Arizon Chatbot"
+  speechSynthesis={{ enable: true, lang: 'en' }}
+  steps={[
+    {
+      id: '1',
+      message: `Hi, What Activity would you like to execute?`,
+      trigger: '2',
+    },
+   {
+        id: '2',
+         options: [
+              { value: 'machine-data', label: 'Machines', trigger: '3' },
+              { value: 'Reports', label: 'Download Reports', trigger: '4' },
+            ],
+        trigger: '3'
+      },
+   {
+        id: '3',
+        options: options,
+      
+      },
+      {
+        id: '4',
+       component: <DQtable/>,
+       asMessage: true
+       
+      },
+      {
+        id: '5',
+       message: 'Redirecting to Reports Page ....',
+        trigger: '6'
+      },
+      {
+        id: '6',
+       message: '....',
+        end: true
+      },
+     
+  ]}
+/>
+      </ThemeProvider>
+     
     </Box>
   </Paper>
     )

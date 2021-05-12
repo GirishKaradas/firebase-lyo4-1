@@ -19,7 +19,7 @@ import { db } from '../../firebase';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
-import { Button, Card, Typography } from '@material-ui/core';
+import { Button, Card, TableHead, Typography } from '@material-ui/core';
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -187,7 +187,7 @@ export default function DQReport({match}) {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-             <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
+            
               <div>
           <Typography variant='h2' align='center'><b> Quality Reports </b></Typography>
           <Typography variant='body1' align='center'> These are all your Reports </Typography>
@@ -195,17 +195,27 @@ export default function DQReport({match}) {
              <br/>
                     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
+        <TableHead>
+                 <Typography variant='h4' align='left' gutterBottom><b>{mTitle}</b></Typography>
+          <TableRow>  
+            <TableCell  style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
+            <TableCell style={{backgroundColor: '#d8e3e7'}} align="center"><b>Description</b></TableCell>
+            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"></TableCell>
+            
+            
+          </TableRow>
+          </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? dq.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : dq
           ).map((row) => (
             <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{width: 100}} scope="row">
                 <h4><b>{row.title}</b></h4>
               </TableCell>
-              <TableCell style={{ width: 200 }} align="right">
-                <h6><b>{row.desc}</b></h6>
+              <TableCell style={{ width: 500 }} align="left">
+                <h6>{row.desc}</h6>
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 <Button startIcon={<PlayCircleFilledWhiteIcon/>} href={`/DQ/${row.id}`} style={{backgroundColor: 'orangered', color: 'white'}}>Check</Button>
