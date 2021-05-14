@@ -429,12 +429,15 @@ export default function RenderVc() {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            Persistent drawer
+           
           </Typography>
+          <IconButton href="/">
+            <Button style={{color: 'red'}}>Disconnect</Button>
+          </IconButton>
           <IconButton style={{color: 'orange'}} onClick={openInviteBox}>
             <AddIcon/>
           </IconButton>
-          <IconButton style={{color: 'orange'}} onClick={handleWhiteboardOpen}>
+          <IconButton target="_blank" href='/whiteboard' style={{color: 'orange'}} >
             <OpenInBrowserIcon/>
           </IconButton>
           <IconButton style={{color: 'orange'}} onClick={handleClickOpen}>

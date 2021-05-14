@@ -106,14 +106,14 @@ export default function JobsList({match}) {
                 }}
               />
              <Button onClick={handleClick}>Reset</Button>
-              {/* <DatePicker  calendarContainer={MyContainer} selected={date} onChange={(e) => setDate(e.target.value)} /> */}
+              
                
                  <div className="relative"> 
                  <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Jobs..."/>
                   <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
               </div>
               </div>
-            
+           
                  <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>

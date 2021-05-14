@@ -52,6 +52,7 @@ import FileManagerView from "./Pages/FileManager/FileManagerView";
 import AddFiles from "./Pages/FileManager/AddFiles";
 import UserManual from "./Pages/user_manual/UserManual";
 import WorkFlow from "./Pages/MiddlePage/WorkFlow";
+import Whiteboard from "./components/Whiteboard/Whiteboard";
 
 function App() {
  
@@ -101,7 +102,7 @@ function App() {
         <AppRoute path="/Add-files" exact component={AddFiles}  layout={DashboardLayout}/>
         <AppRoute path="/file-manager" exact component={FileManagerView}  layout={DashboardLayout}/>
         <AppRoute path="/user-manual" exact component={WorkFlow}  layout={DashboardLayout}/>
-
+        <Route path='/whiteboard' exact component={Whiteboard} layout={MainLayout}/>
       </Switch>
     </Router>
     </BrowserRouter>

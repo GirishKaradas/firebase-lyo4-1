@@ -51,7 +51,7 @@ class Subscriber extends React.Component {
             xl={3}
             xs={12}
        >
-         
+        
           {
             this.state.open?
             <Dialog
@@ -67,7 +67,7 @@ class Subscriber extends React.Component {
           properties={
             {
               width: 1080, height:726,
-            subscribeToAudio: this.state.audio,
+            subscribeToAudio: false,
             subscribeToVideo: this.state.video
           }}
           onError={this.onError}
@@ -108,9 +108,7 @@ class Subscriber extends React.Component {
         </Card>
         
       </Grid>
-      
-        
-        
+
       <div>
          {this.state.error ? <div id="error">{this.state.error}</div> : null}
       </div>
@@ -120,3 +118,5 @@ class Subscriber extends React.Component {
   }
 }
 export default Subscriber;
+
+

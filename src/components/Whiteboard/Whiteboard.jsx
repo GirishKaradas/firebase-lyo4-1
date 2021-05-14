@@ -311,8 +311,8 @@ const Whiteboard = () => {
         <div style={{display: 'flex', width:'100%', height: '100%'}}>
             {
                 url?
-                <div style={{width: '85%', backgroundImage: `url("${url}")`}}>
-               <SketchField width='80%' 
+                <div style={{width: '100%',height: '100vh', backgroundImage: `url("${url}")`, backgroundSize: 'cover',  resize: 'both', overflow: 'scroll'}}>
+               <SketchField width='100%' 
                          height='100%' 
                          tool={selectedTool} 
                          lineColor={lineColor}
@@ -320,9 +320,9 @@ const Whiteboard = () => {
                         undoSteps={steps}
                          /> 
             </div> : 
-            <div style={{width: '85%'}}>
-                <SketchField width='80%' 
-                         height='100%' 
+            <div style={{width: '100%', height: '100vh'}}>
+                <SketchField width='100%' 
+                         height='100vh' 
                          tool={selectedTool} 
                          lineColor={lineColor}
                          lineWidth={3}
