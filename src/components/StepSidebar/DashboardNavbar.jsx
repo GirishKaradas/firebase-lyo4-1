@@ -122,8 +122,15 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
       elevation={1}
       {...rest}
     >
-     
+    
       <Toolbar >
+         <IconButton
+           color="default"
+            onClick={onMobileNavOpen}
+           
+          >
+            <MenuIcon />
+          </IconButton>
         <Box style={{ flexGrow: 1 }} />
         <Hidden smDown>
           {/* <IconButton  aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="default">

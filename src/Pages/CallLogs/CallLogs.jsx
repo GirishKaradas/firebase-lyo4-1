@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-    
+     padding: '20px',
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
@@ -73,7 +73,7 @@ export default function CallLogs({match}) {
   }
   return (
     <div>
-   
+  
       <ContentDashboardLayout match={match}/>
       <div className={classes.wrapper}>
         <div className={classes.container}>
@@ -107,7 +107,7 @@ export default function CallLogs({match}) {
               }else if (data.step.toLowerCase().includes(title.toLocaleLowerCase())){
                       return data
               }
-              
+            
             })
           .map((row) => (
             <TableRow key={row.id}>

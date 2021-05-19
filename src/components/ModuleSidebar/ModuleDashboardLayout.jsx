@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
+padding: '20px',
      background:'linear-gradient(#f3f3f3, #e7e7e7)' ,
       flex: '1 1 auto',
   height: '100%',

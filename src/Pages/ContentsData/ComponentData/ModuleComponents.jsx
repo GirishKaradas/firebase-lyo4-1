@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     width: '100%',
-   
+  
   },
   avatar: {
     margin: theme.spacing(1),
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   overflow: 'hidden'
   },
   content: {
-    
+     padding: '20px',
       flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'

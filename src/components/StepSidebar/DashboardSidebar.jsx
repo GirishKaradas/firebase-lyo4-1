@@ -177,11 +177,11 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         </Drawer>
      
       </Hidden>
-        
-      <Hidden smDown>
+      
+      <Hidden mdDown>
         <Drawer
           anchor="left"
-          variant="persistent"
+          variant="temporary"
           open
           PaperProps={{
             style: {
