@@ -1,11 +1,14 @@
 import { Button, Typography } from "@material-ui/core"
 import { useEffect,  useState } from "react"
-import { database } from "../../firebase"
+import { database, db } from "../../firebase"
 import { firebaseLooperTwo } from "../../utils/tools"
 import GetAppIcon from '@material-ui/icons/GetApp';
+import EditNavbar from "./EditNavbar";
+import EditVideoCall from "./EditVideoCall";
 
 const Settings = () => {
     const [versions, setVersions] = useState([])
+   
     useEffect(()=> {
         database.ref('app_versions').get().then(snapshot => {
             const data = firebaseLooperTwo(snapshot)
@@ -13,10 +16,19 @@ const Settings = () => {
             console.log(data)
         })
     } ,[])
-    
+ 
 
     return (
         <section class="text-gray-600 body-font">
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+             <Typography variant='h3' gutterBottom align='left'><b>Settings</b></Typography>
+             <Typography variant='body1' gutterBottom align='right'>Web app Version : 1.0.4</Typography>
+          </div>
+         
+          <hr />
+          <EditNavbar/>
+          <br />
+          <EditVideoCall/>
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-wrap -mx-4 -mb-10 text-center">
         {
@@ -36,9 +48,7 @@ const Settings = () => {
     </div>
   </div>
 </section>
-                                     
-                                    
-       
+    
     )
 }
 

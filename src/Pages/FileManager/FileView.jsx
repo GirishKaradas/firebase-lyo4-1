@@ -27,12 +27,13 @@ const FileView = ({data}) => {
     const handleDelete = (id) => {
     db.collection('FileManager').doc(id).delete()
 }
-const updateFile=(id) => {
-    const reqData = {title,desc}
-      db.collection('FileManager').doc(id).update(reqData).then((data)=>{
+  const updateFile = (id) => {
+   
+      db.collection('FileManager').doc(id).update({title,desc}).then((data)=>{
               console.log(data)
       })
   }
+
     return (
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
           <img
@@ -138,7 +139,7 @@ const updateFile=(id) => {
                         />
                           <DialogActions>
                             <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
-                            <Button type='submit'  onClick={(e)=> 
+                            <Button onClick={(e)=> 
                             {updateFile(data.id);
                                handleEditClose();
                           }} variant='outlined' color='primary'>Update</Button> 

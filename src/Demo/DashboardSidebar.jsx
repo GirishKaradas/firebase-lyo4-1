@@ -83,6 +83,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
   const {currentUser, logout} = useAuth()
   const [userData, setUserData] = useState([])
+  const [navbar, setNavbar] = useState([])
   const [error, setError] = useState('')
   const history = useHistory()
   async function handleLogout() {
@@ -96,6 +97,10 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     }
   }
   useEffect(() => {
+    db.collection('company').doc('navbar').onSnapshot(snapshot => {
+      const data = snapshot.data()
+      setNavbar(data)
+    })
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
@@ -123,10 +128,10 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
                  <img
     alt="Logo"
     width="50px"
-    src="https://i.ibb.co/7CKGfX5/Arizon-logo-2x.jpg"
+    src={navbar.url}
    
   />
-			<span className="ml-2 text-sm font-bold">ARIZON SYSTEMS</span>
+			<span className="ml-2 text-sm font-bold uppercase ">{navbar.name}</span>
 
 		</a>
       <Divider />

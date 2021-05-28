@@ -57,12 +57,16 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   const [userData, setUserData] = useState([])
   const [manual, setManual] = useState('')
   const history = useHistory()
-
+   const [navbar, setNavbar] = useState([])
   function handleReturn(){
     history.push(`/machine-data/Reports/${manual}/Recipes`)
   }
 
   useEffect(() => {
+     db.collection('company').doc('navbar').onSnapshot(snapshot => {
+      const data = snapshot.data()
+      setNavbar(data)
+    })
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
@@ -88,10 +92,10 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
                  <img
     alt="Logo"
     width="50px"
-    src="https://i.ibb.co/7CKGfX5/Arizon-logo-2x.jpg"
+    src={navbar.url}
    
   />
-			<span className="ml-2 text-sm font-bold">ARIZON SYSTEMS</span>
+			<span className="ml-2 text-sm font-bold uppercase ">{navbar.name}</span>
 
 		</a>
       <Divider />
@@ -162,6 +166,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
     <>
       <Hidden lgUp>
         <Drawer
+          
           anchor="left"
           onClose={onMobileClose}
           open={openMobile}
@@ -180,6 +185,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
       
       <Hidden mdDown>
         <Drawer
+        
           anchor="left"
           variant="temporary"
           open

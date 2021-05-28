@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+
+
 export const firebaseLooper = (snapshot) => {
     let data = [];
     snapshot.forEach( doc => {
@@ -19,3 +22,4 @@ export const firebaseLooperTwo = (snapshot) => {
     })
     return data
 }
+

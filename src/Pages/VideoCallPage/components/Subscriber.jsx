@@ -6,7 +6,8 @@ import { Button, Card, Container, Dialog, Grid } from '@material-ui/core';
 import screenfull from 'screenfull';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@material-ui/icons/Close'
+import '../OpenTok.css';
 class Subscriber extends React.Component {
   constructor(props) {
     super(props);
@@ -40,10 +41,8 @@ class Subscriber extends React.Component {
   
   render() {
     return (
-      <Container>
-        
-         
-       
+      <>
+
         <Grid 
         item
         lg={4}
@@ -112,7 +111,7 @@ class Subscriber extends React.Component {
       <div>
          {this.state.error ? <div id="error">{this.state.error}</div> : null}
       </div>
-      </Container>
+      </>
      
     );
   }

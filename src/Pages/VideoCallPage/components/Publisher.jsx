@@ -3,7 +3,7 @@ import { OTPublisher } from 'opentok-react';
 import CheckBox from './CheckBox';
 import '../OpenTok.css'
 import { Button, Card, Container, Grid } from '@material-ui/core';
-import screenfull from 'screenfull';
+
 
 class Publisher extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Publisher extends React.Component {
       },
     };
  
-   
+  
   }
 
   setAudio = (audio) => {

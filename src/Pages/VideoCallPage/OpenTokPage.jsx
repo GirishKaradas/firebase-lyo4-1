@@ -5,12 +5,6 @@ import ConnectionStatus from './components/ConnectionStatus';
 import Publisher from './components/Publisher';
 import Subscriber from './components/Subscriber';
 import { Container, Grid, makeStyles } from '@material-ui/core';
-import Chatbox from './components/Chatbox';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,32 +74,30 @@ class OpenTokPage extends React.Component {
 
          
            <Publisher />
-       
+      
       </Grid>
         </Grid>
       
-         <section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-col text-center w-full mb-20">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Connected Users</h1>
-      
-    </div>
-    <OTStreams>
-    <div class="flex flex-wrap -m-4">
-      
-          
-        <div class="lg:w-1/3 sm:w-1/2 p-4">
-        <div class="flex relative">
-          <Subscriber />
-        </div>
-        </div>
-     
     
-    </div>
-     </OTStreams>
-  </div>
-</section>
+    <OTStreams>
+       <Grid
+        container
+        
+        >
+      <Grid
+      item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}>
 
+         
+          <Subscriber />
+      </Grid>
+        </Grid>
+          
+     </OTStreams>
+ 
          
 
              

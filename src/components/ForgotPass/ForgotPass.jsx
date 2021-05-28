@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { db } from '../../firebase';
 
 function Copyright() {
   return (
@@ -57,7 +58,7 @@ export default function ForgotPass() {
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
-  
+   const [navbar, setNavbar] = useState([])
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -74,21 +75,32 @@ export default function ForgotPass() {
 
         setLoading(false)
     }
+
+    useEffect(() => {
+       db.collection('company').doc('navbar').onSnapshot(snapshot => {
+      const data = snapshot.data()
+      setNavbar(data)
+    })
+    }, [])
   return (
      <div>
 
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-
+           <div className="w-1/2 shadow-2xl bg-yellow-800 ">
+            <div className="object-cover w-full h-screen hidden md:block ">
+              <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
+            </div>
+        </div>
         <div className="w-full md:w-1/2 flex flex-col">
 
             <div className="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
                 <a href="#" className="bg-black text-white font-bold text-xl p-4">
                   
-                  Arizon Systems</a>
+                  {navbar.name}</a>
             </div>
-           
+          
             <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p className="text-center text-3xl">Forgot Password?</p>
                  {error && <b style={{color: 'red'}}>{error}</b>}
@@ -109,9 +121,7 @@ export default function ForgotPass() {
         </div>
 
         
-        <div className="w-1/2 shadow-2xl">
-            <img className="object-cover w-full h-screen hidden md:block" src="https://i.ibb.co/KFJ0LNj/Untitled-design.jpg"/>
-        </div>
+        
     </div>
 
 </div>

@@ -89,16 +89,17 @@ const Steps = ({match}) => {
             <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-              <br/>
-              
-                <Typography variant='h2' align='center' gutterBottom><b>{mTitle}</b></Typography>
-                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <b>SWITCH MODE</b>
-                    <Switch onChange={(e) => setChecked(!checked)} checked={checked} color='primary'/> 
-                </div>
-               
-             <hr/>
             
+                
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <Typography variant='h4' align='center' gutterBottom><b>{mTitle}</b></Typography>
+                    <div>
+                         <b>SWITCH MODE</b>
+                    <Switch onChange={(e) => setChecked(!checked)} checked={checked} color='primary'/> 
+                    </div>
+                   
+                </div>
+             
               { 
               checked? 
               <Container>
@@ -114,11 +115,20 @@ const Steps = ({match}) => {
                :
 
                <Carousel 
-               prevIcon={<span style={{color: 'orange'}} aria-hidden="true" className="carousel-control-prev-icon " />}
+              nextIcon ={<span className=" flex items-center w-full px-6 py-2 font-semibold text-white transition duration-500 ease-in-out transform bg-black rounded-lg lg:w-auto  focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 ">Next</span>}
+               prevIcon={<span  className="flex items-center w-full px-6 py-2 font-semibold text-white transition duration-500 ease-in-out transform bg-black rounded-lg lg:w-auto  focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Prev</span>}
                >
                {
                    steps.map((data) => (
-                        <Carousel.Item >
+                      
+                        <Carousel.Item   style={{height: '80vh', width: '75%', marginLeft: '14%'}}>
+                             <>
+        <div style={{backgroundColor: 'black', opacity: 0.5}}>
+             <Typography variant='h3' align='center' style={{color: 'orange'}}><b>{data.title}</b></Typography>
+      <Typography variant='body1' align='center' style={{color: 'orange'}}>{data.desc}</Typography>
+        </div>
+     
+    </>
    { data.format == 'image'?
    <img
       className="d-block w-100"
@@ -139,14 +149,10 @@ const Steps = ({match}) => {
    
     : <b>Not Available</b>
     }
-    <Carousel.Caption>
-        <div style={{backgroundColor: 'black'}}>
-             <h3 style={{color: 'orange'}}>{data.title}</h3>
-      <p style={{color: 'orange'}}>{data.desc}</p>
-        </div>
-     
-    </Carousel.Caption>
+   
   </Carousel.Item>
+  
+ 
                    ))
                }
 
@@ -154,7 +160,7 @@ const Steps = ({match}) => {
 </Carousel>
               }
 
-              
+     
                 
           </Card>
          

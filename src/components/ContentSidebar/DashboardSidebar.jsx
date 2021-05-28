@@ -78,10 +78,15 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   const location = useLocation();
+   const [navbar, setNavbar] = useState([])
   const {currentUser} = useAuth()
   const [userData, setUserData] = useState([])
 
   useEffect(() => {
+     db.collection('company').doc('navbar').onSnapshot(snapshot => {
+      const data = snapshot.data()
+      setNavbar(data)
+    })
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
@@ -100,15 +105,15 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         height: '100%'
       }}
     >
-      <a style={{textDecoration: 'none', color:'white', backgroundColor: 'black',}} className="flex items-center w-full px-3 mt-3" href="#">
+      <a style={{textDecoration: 'none', color:'white', backgroundColor: 'black'}} className="flex items-center w-full px-3 mt-3" href="#">
 			
                  <img
     alt="Logo"
     width="50px"
-    src="https://i.ibb.co/7CKGfX5/Arizon-logo-2x.jpg"
+    src={navbar.url}
    
   />
-			<span className="ml-2 text-sm font-bold">ARIZON SYSTEMS</span>
+			<span className="ml-2 text-sm font-bold uppercase ">{navbar.name}</span>
 
 		</a>
       <Divider />

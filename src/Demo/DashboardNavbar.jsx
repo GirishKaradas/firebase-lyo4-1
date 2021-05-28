@@ -258,7 +258,7 @@ function handleDelete(id){
                        
          </div>
         <div className="pt-2 pb-2 flex justify-center w-full cursor-pointer" onclick={() => setFlag(false)}>
-                            <button onClick={handleDelete(data.id)} className="text-sm text-red-600 dark:text-red-400 cursor-pointer">Dismiss</button>
+             <button onClick={(e) => handleDelete(data.id)} className="text-sm text-red-600 dark:text-red-400 cursor-pointer">Dismiss</button>
          </div> 
         </div>
          

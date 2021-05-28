@@ -116,7 +116,7 @@ const AccountDetails = () => {
       console.log(data)
     })
   }
-  
+ 
     return (
         <Container maxWidth={false} style={{marginTop: '3%', marginBottom: '3%'}}>
            <div style={{display: 'flex', justifyContent: 'space-between'}}>

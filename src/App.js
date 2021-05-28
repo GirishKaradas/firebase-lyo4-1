@@ -53,12 +53,13 @@ import AddFiles from "./Pages/FileManager/AddFiles";
 import UserManual from "./Pages/user_manual/UserManual";
 import WorkFlow from "./Pages/MiddlePage/WorkFlow";
 import Whiteboard from "./components/Whiteboard/Whiteboard";
+import ModelThreeD from "./components/3DModel/ModelThreeD";
 
 function App() {
  
   return (
     <>
-   
+  
       <GlobalStyles/>
     <AuthProvider>
       <Page
@@ -102,7 +103,8 @@ function App() {
         <AppRoute path="/Add-files" exact component={AddFiles}  layout={DashboardLayout}/>
         <AppRoute path="/file-manager" exact component={FileManagerView}  layout={DashboardLayout}/>
         <AppRoute path="/user-manual" exact component={WorkFlow}  layout={DashboardLayout}/>
-        <Route path='/whiteboard' exact component={Whiteboard} layout={MainLayout}/>o
+        <Route path='/whiteboard' exact component={Whiteboard} layout={MainLayout}/>
+         <Route path='/test' exact component={ModelThreeD} />
       </Switch>
     </Router>
     </BrowserRouter>

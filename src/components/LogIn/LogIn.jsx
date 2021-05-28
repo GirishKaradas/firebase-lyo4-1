@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../Logo';
 import Navbar from './Navbar';
+import { db } from '../../firebase';
 
 
 function Copyright() {
@@ -58,10 +59,17 @@ export default function LogIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { login } = useAuth()
+   const [navbar, setNavbar] = useState([])
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
+  useEffect(() => {
+     db.collection('company').doc('navbar').onSnapshot(snapshot => {
+      const data = snapshot.data()
+      setNavbar(data)
+    })
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -84,12 +92,10 @@ export default function LogIn() {
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-
-        
-
-        
-        <div className="w-1/2 shadow-2xl">
-            <img className="object-cover w-full h-screen hidden md:block" src="https://i.ibb.co/gSRHtrs/ARIZON-SYSTEMS-1.png"/>
+        <div className="w-1/2 shadow-2xl bg-yellow-800 ">
+            <div className="object-cover w-full h-screen hidden md:block ">
+              <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
+            </div>
         </div>
         <div className="w-full md:w-1/2 flex flex-col">
 
@@ -99,7 +105,7 @@ export default function LogIn() {
                  
                 <a href="#" style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
               
-              ARIZON SYSTEMS</a>
+              {navbar.name}</a>
             
             <p style={{font: 'normal normal normal 20px/13px Roboto', color: '#4D4F5C', opacity: 0.5}} className="text-center text-3xl">Welcome back! Please login to your account.</p>
                  {error && <b style={{color: 'red'}}>{error}</b>}
