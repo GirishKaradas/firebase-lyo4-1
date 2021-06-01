@@ -54,6 +54,8 @@ import UserManual from "./Pages/user_manual/UserManual";
 import WorkFlow from "./Pages/MiddlePage/WorkFlow";
 import Whiteboard from "./components/Whiteboard/Whiteboard";
 import ModelThreeD from "./components/3DModel/ModelThreeD";
+import TestVideo from "./VideoCallModel/TestVideo";
+import EntryPage from "./VideoCallModel/EntryPage";
 
 function App() {
  
@@ -97,9 +99,10 @@ function App() {
          <AppRoute path="/Module/:id/Add-Component" exact component={AddComponent} layout={MainLayout} />
         {/*/machine-data/Reports/BXLmS3MAwjf25qEdubL6/Recipes*/}
          <AppRoute path="/machine-data/Manuals/:id/Manuals" exact component={Manuals} layout={MainLayout} />
-        <AppRoute path="/video-call" exact component={RenderVc} layout={DashboardLayout} />
+        <AppRoute path="/video-call" exact component={EntryPage} layout={DashboardLayout} />
         <Route path="/video-call/:id" exact component={RenderVc} layout={MainLayout} />
           <AppRoute path="/machine-data/DQ-Reports/:id/DQ-Reports" exact component={DQReport} layout={MainLayout} />
+          <AppRoute path="/Manuals/:id/3D-Model" exact component={ModelThreeD} layout={MainLayout}/>
         <AppRoute path="/Add-files" exact component={AddFiles}  layout={DashboardLayout}/>
         <AppRoute path="/file-manager" exact component={FileManagerView}  layout={DashboardLayout}/>
         <AppRoute path="/user-manual" exact component={WorkFlow}  layout={DashboardLayout}/>
@@ -111,7 +114,7 @@ function App() {
     </ThemeProvider>
     </Page>
     </AuthProvider>
-    
+ 
     </>
     
   );

@@ -1,55 +1,30 @@
+# install in local 
+    1. "npm install" to install node modules 
+    2. "npm start" to run the development server in localhost:3000
+    3. "npm run build" to make a production build
+    
 
-# install (Main folder)
-npm install  ==> to install all dependencies 
+# Database --> firebase commands 
 
-npm start ==> to run the client 
+    1. "firebase login" to login to connected project account
+    2. "firebase init" to initialize new firebase log (Not required)
+    3. "firebase deploy" to deploy the build folder ("npm run build" --> run this command before deploying)
+    4. "firebase deploy --only functions" to deploy functions folder for 'REST API" calls (if any)
 
 
-# Pending Build 
- 1. Add Step Form (Responsiveness)
- 2. Chart selector in dashboard
- 3. Component color detailing
- 4. Rest of Read only when implemented successfully in Test App 
- 
-# Major Changes till 10/04/2021
- 1. Static Chart data for Recipee
- 2. Dashboard Redesign
- 3. Pages Redesign 
- 4. CRUD functions for - Manuals , Modules, Components , Steps 
- 5. Read only Data => JobsData --Page
- 6. Testing Components ==> Pages Working fine . 
- 
+# Sprint 2 major updates 
 
-# Changes 26/03/2021
- 1. Video call Feature implemented
- 2. Video call design changed 
- 3. Testing of Video call and Components from 25/03/2021 have been completed 
-
-# Changes till 25/03/2021
- 1. Complete Call logs and Recipee data from glass 
- 2. Graph without keep time 
- 3. Custom 404 added
- 4. Account --> Create new pass / email within the application
- 5. Video call href pending
- 6. Added Batch Data (Sidebar-->Batch)
-
-# Changes till 23/3/2021
- 1. Call logs data from Glass
- 2. Batch logs data from Glass
- 3. Graph data incomplete 
- 4. Account data in progress
- 5. Video Call Pending
-
-# Changes 18/3/2021
- 1. Steps uuid added for media
- 2. Page helmet added
-
-# Changes
- 1. Changed colors of few buttons
- 2. Changed layout of Navbar
- 3. Added Icons to buttons for better UX
- 4. Changed layout of Home Page
- 
- 
-
+    1. Video Call build (& Redesign)
+    2. Steps having different views (Carousel and step view)
+    3. Filters for all Page 
+    4. Redesign users Page 
+    5. Whiteboard
+    6. Share media from web to glass 
+    7. Chatbot integration 
+    8. Chatbox for Video call 
+    9. File management system 
+    10. Invite users outside the app from VC model 
+    11. Added Relayed and Routed for Video Call 
+    12. Added settings to different modules(Video call , Update company name and logo, download web and android app from web)
+    13. 3D Model (Pending build)
     

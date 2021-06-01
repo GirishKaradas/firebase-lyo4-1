@@ -47,6 +47,12 @@ const items = [
         href: '/Manuals',
         icon: AddIcon
 
+    },
+     {
+        title: '3D-Model',
+        href: '/Manuals',
+        icon: AddIcon
+
     }
     
 ];

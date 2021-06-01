@@ -28,7 +28,7 @@ class CheckBox extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <Grid className='text-black'>
 
         <label htmlFor={this.state.id}>
           {this.props.label}

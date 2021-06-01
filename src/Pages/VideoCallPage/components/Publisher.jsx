@@ -70,8 +70,8 @@ class Publisher extends React.Component {
     
     const {  publishScreen } = this.state;
     return (
-      <div>
-        <Container className="publisher">
+      <div className='bg-gray-300 mx-10 mb-10 p-10'>
+        <Container className="bg-gray-300">
         <Grid
         container
         spacing={3}
@@ -79,6 +79,7 @@ class Publisher extends React.Component {
           <Grid
           id='publisher'
            item
+           style={{marginRight: '5%'}}
             lg={4}
             sm={6}
             xl={3}
@@ -91,6 +92,7 @@ class Publisher extends React.Component {
             publishVideo: this.state.video,
             videoSource: this.state.videoSource === 'screen' ? 'screen' : undefined,
             showControls: this.state.showControls,
+            insertMode: 'append'
             
           }}
           onError={this.onError}
@@ -98,13 +100,14 @@ class Publisher extends React.Component {
           </Grid>
           <Grid
            item
+           style={{marginLeft: '5%'}}
             >
              {
           publishScreen && 
            (<OTPublisher
            
           properties={{
-            width: 700, height: 300,
+            width: 500, height: 300,
             publishAudio: this.state.audio,
             publishVideo: this.state.video,
             videoSource:  'screen' ,
@@ -118,20 +121,20 @@ class Publisher extends React.Component {
         }
           </Grid>
         </Grid>
-        <Card style={{width: '500px',display: 'flex', justifyContent: 'space-between'}}>
+        <Card  style={{width: '500px',display: 'flex', justifyContent: 'space-between', backgroundColor: '#E0E0E0', marginTop: '15px'}}>
           <div>
-            <Button variant='outlined' onClick={this.toggleScreenshare}>Share screen</Button>
+            <Button style={{color: 'white', backgroundColor: 'orange'}} variant='outlined' onClick={this.toggleScreenshare}>Share screen</Button>
           </div>
-           <div>
+           <div className='bg-gray-300'>
              <CheckBox
-          label="Publish Audio"
+          label="Audio"
           initialChecked={this.state.audio}
           onChange={this.setAudio}
         />
            </div>
-        <div>
+        <div className='bg-gray-300'>
           <CheckBox
-          label="Publish Video"
+          label="Video"
           initialChecked={this.state.video}
           onChange={this.setVideo}
         />
