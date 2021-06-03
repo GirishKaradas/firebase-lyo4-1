@@ -54,6 +54,7 @@ import InviteForm from '../InviteForm/InviteForm';
 import AddIcon from '@material-ui/icons/Add';
 import TestVideo from '../../VideoCallModel/TestVideo';
 import EntryPage from '../../VideoCallModel/EntryPage';
+import Page from '../Page';
 
 const drawerWidth = 550;
 
@@ -236,7 +237,8 @@ export default function RenderVc({config}) {
   };
 
   return (
-    <div className={classes.root}>
+    <Page title='Video Call | LyoIms'>
+       <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -356,5 +358,7 @@ export default function RenderVc({config}) {
             </Dialog>
            
     </div>
+    </Page>
+   
   );
 }

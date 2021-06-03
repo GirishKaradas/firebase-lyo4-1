@@ -1,10 +1,13 @@
 import { OTSession, OTPublisher, OTStreams, OTSubscriber } from 'opentok-react';
+import Page from '../components/Page.js';
 import ConnectionStatus from '../Pages/VideoCallPage/components/ConnectionStatus.jsx';
 import Publisher from '../Pages/VideoCallPage/components/Publisher.jsx';
 
 
 function TestVideo({config}) {
     return (
+      <Page title='Video Call | LyoIms'>
+        
         <div style={{backgroundColor: '#E0E0E0'}}>
             
         <OTSession apiKey={config.api_key} sessionId={config.session_id} token={config.token}>
@@ -21,6 +24,9 @@ function TestVideo({config}) {
         </OTStreams>
       </OTSession>
         </div>
+      </Page>
+
+
     )
 }
 

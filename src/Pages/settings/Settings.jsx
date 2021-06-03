@@ -5,6 +5,7 @@ import { firebaseLooperTwo } from "../../utils/tools"
 import GetAppIcon from '@material-ui/icons/GetApp';
 import EditNavbar from "./EditNavbar";
 import EditVideoCall from "./EditVideoCall";
+import Page from "../../components/Page";
 
 const Settings = () => {
     const [versions, setVersions] = useState([])
@@ -19,6 +20,7 @@ const Settings = () => {
  
 
     return (
+      <Page title='Settings | LyoIms'>
         <section class="text-gray-600 body-font">
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
              <Typography variant='h3' gutterBottom align='left'><b>Settings</b></Typography>
@@ -48,6 +50,8 @@ const Settings = () => {
     </div>
   </div>
 </section>
+      </Page>
+        
     
     )
 }

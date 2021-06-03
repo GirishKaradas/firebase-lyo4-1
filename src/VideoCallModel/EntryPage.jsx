@@ -1,5 +1,6 @@
 import { Button, Dialog, FormHelperText, Select, TextField, Toolbar } from "@material-ui/core";
 import { useState } from "react";
+import Page from "../components/Page";
 import RenderVc from "../components/VideoCall/RenderVc";
 import { db } from "../firebase";
 import WebcamComponent from "./WebComponent";
@@ -27,7 +28,8 @@ function EntryPage() {
         })
     }
     return (
-        <div style={{height: '100vh'}}>
+      <Page title='Video Call | LyoIms'>
+         <div style={{height: '100vh'}}>
 
           <section className="text-gray-700 ">
             <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-24">
@@ -60,6 +62,8 @@ function EntryPage() {
             <RenderVc config={configData}/>
         </Dialog>
         </div>
+      </Page>
+       
     )
 }
 

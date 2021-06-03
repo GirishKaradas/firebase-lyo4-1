@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { db } from '../../../firebase';
+import Page from '../../../components/Page';
 const useStyles = makeStyles((theme) => ({
   root: {
     borderBottomColor: "black",
@@ -83,9 +84,6 @@ const ComponentDataBox = ({data}) => {
     setOpen(false);
   };
 
-        
-
-  
   const handleDelete = (id) => {
     db.collection('componentData').doc(id).delete()
 }
@@ -102,7 +100,7 @@ const ComponentDataBox = ({data}) => {
 
 
     return (
-        <div>
+        <Page title='Components data'>
              <div className={classes.dataBox}>
                <Container maxWindth="sm" sm={12}>
               <TableContainer component={Paper}>
@@ -233,7 +231,7 @@ const ComponentDataBox = ({data}) => {
                 </Dialog>
             </Container>
             </div>
-        </div>
+        </Page>
     )
 }
 

@@ -20,6 +20,7 @@ import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { Button, Card, TableHead, Typography } from '@material-ui/core';
+import Page from '../../components/Page';
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,7 @@ function TablePaginationActions(props) {
   };
 
   return (
+   
     <div className={classes.root}>
       <IconButton
         onClick={handleFirstPageButtonClick}
@@ -181,7 +183,8 @@ export default function DQReport({match}) {
   };
 
   return (
-      <>
+     <Page title='DQ Reqports | LyoIms'>
+       <>
       <ContentDashboardLayout match={match}/>
       
       <div className={classes.wrapper}>
@@ -255,5 +258,7 @@ export default function DQReport({match}) {
       </div>
     
     </>
+    </Page>
+     
   );
 }

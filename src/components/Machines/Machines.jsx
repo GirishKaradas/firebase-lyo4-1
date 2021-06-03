@@ -42,8 +42,8 @@ const Machines = () => {
     
     }, [])
     return (
-        <Page className='bg-gray-100' title="Machines">
-           
+        <Page className='bg-gray-100' title="Machines | LyoIms">
+          
         < >
             <Typography variant='h1'><b>Machines</b></Typography>
              <Typography variant='h5'>These are the available Machines</Typography>

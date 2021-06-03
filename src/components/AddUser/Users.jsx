@@ -9,9 +9,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useAuth } from '../context/AuthContext';
 import LogIn from '../LogIn/LogIn';
 import UserItem from './UserItem';
+import Page from '../Page';
 const useStyles = makeStyles((theme) =>( {
     add: {
-     
+    
     backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)',
     
     margin: theme.spacing(3, 0, 2),
@@ -50,7 +51,8 @@ const Users = () => {
       history.push('/')
   }
     return (
-        <Paper style={{backgroundColor: '#FFFFFF'}}>
+        <Page title='Users | LyoIms'>
+              <Paper style={{backgroundColor: '#FFFFFF'}}>
         <Container  style={{background: ' 0% 0% no-repeat padding-box', boxShadow: '0px 2px 6px #0000000A'}}>
             
               <div  style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -121,6 +123,8 @@ const Users = () => {
         </Container>
         
         </Paper>
+        </Page>
+      
     )
 }
 

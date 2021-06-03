@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { db } from '../../firebase'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Page from '../../components/Page';
 const FileView = ({data}) => {
    const [open, setOpen] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
@@ -35,6 +36,8 @@ const FileView = ({data}) => {
   }
 
     return (
+      <Page title='File Manager | LyoIms'>
+
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
           <img
             src="https://img.freepik.com/free-vector/illustration-document-icon_53876-28510.jpg?size=626&ext=jpg"
@@ -149,6 +152,8 @@ const FileView = ({data}) => {
                
                 </Dialog>
         </div>
+      </Page>
+
     )
 }
 

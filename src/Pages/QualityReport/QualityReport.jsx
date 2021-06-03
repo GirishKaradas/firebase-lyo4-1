@@ -30,6 +30,7 @@ import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas'; 
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import Page from '../../components/Page';
 
 
 const useStyles1 = makeStyles((theme) => ({
@@ -63,6 +64,7 @@ function TablePaginationActions(props) {
   
 
   return (
+   
     <div className={classes.root}>
       <IconButton
         onClick={handleFirstPageButtonClick}
@@ -217,7 +219,9 @@ function printDocument() {
   }
 
   return (
-      <>
+ <Page title='Quality Report | LyoIms'>
+
+          <>
       <DashboardNavbar/>
      
       <div className={classes.wrapper}>
@@ -319,5 +323,6 @@ function printDocument() {
       </div>
     
     </>
+    </Page>
   );
 }

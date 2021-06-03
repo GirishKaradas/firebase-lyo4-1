@@ -171,7 +171,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   );
 
   return (
-    <>
+       <>
       <Hidden lgUp>
         <Drawer
           anchor="left"
@@ -181,33 +181,31 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           PaperProps={{
             style: {
               width: 256,
-              backgroundColor: '#43425D'
+              backgroundColor:'#43425D'
             }
           }}
         >
           {content}
         </Drawer>
-    
+     
       </Hidden>
         
-      <Hidden mdDown>
+      <Hidden smDown>
         <Drawer
-        
           anchor="left"
           variant="persistent"
           open
           PaperProps={{
             style: {
-              width:  256,
-              
-               backgroundColor: '#43425D'
+              width: 256,
+              backgroundColor:'#43425D'
             }
           }}
         >
           {content}
         </Drawer>
       </Hidden>
-        
+       
       
     </>
   );

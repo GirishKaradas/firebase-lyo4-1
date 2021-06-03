@@ -21,6 +21,7 @@ import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from "react-router-dom"
 import { Alert } from '@material-ui/lab';
 import { useStorage } from '../../utils/useStorage';
+import Page from '../Page';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -118,7 +119,8 @@ const AccountDetails = () => {
   }
  
     return (
-        <Container maxWidth={false} style={{marginTop: '3%', marginBottom: '3%'}}>
+      <Page title='Account | LyoIms'>
+          <Container maxWidth={false} style={{marginTop: '3%', marginBottom: '3%'}}>
            <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <div>
                       <Typography variant='h1'><b>Account Details</b></Typography>
@@ -276,6 +278,8 @@ const AccountDetails = () => {
 
         
     </Container>
+      </Page>
+      
     )
 }
 

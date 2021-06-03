@@ -5,6 +5,7 @@ import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import ManualItem from './ManualItem';
+import Page from '../../components/Page';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,7 @@ export default function Manuals({match}) {
 
 
   return (
-    <>
+    <Page title='Manuals | LyoIms'>
         <ContentDashboardLayout match={match}/>
         <Container maxWidth={false} className={classes.wrapper}>
         <div className={classes.container}>
@@ -108,6 +109,7 @@ export default function Manuals({match}) {
         
       </Container> 
      
-    </>
+    </Page>
+
   );
 }

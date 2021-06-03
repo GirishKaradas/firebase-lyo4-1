@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { useHistory } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
+import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -158,7 +159,8 @@ const ContentsData = ({match}) => {
 
 
     return (
-        <Paper className='bg-gray-100'>
+      <Page title='Modules | LyoIms'>
+          <Paper className='bg-gray-100'>
         <ContentDashboardLayout match={match} />
          <div className={classes.wrapper}>
         <div className={classes.container}>
@@ -205,6 +207,8 @@ const ContentsData = ({match}) => {
       </div>
          
       </Paper>
+      </Page>
+      
      
     )
 }

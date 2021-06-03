@@ -14,6 +14,7 @@ import { Card, Checkbox, TextField, Typography, Button } from '@material-ui/core
 import DoneIcon from '@material-ui/icons/Done';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import DatePicker, { CalendarContainer } from "react-datepicker";
+import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -84,7 +85,7 @@ export default function JobsList({match}) {
   }
   
   return (
-      <>
+      <Page title='Jobs | LyoIms'>
       <ContentDashboardLayout match={match}/>
        <div className={classes.wrapper}>
         <div className={classes.container}>
@@ -154,6 +155,6 @@ export default function JobsList({match}) {
         </div>
       </div> 
    
-    </>
+    </Page>
   );
 }

@@ -12,6 +12,7 @@ import { Button, Card, Container, Dialog, Grid, InputLabel, Select, TablePaginat
  import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
+import Page from '../../components/Page';
 
 
 
@@ -72,7 +73,7 @@ export default function CallLogs({match}) {
     setOpen(false)
   }
   return (
-    <div>
+    <Page title='Call Logs | LyoIms'>
   
       <ContentDashboardLayout match={match}/>
       <div className={classes.wrapper}>
@@ -132,7 +133,7 @@ export default function CallLogs({match}) {
           </Card>
         </div>
       </div>
-    </div>
+    </Page>
    
   )
 }

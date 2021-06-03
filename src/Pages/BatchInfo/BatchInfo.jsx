@@ -13,6 +13,7 @@ import { Button, Card, Container, Dialog, Grid, InputLabel, Select, TablePaginat
  import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
+import Page from '../../components/Page';
 
 
 
@@ -73,7 +74,7 @@ export default function BatchInfo({match}) {
     setOpen(false)
   }
   return (
-    <Paper>
+    <Page title='Batch Reports | LyoIms'>
 
       <ContentDashboardLayout match={match}/>
       <div className={classes.wrapper}>
@@ -135,7 +136,7 @@ export default function BatchInfo({match}) {
           </Card>
         </div>
       </div>
-    </Paper>
+    </Page>
    
   )
 }

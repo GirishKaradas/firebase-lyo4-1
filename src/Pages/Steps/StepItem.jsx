@@ -398,7 +398,7 @@ const updateStep=(id) => {
                         {getMedia()}
                     <DialogActions>
                       <Button color="secondary" onClick={handleViewClose}>Cancel</Button>
-                      <Button>Next </Button>
+                     
                     </DialogActions>
                      
                   </form>
