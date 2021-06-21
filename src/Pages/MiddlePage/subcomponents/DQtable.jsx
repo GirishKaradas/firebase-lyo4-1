@@ -92,7 +92,6 @@ export default function DQtable() {
                              else if (row.desc.toLowerCase().includes(title.toLocaleLowerCase())){
                                return row
                              }
-                           
                              return row 
                             })
         .map((row) => (

@@ -9,16 +9,12 @@ const AddMaterial = ({match}) => {
      const [ message, setMessage] = useState('')
     const [mid, setMid] = useState(`${match.params.id}`)
 
-    
+   
     
 
      function handleSubmit(){
      
-        db.collection('DQNew').add({name,desc,mid}).then(() => {
-           setMessage('Successfully Added Data , you can close it now')
-           setName('')
-           setDesc('')
-        })
+        db.collection('DQNew').add({name,desc,mid})
      }
     return (
         <div>

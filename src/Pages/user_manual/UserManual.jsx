@@ -1,9 +1,8 @@
 import React from 'react'
-import WorkFlow from '../MiddlePage/WorkFlow'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Typography } from '@material-ui/core';
-
+ 
 const UserManual = () => {
     return (
         <div>

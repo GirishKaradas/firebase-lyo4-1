@@ -324,7 +324,7 @@ const MiddlePage = () =>{
         id: '4',
        component: <DQtable/>,
        asMessage: true
-       
+      
       },
       {
         id: '5',

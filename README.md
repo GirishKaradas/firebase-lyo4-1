@@ -1,3 +1,15 @@
+# Firestore Clone and make new app 
+    1. npm install -g node-firestore-import-export
+    2. Export : firestore-export --accountCredentials path/to/credentials/file.json --backupFile /backups/myDatabase.json
+    3. Import: firestore-import --accountCredentials path/to/credentials/file.json --backupFile /backups/myDatabase.json
+    4. Authentication : 
+        4.1 Enable Authentication from Firebase project (Email, Pass)
+        4.2 Enable Firestore --> Change rules Read/Write --> true
+        4.3 Enable Storage --> Read/Write True 
+    5. Project Settings --> Web --> Config 
+    6. Copy and Paste Credentials to firebase.js file in "src" folder
+    7. Create New User From Firebase Authentication and Add it's credential to firestore in "users" collection 
+
 # install in local 
     1. "npm install" to install node modules 
     2. "npm start" to run the development server in localhost:3000

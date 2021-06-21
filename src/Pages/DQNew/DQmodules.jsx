@@ -1,7 +1,7 @@
 function DQmodules() {
 	return (
 		<div>
-			DQ -- Content -- Modules
+			{/* DQ --> config --> EQConfig --> Map */}
 		</div>
 	)
 }
