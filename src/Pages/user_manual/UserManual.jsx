@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import { Typography } from '@material-ui/core';
+import { Typography, Toolbar, Switch } from '@material-ui/core';
+import WorkFlow from '../MiddlePage/WorkFlow';
  
 const UserManual = () => {
+   const [change, setChange] = useState(false)
     return (
-        <div>
+       <>
+       <Toolbar>
+          <Switch onClick={(e) => setChange(!change)}></Switch>
+       </Toolbar>
+        {change ?
+           <div>
                <Typography variant='h1' align='center'><b>Authentication</b></Typography>
              <Carousel
            
@@ -106,16 +113,20 @@ const UserManual = () => {
             >
              
                 <div>
+                   <Typography>Join Video Call by Clicking Join Call</Typography>
                 <img loading='lazy' src='https://firebasestorage.googleapis.com/v0/b/lyodata.appspot.com/o/userManual%2Fvideo-call.PNG?alt=media&token=93931012-2f75-40cc-986b-ecef5625a47d'/>
                 </div>
                 <div>
-                      <img  loading='lazy' src='https://instapage.com/wp-content/uploads/2018/06/ad-banner-microsoft.jpg'/>
+                   <Typography>You will land to this Page</Typography>
+                      <img  loading='lazy' src='https://firebasestorage.googleapis.com/v0/b/lyodata.appspot.com/o/userManual%2Fvideosnip.PNG?alt=media&token=d485da05-d06b-4d0c-9a07-50e8b283e755'/>
                 </div>
-                <div>
-                  <img  loading='lazy' src='http://barbaraelmoredesigns.com/wp-content/uploads/2020/11/banners-ads-do-they-really-work-1.jpg'/>
-                </div>
+                
             </Carousel>
         </div>
+      : 
+      <WorkFlow/>
+      }
+      </>
     )
 }
 

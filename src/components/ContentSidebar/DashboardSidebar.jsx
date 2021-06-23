@@ -26,7 +26,7 @@ import { useAuth } from '../context/AuthContext';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
-
+import AmpStoriesIcon from '@material-ui/icons/AmpStories';
 
 const items = [
    {
@@ -73,7 +73,7 @@ const items = [
      {
         title: 'DQ-New',
         href: '/machine-data',
-        icon: PhoneCallbackIcon
+        icon: AmpStoriesIcon
 
     },
       

@@ -3,7 +3,8 @@ import { Alert, AlertTitle } from "@material-ui/lab"
 import { useState } from "react"
 import { db } from "../../../firebase"
 import DQComponents from "../DQCOnfigDetails/DQComponents"
-
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 function DQConfigView({module, match}) {
 	const [title, setTitle] = useState(module.title)
 	const [desc, setDesc] = useState(module.desc)
@@ -59,9 +60,9 @@ function DQConfigView({module, match}) {
 			<TableCell align="left">{module.desc}</TableCell>
 			<TableCell align="right">
 				<div>
-					<Button onClick={handleOpen}>E</Button>
-					<Button onClick={handleOpenDel}>D</Button>
-					<Button onClick={openComponent}>C</Button>
+					<Button  onClick={handleOpen}><EditIcon/></Button>
+					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
+					<Button style={{background: 'orange', color: 'white'}} onClick={openComponent}>Open</Button>
 				</div>
 			</TableCell>
 			</TableRow>

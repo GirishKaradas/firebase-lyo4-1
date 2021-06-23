@@ -3,7 +3,8 @@ import { RemoveCircleTwoTone } from "@material-ui/icons"
 import { Alert, AlertTitle } from "@material-ui/lab"
 import { useState } from "react"
 import { db } from "../../../firebase"
-
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 function DQSpecsView({specs, match}) {
 	const [desc, setDesc] = useState(specs.desc)
 	const [review, setReview] = useState(specs.review)
@@ -52,8 +53,8 @@ function DQSpecsView({specs, match}) {
 			
 			<TableCell align="right">
 				<div>
-					<Button onClick={handleOpen}>E</Button>
-					<Button onClick={handleOpenDel}>D</Button>
+					<Button onClick={handleOpen}><EditIcon/></Button>
+					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
 					
 				</div>
 			</TableCell>
@@ -77,7 +78,7 @@ function DQSpecsView({specs, match}) {
 			</Dialog>
 			{/* Open delete dialog */}
 			 <Dialog
-			 
+			
                     open={openDel}
                     onClose={handleCloseDel}
                     aria-labelledby="alert-dialog-title"
