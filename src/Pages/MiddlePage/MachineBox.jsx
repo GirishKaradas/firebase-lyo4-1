@@ -24,7 +24,7 @@ const MachineBox = (props) =>{
     }, [])
     return(
   <Card
-      style={{height: '130px'}}
+      style={{height: '130px', boxShadow: '0px 2px 6px #0000000A'}}
     {...props}
   >
     <CardContent>
@@ -47,8 +47,8 @@ const MachineBox = (props) =>{
           
         </Grid>
         <Grid item>
-          
-           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-kanban-fill" viewBox="0 0 16 16">
+         
+           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#A5A4BF" class="bi bi-kanban-fill" viewBox="0 0 16 16">
   <path d="M2.5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11zm5 2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm-5 1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm9-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
 </svg>
           
@@ -59,7 +59,7 @@ const MachineBox = (props) =>{
             color="textPrimary"
             variant="h2"
           >
-            <b>
+            <b style={{font: 'var(--unnamed-font-style-normal) normal medium 53px/6px var(--unnamed-font-family-roboto)', font: 'normal normal medium 53px/6px Roboto', color: ' #4D4F5C'}}>
               {machines.length}
             </b>
             
@@ -73,7 +73,7 @@ const MachineBox = (props) =>{
       >
        
         
-       <Button  style={{color: "blue"}} href="/machine-data"> <b>Open</b></Button>
+       <Button  style={{color: "#0C03EB"}} href="/machine-data"> <b>Open</b></Button>
         
       </Box>
       </div>

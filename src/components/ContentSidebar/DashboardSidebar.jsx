@@ -76,7 +76,13 @@ const items = [
         icon: AmpStoriesIcon
 
     },
-      
+    {
+        title: 'DQ-New-Reports',
+        href: '/machine-data',
+        icon: AmpStoriesIcon
+
+    },
+     
   
 
     

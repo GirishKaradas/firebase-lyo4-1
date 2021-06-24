@@ -50,8 +50,9 @@ const ListUsers = (props) =>{
           key={user.id}
         >
           <Avatar 
-          style={{width: '6%', height: '6%'}}
-          src={user.url} />
+          style={{ background: '#E8E7FF 0% 0% no-repeat padding-box'}}
+          src={users.url}
+          ></Avatar>
           
           <ListItemText
           style={{marginLeft: '2%'}}

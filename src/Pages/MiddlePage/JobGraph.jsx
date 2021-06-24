@@ -77,11 +77,11 @@ const JobGraph = () => {
 }
 
     return (
-      <div className='bg-grey-100'>
+      <div style={{boxShadow: '0px 2px 6px #0000000A'}} className='bg-grey-50'>
         
         <Card >
           <br />
-            <Typography variant='h1' align='center' gutterBottom><b>Job Data</b></Typography>
+            <Typography variant='h2' style={{color: '#43425D', opacity: 0.68}} align='left' gutterBottom><b style={{font: ' normal normal medium 24px/28px Roboto', color: '#43425D'}}>Jobs Data</b></Typography>
             <div style={{width: '40%', border: '2px solid black', marginLeft: '25%'}}>
                <select onChange={handleChange} fullWidth >
                 <option value="" disabled selected hidden>Select Machine</option>

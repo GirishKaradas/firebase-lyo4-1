@@ -179,23 +179,24 @@ const MiddlePage = () =>{
     })
     return dqOptions
   }
-     
+   
     return (
       <Paper className='bg-gray-200'>
     <Helmet>
       <title>Dashboard | LyoIMS</title>
     </Helmet>
     <Box
-    className='bg-gray-100'
+    className='bg-gray-50'
     py={3}
       style={{
         backgroundColor: 'background.default',
         minHeight: '100%',
       }}
     >
-      <Container className='bg-gray-100' maxWidth={false}>
-        
-
+      <Container className='bg-gray-50' maxWidth={false}>
+        <Typography variant='h2' align='left' gutterBottom><b style={{font: 'var(--unnamed-font-style-normal) normal 600 34px/46px Montserrat', color: '#43425D'}}>Good Morning!</b></Typography>
+        <Typography style={{font: 'var(--unnamed-font-style-normal) normal medium 23px/25px var(--unnamed-font-family-roboto)', color: '#43425D', marginBottom: '3%'}}  variant='caption' align='left'>Here's an overview of the available data</Typography>
+       
         <Grid
           container
           spacing={3}

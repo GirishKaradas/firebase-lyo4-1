@@ -81,7 +81,7 @@ export default function CallLogs() {
     })
   }
   return (
-    <div>
+    <div style={{boxShadow: '0px 2px 6px #0000000A'}}>
    
       
       <div >
@@ -89,7 +89,7 @@ export default function CallLogs() {
           <Card className={classes.content}>
             <br/>
               
-               <Typography variant='h3' align='center'><b>Call Logs</b></Typography>
+               <Typography style={{ color:'#43425D'}} variant='h2' align='left' gutterBottom><b>Call Logs</b></Typography>
             <br/>
          
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
@@ -137,17 +137,17 @@ export default function CallLogs() {
               }else if (data.step.toLowerCase().includes(title.toLocaleLowerCase())){
                       return data
               }
-              
+             
             })
           .slice(0,7).map((row) => (
-            <TableRow key={row.id}>
-              <TableCell style={{backgroundColor: 'whitesmoke'}} component="th" scope="row">
+            <TableRow style={{font: 'normal normal normal 16px/20px Roboto'}} key={row.id}>
+              <TableCell style={{backgroundColor: 'whitesmoke', color: '#4D4F5C'}} component="th" scope="row">
                 {row.manual_name}
               </TableCell>
-              <TableCell align="left">{row.user_id}</TableCell>
+              <TableCell style={{color: '#4D4F5C'}} align="left">{row.user_id}</TableCell>
               
-              <TableCell align="left">{row.step}</TableCell>
-              <TableCell align="right">{row.time}</TableCell>
+              <TableCell style={{color: '#4D4F5C'}} align="left">{row.step}</TableCell>
+              <TableCell style={{color: '#4D4F5C'}}align="right">{row.time}</TableCell>
             </TableRow>
           ))}
         </TableBody>

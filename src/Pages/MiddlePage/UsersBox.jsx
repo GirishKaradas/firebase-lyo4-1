@@ -25,7 +25,7 @@ const UsersBox = (props) =>{
     }, [])
     return (
     
-  <Card style={{height: '130px'}} {...props}>
+  <Card style={{height: '130px', boxShadow: '0px 2px 6px #0000000A'}} {...props}>
     <CardContent>
       <Grid
         container
@@ -47,7 +47,7 @@ const UsersBox = (props) =>{
         </Grid>
         <Grid item>
           
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-people-fill" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#A5A4BF" class="bi bi-people-fill" viewBox="0 0 16 16">
   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
   <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
   <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
@@ -60,7 +60,7 @@ const UsersBox = (props) =>{
             color="textPrimary"
             variant="h2"
           >
-            <b>
+            <b  style={{font: 'var(--unnamed-font-style-normal) normal medium 53px/6px var(--unnamed-font-family-roboto)', font: 'normal normal medium 53px/6px Roboto', color: ' #4D4F5C'}}>
                {users.length}
             </b>
            
@@ -76,7 +76,7 @@ const UsersBox = (props) =>{
           color="textSecondary"
           variant="caption"
         >
-        <Button  style={{color: "blue"}}  href="/users"><b>Open</b> </Button>
+        <Button  style={{color: "#0C03EB"}}  href="/users"><b>Open</b> </Button>
 
         </Typography>
       </Box>
