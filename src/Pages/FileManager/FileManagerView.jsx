@@ -6,7 +6,12 @@ import AddFiles from "./AddFiles"
 import FileView from "./FileView";
 
  const FileManagerView = () => {
-     const [fileData, setFileData] = useState([])
+     const [fileData, setFileData] = useState([
+       {
+         title: '',
+         desc: '',
+       }
+     ])
      const [title, setTitle] = useState('')
      useEffect(() => {
         db.collection('FileManager').onSnapshot(doc => {

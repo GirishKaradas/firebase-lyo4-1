@@ -81,8 +81,8 @@ const AddManuals = ({match}) => {
            <div className={classes.paper}>
             <Alert severity="info">You are currently adding a new Module</Alert>
             <br/>
-            <Typography component="h1" variant="h4">
-          Add Manuals
+            <Typography align='center' component="h1" variant="h2">
+          <b>Add Manuals</b>
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField value={mid}
@@ -117,7 +117,7 @@ const AddManuals = ({match}) => {
             id="content_name"
             label="Manual Description"
             name="content_name"
-            autoFocus
+            
             onChange={(e) => setDesc(e.target.value)}
             
           />

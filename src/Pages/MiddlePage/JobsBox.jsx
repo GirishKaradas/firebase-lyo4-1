@@ -40,7 +40,7 @@ const JobsBox = (props) =>{
       setDisabled(false)
     }
     return (
-    
+   
   <Card  style={{height: '130px', boxShadow: '0px 2px 6px #0000000A'}} {...props}>
     <CardContent>
       
@@ -92,7 +92,7 @@ const JobsBox = (props) =>{
         }}
       >
         
-         <select style={{border: '2px solid whitesmoke'}} onChange={handleChange} fullWidth >
+         <select style={{border: '2px solid whitesmoke', width: '150px'}} onChange={handleChange} fullWidth >
            <option value="" disabled selected hidden>Select Machine</option>
           {
             machines.map(data => (

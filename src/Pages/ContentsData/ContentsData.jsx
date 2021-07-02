@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 256
   },
-  
+ 
   },
   container: {
    
@@ -171,8 +171,8 @@ const ContentsData = ({match}) => {
           <Card >
             <Typography align='left' variant='h4'><b>{mTitle}</b></Typography>
           <div>
-              <Typography align='center' variant='h1'><b>Modules</b></Typography>
-               <Typography align='center' variant='body2' >These are all the required Modules</Typography>
+              <Typography align='center' variant='h1'><b style={{color: '#43425D', font: 'var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 28px/40px var(--unnamed-font-family-roboto)'}}>Modules</b></Typography>
+               <Typography align='center' variant='body2' style={{color: '#43425D'}} >These are all the required Modules</Typography>
               </div>
               <br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
@@ -206,7 +206,7 @@ const ContentsData = ({match}) => {
           </Card>
         </div>
       </div>
-         
+         <br />
       </Paper>
       </Page>
      

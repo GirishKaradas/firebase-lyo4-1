@@ -17,7 +17,7 @@ import {
   Home as HomeIcon
 } from 'react-feather';
 import ReceiptIcon from '@material-ui/icons/Receipt';
-import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import ReportIcon from '@material-ui/icons/Report';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
@@ -82,7 +82,12 @@ const items = [
         icon: AmpStoriesIcon
 
     },
-     
+     {
+        title: 'IQ',
+        href: '/machine-data',
+        icon: AccountTreeIcon
+
+    },
   
 
     
@@ -166,7 +171,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           gutterBottom
           variant="h4"
         >
-          Back To Dashboard?
+          Back To Machines?
         </Typography>
         <Box
         pt= {2}
@@ -177,12 +182,12 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           }}
         >
           <Button
-          href='/'
+          href='/machines-data'
           style={{backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)', color: "white", width: "150px"}}
-          startIcon={<HomeIcon/>}
+          
             variant="contained"
           >
-            Home
+            Machine
           </Button>
         </Box>
       </Box>

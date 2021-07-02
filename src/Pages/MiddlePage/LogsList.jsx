@@ -81,21 +81,21 @@ export default function CallLogs() {
     })
   }
   return (
-    <div style={{boxShadow: '0px 2px 6px #0000000A'}}>
+    <div style={{boxShadow: '0px 2px 6px #0000000A', background: '#FFFFFF 0% 0% no-repeat padding-box'}}>
    
       
       <div >
         <div >
           <Card className={classes.content}>
             <br/>
-              
-               <Typography style={{ color:'#43425D'}} variant='h2' align='left' gutterBottom><b>Call Logs</b></Typography>
-            <br/>
-         
+            
+               <Typography style={{marginLeft:'24px' ,color:'#43425D', opacity: 0.68}} variant='h2' align='left' gutterBottom><b style={{marginLeft:'24px',color:'#43425D'}}>Call Logs</b></Typography>
+            
+        
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
             
               <select
-             style={{width:"200px", border: '2px solid whitesmoke' }}
+             style={{width:"280px", border: '2px solid whitesmoke' }}
               onChange={handleChange}
               >
                 <option value="" disabled selected hidden>Select Machine</option>
@@ -108,13 +108,13 @@ export default function CallLogs() {
               
        
    
-        <div className="relative"> <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search anything..."/>
+        <div className="relative"> <input style={{width: '388px', border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search anything..."/>
             <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
         </div>
 
               </div>
              
-               <TableContainer style={{padding: '15px'}} component={Paper}>
+               <TableContainer style={{padding: '15px'}} >
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

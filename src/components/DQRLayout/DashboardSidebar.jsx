@@ -60,7 +60,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
    const [navbar, setNavbar] = useState([])
   const {currentUser} = useAuth()
   const [userData, setUserData] = useState([])
-
+  const [key, setKey] = useState('')
   useEffect(() => {
      db.collection('company').doc('navbar').onSnapshot(snapshot => {
       const data = snapshot.data()
@@ -73,7 +73,10 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
       const data = firebaseLooper(doc)
       setUserData(data[0])
     })
-  }, [location.hrefname]);
+    db.collection('DQNewReport').doc(match.params.id).onSnapshot(snap => {
+      setKey(snap.data().mid)
+    })
+  }, []);
 
   const content = (
     <Box
@@ -144,9 +147,9 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           }}
         >
           <Button
-          
+          href={`/machine-data/${key}/DQ-New-Reports`}
           style={{backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)', color: "white", width: "150px"}}
-          startIcon={<HomeIcon/>}
+          
             variant="contained"
           >
             Return

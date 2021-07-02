@@ -229,7 +229,7 @@ const updateStep=(id) => {
   </div>
 </section>
             </Grid>
-           
+          
               <Dialog
                     open={open}
                     onClose={handleClose}
@@ -320,7 +320,7 @@ const updateStep=(id) => {
                             <option value='image'>Image</option>
                             <option value='video'>Video</option>
                               <option value='audio'>Audio</option>
-                              
+                             
                           </Select>
                           {getMedia()}
                          <Alert>To Update Media Click <b>'Update Media'</b> After uploading a new Media file</Alert>
@@ -332,7 +332,7 @@ const updateStep=(id) => {
                            </div>
                           
                          }
-                       <Button disabled={disabled} style={{color: 'orangered'}} variant='outlined' fullWidth onClick={() => handleImageUpdate(data.id)}>Update Media</Button>
+                       <Button disabled={disabled || progress < 100 || type===''} style={{color: 'orangered'}} variant='outlined' fullWidth onClick={() => handleImageUpdate(data.id)}>Update Media</Button>
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
                        {!loading && <Button

@@ -30,6 +30,12 @@ import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
 
 const items = [
    {
+        title: 'Approval',
+      href: '/DQ',
+        icon: ActivityIcon,
+       
+    },
+   {
         title: 'Purpose',
       href: '/DQ',
         icon: ActivityIcon,
@@ -59,6 +65,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   const location = useLocation();
    const [navbar, setNavbar] = useState([])
   const {currentUser} = useAuth()
+  const [key, setKey] = useState('')
   const [userData, setUserData] = useState([])
 
   useEffect(() => {
@@ -72,6 +79,9 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
     db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
       setUserData(data[0])
+    })
+     db.collection('DQNew').doc(match.params.id).onSnapshot(snap => {
+      setKey(snap.data( ).mid)
     })
   }, [location.hrefname]);
 
@@ -144,7 +154,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           }}
         >
           <Button
-          
+          href={`/machine-data/${key}/DQ-New`}
           style={{backgroundImage: 'linear-gradient(to left bottom, #fa630f, #fc8218, #fd9d29, #feb63f, #ffce59)', color: "white", width: "150px"}}
           startIcon={<HomeIcon/>}
             variant="contained"

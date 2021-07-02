@@ -75,7 +75,7 @@ const ManualItem = ({data}) => {
             <div className="flex items-center justify-between">
               <h1 className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
             
-            <a  href={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</a>
+            <a style={{background: '#0C03EB'}} href={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</a>
         </div>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc}</p>
         </div>

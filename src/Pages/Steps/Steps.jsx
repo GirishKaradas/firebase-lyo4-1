@@ -129,21 +129,21 @@ const Steps = ({match}) => {
         </div>
      
     </>
-   { data.format == 'image'?
+   { data.format === 'image'?
    <img
       className="d-block w-100"
       src={data.url}
       alt="First slide"
     />
     :
-    data.format == 'video'?
+    data.format === 'video'?
     <video
-    style={{ width: '100%'}}
+    style={{ width: '90%', marginTop: '20px'}}
     controls
       src={data.url}
       alt="First slide"
     />
-    :  data.format == 'audio'?
+    :  data.format === 'audio'?
     
         <audio style={{ margin: '30%', marginTop: '5%', marginBottom: '20%'}}  controls src={data.url}/>
    

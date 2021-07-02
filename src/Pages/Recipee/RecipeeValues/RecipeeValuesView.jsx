@@ -93,7 +93,7 @@ export default function RecipeeValuesView({match}) {
              <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
             <Typography variant='h3' align='center'><b>Recipe Values</b></Typography>
             {
-              <Grid>
+              <Grid style={{marginTop: '30px', paddingLeft: '20px', marginBottom: '25px'}}>
                 <InputLabel  variant='standard'>Select Batch</InputLabel>
                 <Select style={{width: '45%'}}>
                   {
@@ -113,6 +113,7 @@ export default function RecipeeValuesView({match}) {
             <TableCell align="right"><b>Keep Time</b></TableCell>
             <TableCell align="right"><b>Temprature</b></TableCell>
             <TableCell align="right"><b>Pressure&nbsp;</b></TableCell>
+            <TableCell align="right"><b>Actions&nbsp;</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

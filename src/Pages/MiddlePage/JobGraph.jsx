@@ -81,13 +81,13 @@ const JobGraph = () => {
         
         <Card >
           <br />
-            <Typography variant='h2' style={{color: '#43425D', opacity: 0.68}} align='left' gutterBottom><b style={{font: ' normal normal medium 24px/28px Roboto', color: '#43425D'}}>Jobs Data</b></Typography>
-            <div style={{width: '40%', border: '2px solid black', marginLeft: '25%'}}>
-               <select onChange={handleChange} fullWidth >
+            <Typography style={{marginLeft:'24px' ,color:'#43425D', opacity: 0.68}} variant='h2' align='left' gutterBottom><b style={{marginLeft:'24px',color:'#43425D'}}>Jobs Data</b></Typography>
+            <div  style={{width: '' , marginTop: 0, marginLeft: '25px', marginRight: '25px'}}>
+               <select style={{width: '75%', border: '2px solid whitesmoke', height: '46px'}} onChange={handleChange} className=' ' >
                 <option value="" disabled selected hidden>Select Machine</option>
           {
             machines.map(data => (
-              
+             
               <option value={data.id}>{data.title}</option>
               // <Button style={{color: 'orangered'}} href={`/machine-data/Job/${data.id}/Job`}><LaunchIcon/></Button>
               

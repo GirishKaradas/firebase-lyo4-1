@@ -92,7 +92,7 @@ export default function LogIn() {
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-        <div className="w-1/2 shadow-2xl bg-yellow-800 ">
+        <div style={{backgroundImage: 'linear-gradient(to right top, #ff9a40, #ff9d3c, #ffa137, #ffa433, #ffa82e, #ffac2a, #ffb125, #ffb520, #ffbb1a, #ffc014, #ffc60b, #ffcc00)'}} className="w-1/2 shadow-2xl bg-yellow-800 ">
             <div className="object-cover w-full h-screen hidden md:block ">
               <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
             </div>
@@ -103,7 +103,7 @@ export default function LogIn() {
           
             <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-36">
                  
-                <a href="#" style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
+                <a style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
               
               {navbar.name}</a>
             

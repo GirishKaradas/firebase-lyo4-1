@@ -103,11 +103,17 @@ function DQPurpose({match}) {
           <Card className={classes.content}>
            <div style={{height: '100vh'}}>
 			<Typography variant='h1' align='center' gutterBottom><b>{purpose.title}</b></Typography>
+
 			<hr />
 			<Typography variant='body1' align='left' gutterBottom><p className='italic'>{purpose.desc}</p></Typography>
 			<hr />
 			<div style={{display: 'flex', marginBottom: 'auto', paddingRight: '3%', justifyContent: 'flex-end'}}>
 				<Button style={{color: 'white', background: 'orange'}} onClick={handleOpen}>Edit</Button>
+				<Button href={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
+</svg>
+				</Button>
 				
 			</div>
 			<Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
@@ -119,7 +125,7 @@ function DQPurpose({match}) {
 				</form>
 				</DialogContent>
 				
-				
+			
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
 				<Button onClick={handleUpdate} style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
@@ -138,7 +144,7 @@ function DQPurpose({match}) {
 		<div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-         
+        
 	  <div style={{padding: '10%', paddingTop: '0'}} >
 		   <Typography variant='h1' align='center' gutterBottom><b>Add New Purpose</b></Typography>	
 		<TextField style={{marginBottom: '20px'}} label='Title' variant='outlined' fullWidth onChange={(e) => setTitle(e.target.value)}/>

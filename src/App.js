@@ -67,11 +67,18 @@ import DQRpurpose from "./Pages/DQNewReports/DQRpurpose";
 import DQRgeneral from "./Pages/DQNewReports/DQRgeneral";
 import DQRConfig from "./Pages/DQNewReports/DQRConfig";
 import DQRSpecs from "./Pages/DQNewReports/DQRSpecs";
+import IQ from "./Pages/IQ/IQ";
+import IQIndex from "./Pages/IQ/IQPages.jsx/IQIndex";
+import IQScope from "./Pages/IQ/IQPages.jsx/IQScope";
+import IQDrawing from "./Pages/IQ/IQPages.jsx/IQDrawing";
+import IQControlPanel from "./Pages/IQ/IQPages.jsx/IQControlPanel";
+import IQSoftware from "./Pages/IQ/IQPages.jsx/IQSoftware";
+import Approval from "./Pages/Approval/Approval";
 
 function App() {
  
   return (
-    <>
+    <div style={{color: '#43425D'}}>
  
       <GlobalStyles/>
     <AuthProvider>
@@ -129,6 +136,13 @@ function App() {
           <AppRoute path='/DQR/:id/Equipment-Config' exact component={DQRConfig} layout={MainLayout} />
           <AppRoute path='/DQR/:id/Specifications' exact component={DQRSpecs} layout={MainLayout} />
            <AppRoute path='/DQ/:id/Specifications' exact component={DQSpecs} layout={MainLayout} />
+            <AppRoute path='/machine-data/:id/IQ' exact component={IQ} layout={MainLayout} />
+            <AppRoute path='/IQ/:id/index' exact component={IQIndex} layout={MainLayout} />
+             <AppRoute path='/IQ/:id/scope' exact component={IQScope} layout={MainLayout} />
+             <AppRoute path='/IQ/:id/drawing' exact component={IQDrawing} layout={MainLayout} />
+              <AppRoute path='/IQ/:id/control' exact component={IQControlPanel} layout={MainLayout} />
+               <AppRoute path='/IQ/:id/software' exact component={IQSoftware} layout={MainLayout} />
+               <AppRoute path='/DQ/:id/Approval' exact component={Approval} layout={MainLayout} />
       </Switch>
     </Router>
     </BrowserRouter>
@@ -136,8 +150,8 @@ function App() {
     </Page>
     </AuthProvider>
 
-    </>
-    
+    </div>
+   
   );
 }
 

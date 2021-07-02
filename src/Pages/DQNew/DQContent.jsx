@@ -94,7 +94,7 @@ function DQContent({match}) {
           </Card>
         </div>
       </div>
-			
+		
 		</div>
 	)
 }

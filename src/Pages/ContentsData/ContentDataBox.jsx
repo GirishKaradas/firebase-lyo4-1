@@ -134,9 +134,9 @@ const ContentDataBox = ({data}) => {
             <div>
             
             <div className="flex items-center justify-between">
-              <h1 className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
+              <h1 style={{color: '#43425D'}} className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
             
-            <a  href={`/Module/${data.id}/Components`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Components</a>
+            <a style={{background: '#0C03EB'}}  href={`/Module/${data.id}/Components`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Components</a>
         </div>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc}</p>
         </div>
@@ -159,7 +159,7 @@ const ContentDataBox = ({data}) => {
                 </button>
             </div>
         </div>
-    
+      <br />
         
            <div style={{marginLeft: '25%'}}>
              
@@ -265,6 +265,7 @@ const ContentDataBox = ({data}) => {
                 </Dialog>
             </Container>
             </div>
+          
         </Grid>
     )
 }

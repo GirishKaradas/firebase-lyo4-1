@@ -38,7 +38,7 @@ const ListUsers = (props) =>{
   return (
   <Card style={{padding: 10}} {...props}>
     <br />
-    <Typography variant='h4' align='center'><b>Users</b></Typography>
+    <Typography style={{marginLeft:'24px' ,color:'#43425D',opacity: 0.68}} variant='h2' align='left' gutterBottom><b style={{marginLeft:'24px',color:'#43425D'}}>Users</b></Typography>
     <CardHeader
       subheader={`${users.length} in total`}
     />
@@ -74,7 +74,7 @@ const ListUsers = (props) =>{
     >
       <Button
       href='/users'
-        color="primary"
+        style={{color: '#0C03EB', font: 'var(--unnamed-font-style-normal) normal bold 16px/16px var(--unnamed-font-family-roboto)'}}
         endIcon={<ArrowRightIcon />}
         size="small"
         variant="text"

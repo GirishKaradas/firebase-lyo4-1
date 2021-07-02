@@ -88,10 +88,11 @@ export default function ForgotPass() {
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-           <div className="w-1/2 shadow-2xl bg-yellow-800 ">
+           <div style={{backgroundImage: 'linear-gradient(to right top, #ff9a40, #ff9d3c, #ffa137, #ffa433, #ffa82e, #ffac2a, #ffb125, #ffb520, #ffbb1a, #ffc014, #ffc60b, #ffcc00)'}} className="w-1/2 shadow-2xl bg-yellow-800 ">
             <div className="object-cover w-full h-screen hidden md:block ">
               <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
             </div>
+        
         </div>
         <div className="w-full md:w-1/2 flex flex-col">
 

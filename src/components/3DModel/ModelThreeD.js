@@ -57,17 +57,13 @@ function ModelThreeD({match}) {
            <>
 
    
-    <div className='mx-auto'>
+    <div >
       <Typography variant='h1' align='center'><b>3D Models</b></Typography>
      <Carousel
-           
-              autoPlay
-               infiniteLoop showStatus={false}
-            showIndicators={false}
-            showThumbs={false}
+          
             interval={5000}
             >
-               <div style={{width: '100%', height: '100vh', margin: '20%', marginTop: '5%', backgroundColor: '#edeef7'}}>
+               <div  style={{display:'flex', justifyContent: 'center'}}>
          <GLTFModel
 
         src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Buggy/glTF/Buggy.gltf"
@@ -78,7 +74,7 @@ function ModelThreeD({match}) {
       </GLTFModel>
       </div>
       <div 
-      style={{width: '100%', height: '100vh', margin: '20%', marginTop: '5%', backgroundColor: '#edeef7'}}
+      style={{display:'flex', justifyContent: 'center'}}
       >
           <GLTFModel
           width={500}
@@ -91,7 +87,7 @@ function ModelThreeD({match}) {
       </GLTFModel>
       </div>
       <div
-       style={{width: '100%', height: '100vh', margin: '20%', marginTop: '5%', backgroundColor: '#edeef7'}}
+       style={{display:'flex', justifyContent: 'center'}}
       >
       <GLTFModel
         src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf"
@@ -103,7 +99,7 @@ function ModelThreeD({match}) {
       </div>
 
       <div
-       style={{width: '100%', height: '100vh', margin: '20%', marginTop: '5%', backgroundColor: '#edeef7'}}
+       style={{display:'flex', justifyContent: 'center'}}
        >
          <GLTFModel
         src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/FlightHelmet/glTF/FlightHelmet.gltf"
@@ -114,7 +110,7 @@ function ModelThreeD({match}) {
       </GLTFModel>
       </div>
        <div
-        style={{width: '100%', height: '100vh', margin: '20%', marginTop: '5%', backgroundColor: '#edeef7'}}
+       style={{display:'flex', justifyContent: 'center'}}
         >
       <OBJModel 
         width="400" height="400"  

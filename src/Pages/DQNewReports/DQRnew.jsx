@@ -5,6 +5,7 @@ import { firebaseLooper } from "../../utils/tools"
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import ContentDashboardLayout from "../../components/ContentSidebar/ContentDashboardLayout";
+import moment from "moment";
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
    backgroundColor: 'whitesmoke',
@@ -69,7 +70,7 @@ function DQRnew({match}) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Machine ID</TableCell>
+            <TableCell align="right">Date</TableCell>
             <TableCell align="right">Actions</TableCell>
           
           </TableRow>
@@ -81,7 +82,7 @@ function DQRnew({match}) {
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.desc}</TableCell>
-              <TableCell align="right">{row.mid}</TableCell>
+              <TableCell align="right">{moment.unix(row.timestamp).format("MMM Do YY")}</TableCell>
               
               <TableCell align="right"><Button href={`/DQR/${row.id}/Purpose`}><ArrowForwardIcon/></Button></TableCell>
             </TableRow>

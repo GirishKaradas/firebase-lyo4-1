@@ -71,7 +71,8 @@ export default function JobsList({match}) {
   const handleChangeDate = (e) => {
      
     const jobDate = e.target.value
-    db.collection('jobData').where('mid', '==', `${match.params.id}`).where('date', '==', `${jobDate}`).onSnapshot(doc => {
+    db.collection('jobData').where('mid', '==', `${match.params.id}`)
+    .where('date', '==', `${jobDate}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
             setJob(data)
         })
@@ -101,6 +102,7 @@ export default function JobsList({match}) {
                 id="date"
                 label="Select Date"
                 type="date"
+            
                 onChange={handleChangeDate}
                 InputLabelProps={{
                   shrink: true,

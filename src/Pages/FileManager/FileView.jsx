@@ -10,7 +10,7 @@ const FileView = ({data}) => {
     const [openEdit, setOpenEdit] = useState(false)
       const [title, setTitle] = useState(data.title)
     const [desc, setDesc] = useState(data.desc)
-    
+   
    const handleClickOpen = () => {
     setOpen(true);
   };
@@ -48,7 +48,7 @@ const FileView = ({data}) => {
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
               <a
-                href='#'
+                
                 className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
                 aria-label="Category"
                 title="traveling"
@@ -70,7 +70,7 @@ const FileView = ({data}) => {
               {data.title}
             </a>
             <p className="mb-2 text-gray-700">
-              {data.desc}
+              {data.desc.slice(0,25)}....
             </p>
             <a
               href={data.url}

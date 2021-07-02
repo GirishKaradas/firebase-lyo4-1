@@ -48,7 +48,7 @@ const DashboardLayout = ({children}) => {
   const classes = useStyles()
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
- 
+
 
   return (
     <Paper  className={classes.layoutRoot}>

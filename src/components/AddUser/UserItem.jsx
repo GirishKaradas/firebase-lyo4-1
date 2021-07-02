@@ -129,16 +129,13 @@ const updateUser=(id) => {
                           <Typography align="left" variant="h6" style={{opacity: 1, font: 'var(--unnamed-font-style-normal) normal bold var(--unnamed-font-size-18)/13px var(--unnamed-font-family-roboto)', color: '#4D4F5C'}}><b>{users.firstName} {users.lastName}</b></Typography>
                            <Typography align="left" variant="body2" style={{opacity: 0.5, font: 'normal normal normal 15px/25px Roboto'}}>{users.role}</Typography>
                       
-                    <div style={{display: 'flex'}}>
+                    <>
                      
                         <Typography style={{opacity: 0.5, font: 'var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 15px/25px var(--unnamed-font-family-roboto', marginRight: '20px', color: '#43425D'}} align="left" >Email : {users.email}</Typography>
-                     
-                     
-                        <Typography style={{opacity: 0.5, font: 'var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 15px/25px var(--unnamed-font-family-roboto)', color: '#43425D'}} align="left" >Phone: {users.phone}</Typography>
-                      
+                 
                        
-                    </div>
-                      
+                    </>
+                      <Typography style={{opacity: 0.5, font: 'var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 15px/25px var(--unnamed-font-family-roboto)', color: '#43425D'}} align="left" >Phone: {users.phone}</Typography>
                     </div>
                     
                 </div>
@@ -260,7 +257,9 @@ const updateUser=(id) => {
                           type="submit"
                           variant="outlined"
                           color="primary"
-                          onClick={(e)=> updateUser(users.id)}
+                          onClick={(e)=> {updateUser(users.id)
+                            handleEditClose(e)}
+                          }
                         >
                           Update
                           </Button>}

@@ -84,7 +84,7 @@ const ManualBox = (props) =>{
       >
      
         
-         <select style={{border: '2px solid whitesmoke'}} onChange={handleChange} fullWidth >
+         <select style={{border: '2px solid whitesmoke',width: '150px'}} onChange={handleChange} fullWidth >
             <option value="" disabled selected hidden>Select Machine</option>
           {
             machines.map(data => (

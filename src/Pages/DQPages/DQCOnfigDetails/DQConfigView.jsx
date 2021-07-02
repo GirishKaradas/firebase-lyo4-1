@@ -23,7 +23,7 @@ function DQConfigView({module, match}) {
 	}
 	function closeComponent(){
 		setOpenC(false)
-		
+	
 	}
 	function handleOpen(){
 		setOpen(true)
@@ -62,7 +62,7 @@ function DQConfigView({module, match}) {
 				<div>
 					<Button  onClick={handleOpen}><EditIcon/></Button>
 					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
-					<Button style={{background: 'orange', color: 'white'}} onClick={openComponent}>Open</Button>
+					<Button onClick={openComponent}>Open</Button>
 				</div>
 			</TableCell>
 			</TableRow>
