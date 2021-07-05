@@ -82,15 +82,15 @@ function DQRSpecs({match}) {
            <div style={{height: '100vh'}}>
 			{purpose && <Typography variant='h1' align='center' gutterBottom><b>{purpose.name}</b></Typography>
 			}<hr />
-			
+		
 			 <TableContainer component={Paper}>
       <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Input(Glass)</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}>Title</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right">Input(Glass)</TableCell>
 
-            <TableCell align="right">Actions</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right">Actions</TableCell>
           
           </TableRow>
         </TableHead>

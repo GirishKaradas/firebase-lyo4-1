@@ -15,7 +15,7 @@ const UserManual = () => {
            <div>
                <Typography variant='h1' align='center'><b>Authentication</b></Typography>
              <Carousel
-           
+          
               autoPlay
                infiniteLoop showStatus={false}
             showIndicators={false}

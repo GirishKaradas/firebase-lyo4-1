@@ -74,9 +74,13 @@ import IQDrawing from "./Pages/IQ/IQPages.jsx/IQDrawing";
 import IQControlPanel from "./Pages/IQ/IQPages.jsx/IQControlPanel";
 import IQSoftware from "./Pages/IQ/IQPages.jsx/IQSoftware";
 import Approval from "./Pages/Approval/Approval";
+import DesignSpecs from "./Pages/Design-Specs/DesignSpecs";
+import Safety from "./Pages/safety/Safety";
+import Attachments from "./Pages/Attachments/Attachments";
+import Abbreviations from "./Pages/abbreviations/Abbreviations";
 
 function App() {
- 
+
   return (
     <div style={{color: '#43425D'}}>
  
@@ -143,6 +147,11 @@ function App() {
               <AppRoute path='/IQ/:id/control' exact component={IQControlPanel} layout={MainLayout} />
                <AppRoute path='/IQ/:id/software' exact component={IQSoftware} layout={MainLayout} />
                <AppRoute path='/DQ/:id/Approval' exact component={Approval} layout={MainLayout} />
+                <AppRoute path='/DQ/:id/Design-Specs' exact component={DesignSpecs} layout={MainLayout} />
+                  <AppRoute path='/DQ/:id/Safety' exact component={Safety} layout={MainLayout} />
+                   <AppRoute path='/DQ/:id/Attachments' exact component={Attachments} layout={MainLayout} />
+               
+                 <AppRoute path='/DQ/:id/Abbreviations' exact component={Abbreviations} layout={MainLayout} />
       </Switch>
     </Router>
     </BrowserRouter>

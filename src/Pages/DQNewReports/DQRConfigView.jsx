@@ -14,13 +14,13 @@ function DQRConfigView({row, match}) {
 	return (
 		<>
 			 <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{background: '#E8F6EF'}} component="th" scope="row">
                 {row.title}
               </TableCell>
               <TableCell align="right">{row.desc}</TableCell>
              
               
-              <TableCell align="right"><Button onClick={handleOpen}><ArrowForwardIcon/></Button></TableCell>
+              <TableCell align="right"><Button className='animate-pulse' onClick={handleOpen}><ArrowForwardIcon/></Button></TableCell>
 	      <Dialog fullScreen onClose={handleClose} open={open}>
 		<Toolbar>
 			<Button onClick={handleClose}>Exit</Button>

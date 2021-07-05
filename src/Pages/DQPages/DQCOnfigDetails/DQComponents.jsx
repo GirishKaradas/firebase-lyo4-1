@@ -62,9 +62,9 @@ function DQComponents({match, module_id}) {
 			<Table  aria-label="simple table">
 				<TableHead>
 				<TableRow>
-				<TableCell><b className='text-lg font-bold italic'>Title</b></TableCell>
-				<TableCell align="left"><b className='text-lg font-bold italic'>Value</b></TableCell>
-				<TableCell align="right"><b className='text-lg font-bold italic'>Actions</b></TableCell>
+				<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}><b className='text-lg font-bold italic'>Title</b></TableCell>
+				<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-lg font-bold italic'>Value</b></TableCell>
+				<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right"><b className='text-lg font-bold italic'>Actions</b></TableCell>
 				</TableRow>
 				</TableHead>
 					

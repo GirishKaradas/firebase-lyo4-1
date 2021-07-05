@@ -65,7 +65,7 @@ const DashboardLayout = ({children}) => {
         </div>
       </div>
       </Paper>
-   
+  
   );
 };
 

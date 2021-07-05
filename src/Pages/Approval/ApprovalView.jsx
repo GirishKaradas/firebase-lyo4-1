@@ -70,16 +70,16 @@ function ApprovalView({data, match}) {
 		<TableBody>
 			
 			<TableRow key={data.id}>
-			<TableCell component="th" scope="row">
+			<TableCell style={{background: '#E8F6EF'}} component="th" scope="row">
 				{data.name}
 			</TableCell>
 			<TableCell align="left"><img src={data.url} width='350px' height='250px'/></TableCell>
 			<TableCell align="left">{moment.unix(data.timestamp).format("DD MM YYYY")}</TableCell>
 		
 			<TableCell align="right">
-				<div>
-					<Button  onClick={handleOpen}><EditIcon/></Button>
-					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
+					<div>
+					<Button  onClick={handleOpen}><EditIcon className='animate-bounce'/></Button>
+					<Button onClick={handleOpenDel}><DeleteIcon className='hover:text-red-600'/></Button>
 					
 				</div>
 			</TableCell>

@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TableBody, TableCell, TableRow, TextField, Typography } from "@material-ui/core"
-import { RemoveCircleTwoTone } from "@material-ui/icons"
+import  EditIcon from "@material-ui/icons/Edit"
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
 import { Alert, AlertTitle } from "@material-ui/lab"
 import { useState } from "react"
 import { db } from "../../../firebase"
@@ -45,7 +46,7 @@ function DQComponentsView({components, match, module_id}) {
 		<TableBody>
 			
 			<TableRow key={module.id}>
-			<TableCell component="th" scope="row" align='center'>
+			<TableCell style={{background: '#E8F6EF'}}  component="th" scope="row" align='left'>
 				{components.title}
 			</TableCell>
 			
@@ -54,8 +55,8 @@ function DQComponentsView({components, match, module_id}) {
 			</TableCell>
 			<TableCell align="right">
 				<div>
-					<Button onClick={handleOpen}>E</Button>
-					<Button onClick={handleOpenDel}>D</Button>
+					<Button  onClick={handleOpen}><EditIcon className='animate-bounce'/></Button>
+					<Button onClick={handleOpenDel}><DeleteForeverIcon className='hover:text-red-600'/></Button>
 					
 				</div>
 			</TableCell>

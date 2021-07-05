@@ -154,6 +154,7 @@ export default function QualityReport({match}) {
   const [issuecomment, setIssueComment] = useState('')
   const [open, setOpen] = useState(false)
     const [dq, setDq] = useState([])
+    
     useEffect(() => {
        db.collection('DQReport')
        .doc(match.params.id)

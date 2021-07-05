@@ -144,7 +144,7 @@ const Machine= ({data, ...rest}) => {
             <div  className="flex items-center justify-between">
               <h1 style={{color: '#FF9A40'}} className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
             
-            <a style={{background: '#0C03EB'}} href={`/machine-data/${data.id}/Module`} className="px-3 py-1 text-xs text-white uppercase  rounded-full dark:bg-indigo-300 dark:text-indigo-900">Open Machine</a>
+            <a style={{background: '#0C03EB'}} href={`/machine-data/${data.id}/Module`} className="px-3 py-1 text-xs text-white uppercase  rounded-full dark:bg-indigo-300 dark:text-indigo-900">Open </a>
         </div>
           <span className="text-sm font-light text-gray-800 dark:text-gray-400">{data.location}</span>
            {data && <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc.slice(0,150)} ...</p>}

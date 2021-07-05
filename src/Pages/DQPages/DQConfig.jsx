@@ -8,6 +8,14 @@ import { firebaseLooper } from "../../utils/tools";
 import DQmodules from "../DQNew/DQmodules";
 import DQConfigView from "./DQCOnfigDetails/DQConfigView";
 import DQModule from "./DQModule/DQModule";
+import {
+  NavLink as RouterLink,
+  matchPath,
+  useLocation
+} from 'react-router-dom';
+import DQDocumentation from "../Documentation/DQDocumentation";
+import DQBrands from "../brands/DQBrands";
+import Services from "../servicesreq/Services";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -174,7 +182,7 @@ function DQConfig({match}) {
 					</Button>
 				<Button style={{color: 'white', background: 'black', marginRight: '4%'}} onClick={handleOpenAdd}>Add Module</Button>
 				<Button style={{color: 'white', background: 'orange', marginRight: '4%'}} onClick={handleOpen}>Edit</Button>
-				<Button href={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
+				<Button component={RouterLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
@@ -199,13 +207,14 @@ function DQConfig({match}) {
 			</Dialog>
 			{
 					<>
+					<Typography align='center' variant='h1' gutterBottom><b>Modules</b></Typography>
 					<TableContainer component={Paper}>
 		<Table className={classes.table} aria-label="simple table">
 			<TableHead>
 			<TableRow>
-			<TableCell><b className='text-lg font-bold italic'>Title</b></TableCell>
-			<TableCell align="left"><b className='text-lg font-bold italic'>Description</b></TableCell>
-			<TableCell align="right"><b className='text-lg font-bold italic'>Actions</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}><b className='text-lg font-bold italic'>Title</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-lg font-bold italic'>Description</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right"><b className='text-lg font-bold italic'>Actions</b></TableCell>
 			</TableRow>
 			</TableHead>
 					{
@@ -223,6 +232,18 @@ function DQConfig({match}) {
 					</>
 			
 		}
+		  <div style={{marginTop: '30px'}}>
+		{/* Documentation  title, desc, type 0/1 index */}
+		<DQDocumentation match={match}/>
+     </div>
+     <div  style={{marginTop: '30px'}}>
+		{/* Brands used --> product make index  */}
+		<DQBrands match={match}/>
+     </div>
+        <div style={{marginTop: '30px'}}>
+		{/* Services required  --> desc, details, instrument, connection */}
+		<Services match={match}/>
+     </div>
 		</div>
 		: 
 		<div>
@@ -237,6 +258,11 @@ function DQConfig({match}) {
           </Card>
         </div>
       </div>
+     
+     <div>
+		{/* Brands used --> product make index  */}
+     </div>
+  
       </>
 		<Dialog open={openAdd} fullWidth onClose={handleCloseAdd}>
 
@@ -252,9 +278,10 @@ function DQConfig({match}) {
 	  </DialogActions>
           
       </Dialog>
-     
+    
 		</>
 	)
+	
 }
 
 export default DQConfig

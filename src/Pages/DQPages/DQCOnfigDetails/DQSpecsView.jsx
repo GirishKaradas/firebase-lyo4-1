@@ -46,15 +46,15 @@ function DQSpecsView({specs, match}) {
 		<TableBody>
 			
 			<TableRow key={module.id}>
-			<TableCell component="th" scope="row" align='center'>
+			<TableCell style={{background: '#E8F6EF'}} component="th" scope="row" align='left'>
 				{specs.desc}
 			</TableCell>
 			
 			
 			<TableCell align="right">
 				<div>
-					<Button onClick={handleOpen}><EditIcon/></Button>
-					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
+					<Button  onClick={handleOpen}><EditIcon className='animate-bounce'/></Button>
+					<Button onClick={handleOpenDel}><DeleteIcon className='hover:text-red-500'/></Button>
 					
 				</div>
 			</TableCell>

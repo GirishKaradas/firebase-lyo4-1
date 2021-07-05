@@ -25,13 +25,13 @@ function DQRSpecView({row, match}) {
 	return (
 		<>
 			 <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{background: '#E8F6EF'}}  component="th" scope="row">
                 {row.title}
               </TableCell>
               <TableCell align="right">{row.input}</TableCell>
              
               
-              <TableCell align="right"><Button onClick={handleOpen}><EditIcon/></Button></TableCell>
+              <TableCell align="right"><Button className='animate-bounce' onClick={handleOpen}><EditIcon/></Button></TableCell>
             </TableRow>
 	    <Dialog open={open} onClose={handleClose}>
 		    <DialogContent>

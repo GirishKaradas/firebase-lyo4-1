@@ -66,7 +66,7 @@ function DQRgeneral({match}) {
 			{purpose && <Typography variant='body1' align='left' gutterBottom><p className='italic'>{purpose.desc}</p></Typography>
 			}<hr />
 			
-			
+		
 		</div>
           </Card>
         </div>

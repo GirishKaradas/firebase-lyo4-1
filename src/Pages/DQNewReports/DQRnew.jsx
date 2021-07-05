@@ -6,6 +6,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import ContentDashboardLayout from "../../components/ContentSidebar/ContentDashboardLayout";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
    backgroundColor: 'whitesmoke',
@@ -68,23 +69,23 @@ function DQRnew({match}) {
       <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Actions</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}>Name</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right">Description</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right">Date</TableCell>
+            <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right">Actions</TableCell>
           
           </TableRow>
         </TableHead>
         <TableBody>
           {reports.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{background: '#E8F6EF'}} component="th" scope="row">
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.desc}</TableCell>
               <TableCell align="right">{moment.unix(row.timestamp).format("MMM Do YY")}</TableCell>
-              
-              <TableCell align="right"><Button href={`/DQR/${row.id}/Purpose`}><ArrowForwardIcon/></Button></TableCell>
+             
+              <TableCell align="right"><Button className='animate-bounce' component={NavLink} to={`/DQR/${row.id}/Purpose`}><ArrowForwardIcon/></Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

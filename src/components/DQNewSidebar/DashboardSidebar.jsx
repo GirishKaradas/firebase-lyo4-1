@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -20,19 +20,24 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import ReportIcon from '@material-ui/icons/Report';
 import AssessmentIcon from '@material-ui/icons/Assessment';
-import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import SecurityIcon from '@material-ui/icons/Security';
+import BuildIcon from '@material-ui/icons/Build';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+import BlurCircularIcon from '@material-ui/icons/BlurCircular';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 import NavItem from './NavItem';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
-import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import CompareIcon from '@material-ui/icons/Compare';
 
 
 const items = [
    {
         title: 'Approval',
       href: '/DQ',
-        icon: ActivityIcon,
+        icon: ChromeReaderModeIcon,
        
     },
    {
@@ -55,9 +60,43 @@ const items = [
     {
         title: 'Specifications',
       href: '/DQ',
-        icon: ActivityIcon,
+        icon: CompareIcon,
        
     },
+      {
+        title: 'Design-Specs',
+      href: '/DQ',
+        icon: BorderColorIcon,
+       
+    },
+
+      {
+        title: 'Safety',
+      href: '/DQ',
+        icon: SecurityIcon,
+       
+    },
+  {
+        title: 'Attachments',
+      href: '/DQ',
+        icon: BuildIcon,
+       
+    },
+      {
+        title: 'Abbreviations',
+      href: '/DQ',
+        icon: SortByAlphaIcon,
+       
+    },
+      {
+        title: 'Others',
+      href: '/DQ',
+        icon: BlurCircularIcon,
+       
+    },
+
+
+
 
 ];
 
@@ -94,7 +133,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         height: '100%'
       }}
     >
-      <a style={{textDecoration: 'none', color:'white', backgroundColor: 'black'}} className="flex items-center w-full px-3 mt-3" href="#">
+      <Button component={NavLink} style={{textDecoration: 'none', color:'white', backgroundColor: 'black'}} className="flex items-center w-full px-3 mt-3" to="/">
 			
                  <img
     alt="Logo"
@@ -104,7 +143,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
   />
 			<span className="ml-2 text-sm font-bold uppercase ">{navbar.name}</span>
 
-		</a>
+		</Button>
       <Divider />
       <Box m={2} >
         <List>        

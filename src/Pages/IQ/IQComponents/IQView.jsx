@@ -6,6 +6,7 @@ import { useState } from "react";
 import { db } from "../../../firebase";
 import { AlertTitle } from "@material-ui/lab";
 import { Alert } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 function IQView({match, data}) {
 	const [openEdit, setOpenEdit] = useState(false)
 	const [openDel, setOpenDel] = useState(false)
@@ -37,12 +38,12 @@ function IQView({match, data}) {
           <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">IQ</h2>
           <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{data.name}</h1>
           <p class="leading-relaxed mb-3">{data.desc}</p>
-          <a href={`/IQ/${data.id}/index`} class="text-indigo-500 inline-flex items-center">Open IQ
+          <Button component={NavLink} to={`/IQ/${data.id}/index`} class="text-indigo-500 inline-flex items-center">Open IQ
             <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14"></path>
               <path d="M12 5l7 7-7 7"></path>
             </svg>
-          </a>
+          </Button>
           <Button onClick={handleOpenEdit} style={{opacity: 0.68}}><EditIcon/> </Button>
 	  <Button onClick={handleDeleteOpen} style={{opacity: 0.68}}><DeleteIcon/>  </Button>
         </div>

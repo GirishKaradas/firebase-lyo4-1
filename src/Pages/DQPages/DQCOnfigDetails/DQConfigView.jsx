@@ -54,14 +54,14 @@ function DQConfigView({module, match}) {
 		<TableBody>
 			
 			<TableRow key={module.id}>
-			<TableCell component="th" scope="row">
+			<TableCell style={{background: '#E8F6EF'}} component="th" scope="row">
 				{module.title}
 			</TableCell>
 			<TableCell align="left">{module.desc}</TableCell>
 			<TableCell align="right">
 				<div>
-					<Button  onClick={handleOpen}><EditIcon/></Button>
-					<Button onClick={handleOpenDel}><DeleteIcon/></Button>
+					<Button  onClick={handleOpen}><EditIcon className='animate-bounce'/></Button>
+					<Button onClick={handleOpenDel}><DeleteIcon className='hover:text-red-600'/></Button>
 					<Button onClick={openComponent}>Open</Button>
 				</div>
 			</TableCell>

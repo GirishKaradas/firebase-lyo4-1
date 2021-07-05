@@ -206,7 +206,7 @@ const ContentsData = ({match}) => {
           </Card>
         </div>
       </div>
-         <br />
+       
       </Paper>
       </Page>
      

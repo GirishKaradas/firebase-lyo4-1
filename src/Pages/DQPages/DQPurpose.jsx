@@ -4,7 +4,11 @@ import { useEffect } from "react"
 import { useState } from "react"
 import DQLayout from "../../components/DQNewSidebar/DQLayout";
 import { db } from "../../firebase"
-
+import {
+  NavLink as RouterLink,
+  matchPath,
+  useLocation
+} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -109,7 +113,7 @@ function DQPurpose({match}) {
 			<hr />
 			<div style={{display: 'flex', marginBottom: 'auto', paddingRight: '3%', justifyContent: 'flex-end'}}>
 				<Button style={{color: 'white', background: 'orange'}} onClick={handleOpen}>Edit</Button>
-				<Button href={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
+				<Button  component={RouterLink} to={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
