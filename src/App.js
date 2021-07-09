@@ -60,7 +60,7 @@ import DQNew from "./Pages/DQNew/DQNew";
 import DQContent from "./Pages/DQNew/DQContent";
 import DQPurpose from "./Pages/DQPages/DQPurpose";
 import DQGeneral from "./Pages/DQPages/DQGeneral";
-import DQConfig from "./Pages/DQPages/DQConfig";
+import DQConfigD from "./Pages/DQConfig/DQConfig";
 import DQSpecs from "./Pages/DQPages/DQSpecs";
 import DQRnew from "./Pages/DQNewReports/DQRnew";
 import DQRpurpose from "./Pages/DQNewReports/DQRpurpose";
@@ -136,7 +136,7 @@ function App() {
            <AppRoute path='/DQR/:id/Purpose' exact component={DQRpurpose} layout={MainLayout} />
            <AppRoute path='/DQ/:id/General-Information' exact component={DQGeneral} layout={MainLayout} />
            <AppRoute path='/DQR/:id/General-Information' exact component={DQRgeneral} layout={MainLayout} />
-         <AppRoute path='/DQ/:id/Equipment-Config' exact component={DQConfig} layout={MainLayout} />
+         <AppRoute path='/DQ/:id/Equipment-Config' exact component={DQConfigD} layout={MainLayout} />
           <AppRoute path='/DQR/:id/Equipment-Config' exact component={DQRConfig} layout={MainLayout} />
           <AppRoute path='/DQR/:id/Specifications' exact component={DQRSpecs} layout={MainLayout} />
            <AppRoute path='/DQ/:id/Specifications' exact component={DQSpecs} layout={MainLayout} />

@@ -13,13 +13,13 @@ function DQDocumentation({match}) {
 	const [open, setOpen] = useState(false)
 	const [title, setTitle] = useState('')
 	const [desc, setDesc] = useState('')
-	const [type, setType] = useState(0)
+	const [dtype, setType] = useState(0)
 
 	useEffect(() => {
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('configuration')
 		.collection('documentation')
-		.where('type', '==', 0)
+		.where('dtype', '==', 0)
 		.onSnapshot(snapshot => {
 			const data = firebaseLooper(snapshot)
 			data.sort(function(a,b){
@@ -28,9 +28,9 @@ function DQDocumentation({match}) {
 			setContents(data)
 		})
 		db.collection('DQNew').doc(match.params.id)
-		.collection('content').doc('configuration')
-		.collection('documentation')
-		.where('type', '==', 1)
+		.collection('content').doc('config')
+		.collection('module')
+		.where('dtype', '==', 1)
 		.onSnapshot(snapshot => {
 			const data = firebaseLooper(snapshot)
 			data.sort(function(a,b){
@@ -50,7 +50,7 @@ function DQDocumentation({match}) {
 		const index = contents.length
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('configuration')
-		.collection('documentation').add({title,desc,index,type})
+		.collection('documentation').add({title,desc,index,dtype})
 	}
 	return (
 		<>

@@ -74,7 +74,7 @@ function ApprovalCView({data, match}) {
 				{data.name}
 			</TableCell>
 			<TableCell align="left"><img src={data.url} width='350px' height='250px'/></TableCell>
-			<TableCell align="left">{moment.unix(data.timestamp).format("DD MM YYYY")}</TableCell>
+			<TableCell align="left">{data.timestamp.toDate().toString().substring(0,15)}</TableCell>
 			
 			<TableCell align="right">
 				<div>

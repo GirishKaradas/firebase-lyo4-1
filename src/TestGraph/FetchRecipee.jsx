@@ -46,7 +46,7 @@ const FetchRecipee = ({batchId, recipes, rid}) => {
            </div>
             {showData()}
 
-        </div>
+            </div>
     )
 }
 
