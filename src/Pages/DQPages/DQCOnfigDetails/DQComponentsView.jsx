@@ -27,7 +27,7 @@ function DQComponentsView({components, match, module_id}) {
 		db.collection('DQNew')
 		.doc(match.params.id)
 		.collection('content')
-		.doc('configuration')
+		.doc('config')
 		.collection('components')
 		.doc(components.id)
 		.update({title, value})
@@ -36,16 +36,16 @@ function DQComponentsView({components, match, module_id}) {
 		db.collection('DQNew')
 		.doc(match.params.id)
 		.collection('content')
-		.doc('configuration')
+		.doc('config')
 		.collection('components')
-		.doc(components.id)
+		.doc(id)
 		.delete()
 	}
 	return (
 		<>
 		<TableBody>
 			
-			<TableRow key={module.id}>
+			<TableRow key={components.id}>
 			<TableCell style={{background: '#E8F6EF'}}  component="th" scope="row" align='left'>
 				{components.title}
 			</TableCell>

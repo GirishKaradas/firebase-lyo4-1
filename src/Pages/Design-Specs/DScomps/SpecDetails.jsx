@@ -13,6 +13,9 @@ function SpecDetails({match, tid}) {
 		.collection('content').doc('designSpecs').collection('points')
 		.where('tid', '==', `${tid}`).onSnapshot(snap => {
 			const data = firebaseLooper(snap)
+			data.sort(function(a,b){
+				return(a.index-b.index)
+			})
 			setDescs(data)
 		})
 	}, [])
@@ -32,7 +35,7 @@ function SpecDetails({match, tid}) {
 	function handleSubmit(){
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs').collection('points')
-		.add({desc,tid})
+		.add({desc,tid,index: descs.length})
 	}
 
 	return (
@@ -46,7 +49,7 @@ function SpecDetails({match, tid}) {
 					</div>
 					
 				))
-				
+			
 			} 
 			<div className='p-10' style={{display: 'flex', justifyContent: 'space-evenly'}}>
 				<TextField className='mr-5 mb-10'  variant='outlined' fullWidth  label='Add new Data' onChange={(e) => setDesc(e.target.value)}/>

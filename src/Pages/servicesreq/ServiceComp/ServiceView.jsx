@@ -35,15 +35,15 @@ function ServiceView({module, match}) {
 	}
 	function handleUpdate(){
 		db.collection('DQNew').doc(match.params.id)
-		.collection('content').doc('configuration')
-		.collection('services')
+		.collection('content').doc('config')
+		.collection('components')
 		.doc(module.id)
 		.update({inst,connection,req, desc})
 	}
 	function handleDelete(id){
 		db.collection('DQNew').doc(match.params.id)
-		.collection('content').doc('configuration')
-		.collection('services')
+		.collection('content').doc('config')
+		.collection('components')
 		.doc(id)
 		.delete()
 	}

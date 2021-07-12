@@ -6,6 +6,7 @@ import { useState } from "react"
 import { db } from "../../../firebase"
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { NavLink } from "react-router-dom"
 function DQNewView({report}) {
   const [name, setName] = useState(report.name)
   const [desc, setDesc] = useState(report.desc)
@@ -47,7 +48,7 @@ function DQNewView({report}) {
               </div>
                   
                   <p className="mb-3 text-base leading-relaxed text-blueGray-500"> {report.desc}</p>
-		  <Button  href={`/DQ/${report.id}/Purpose`} fullWidth style={{backgroundColor: 'orange', color: 'white', margintop:'3%'}}>Content</Button>
+		  <Button component={NavLink}  to={`/DQ/${report.id}/Approval`} fullWidth style={{backgroundColor: 'orange', color: 'white', margintop:'3%'}}>Content</Button>
      
                 </div>
               </div>

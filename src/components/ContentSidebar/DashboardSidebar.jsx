@@ -29,12 +29,7 @@ import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
 import AmpStoriesIcon from '@material-ui/icons/AmpStories';
 
 const items = [
-   {
-        title: 'Module',
-      href: '/machine-data',
-        icon: ActivityIcon,
-       
-    },
+  
   {
         title: 'Manuals',
         href: '/machine-data/Manuals',
@@ -59,18 +54,6 @@ const items = [
 
     },
         {
-        title: 'DQ-Reports',
-        href: '/machine-data/DQ-Reports',
-        icon: ReportIcon
-
-    },
-    {
-        title: 'Call-Logs',
-        href: '/machine-data',
-        icon: PhoneCallbackIcon
-
-    },
-     {
         title: 'DQ-New',
         href: '/machine-data',
         icon: AmpStoriesIcon
@@ -82,6 +65,13 @@ const items = [
         icon: AmpStoriesIcon
 
     },
+    {
+        title: 'Call-Logs',
+        href: '/machine-data',
+        icon: PhoneCallbackIcon
+
+    },
+    
      {
         title: 'IQ',
         href: '/machine-data',

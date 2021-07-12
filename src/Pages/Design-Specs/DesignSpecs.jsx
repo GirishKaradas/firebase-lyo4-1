@@ -1,4 +1,4 @@
-import { Typography, Toolbar, TextField, Button,Card,makeStyles } from "@material-ui/core"
+import { Typography, Toolbar, TextField, Button,Card,makeStyles, IconButton } from "@material-ui/core"
 import { useEffect } from "react"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
@@ -6,6 +6,7 @@ import DQLayout from "../../components/DQNewSidebar/DQLayout"
 import { db } from "../../firebase"
 import { firebaseLooper } from "../../utils/tools"
 import SpecDetails from "./DScomps/SpecDetails"
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -53,6 +54,9 @@ function DesignSpecs({match}) {
 		.collection('content').doc('designSpecs')
 		.collection('title').onSnapshot(snap => {
 			const data = firebaseLooper(snap)
+			data.sort(function(a,b){
+				return(a.index-b.index)
+			})
 			setTitles(data)
 		})
 	}, [])
@@ -61,9 +65,14 @@ function DesignSpecs({match}) {
 		// /DQ/HeceUekdaKAgLQvwFKc5/Design-Specs
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs')
-		.collection('title').add({title})
+		.collection('title').add({title,index: titles.length})
 	}
 
+	function handleDelete(id){
+		db.collection('DQNew').doc(match.params.id)
+		.collection('content').doc('designSpecs')
+		.collection('title').doc(id).delete()
+	}
 
 	return (
 		<>
@@ -80,7 +89,11 @@ function DesignSpecs({match}) {
 			{
 				titles.map(data => (
 					<div key={data.id}>
-						<Typography variant='h4' align='left' style={{paddingLeft: '30px'}} ><b>{data.title}</b> </Typography>
+						<div style={{display: 'flex', justifyContent: 'space-between'}}>
+							<Typography variant='h4' align='left' style={{paddingLeft: '30px'}} ><b>{data.title}</b> </Typography>
+							<IconButton onClick={(e) =>handleDelete(data.id)}><DeleteSweepIcon className='hover:text-red-600' /></IconButton>
+						</div>
+						
 						<br />
 						<div className='px-10'>
 							<SpecDetails key={data.id} match={match} tid={data.id}/>

@@ -8,9 +8,12 @@ import { firebaseLooper } from "../../../utils/tools";
 import DQComponentsView from "../../DQPages/DQCOnfigDetails/DQComponentsView";
 import DQComponents from "../../DQPages/DQCOnfigDetails/DQComponents";
 import BrandView from "../../brands/brandsComp/BrandView";
-
+import ServiceView from "../../servicesreq/ServiceComp/ServiceView";
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 function DQConfigView({module, match,type}) {
 	const [title, setTitle] = useState(module.title)
+	const[length,setLength] = useState(0)
 	const [desc, setDesc] = useState(module.desc)
 	const [open, setOpen] = useState(false)
 	const [openDel, setOpenDel] = useState(false)
@@ -23,7 +26,11 @@ function DQConfigView({module, match,type}) {
         .where('module_id', '==', module.id)
         .onSnapshot(snap => {
             const data = firebaseLooper(snap)
+	    data.sort(function(a,b){
+		    return(a.index-b.index)
+	    })
             setComponents(data)
+	    setLength(data.length)
         })
     }, [])
 	function handleOpenDel(){
@@ -66,7 +73,7 @@ function DQConfigView({module, match,type}) {
 	}
 	return (
 		<>
-        <DQComponents type={type} match={match} module_id={module.id}/>
+       
 		<TableBody>
 			
 			<TableRow key={module.id}>
@@ -78,7 +85,7 @@ function DQConfigView({module, match,type}) {
 				<div>
 					<Button  onClick={handleOpen}><EditIcon className='animate-bounce'/></Button>
 					<Button onClick={handleOpenDel}><DeleteIcon className='hover:text-red-600'/></Button>
-					<Button onClick={(e) => setOpenC(!openC)}>Open</Button>
+					<Button onClick={(e) => setOpenC(!openC)}>{!openC ? <ExpandMoreIcon/> : <ExpandLessIcon/>}</Button>
 				</div>
 			</TableCell>
 			</TableRow>
@@ -139,7 +146,7 @@ function DQConfigView({module, match,type}) {
                  
                 </TableHead>
                 <>
-                
+               
                   {
                   components.map(data => (
                       <DQComponentsView match={match} key={data.id} components={data}/>
@@ -150,22 +157,31 @@ function DQConfigView({module, match,type}) {
               </Table>
             </div>}
             {
-                type===2 &&
+                type===1 &&
                 <div style={{display: 'flex', justifyContent: 'center'}}  >
                 <br />
                 <Table align aria-label="purchases">
                   <TableHead>
                     
-                    <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}><b className='text-md font-bold italic'>Product</b></TableCell>
-                  <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-md font-bold italic'>Make</b></TableCell>
-                  <TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right"><b className='text-md font-bold italic'>Actions</b></TableCell>
+			<>
+			<TableRow>
+				<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}}><b className='text-md font-bold italic'>Description</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-md font-bold italic'>Required Parameters</b></TableCell>
+			
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-md font-bold italic'>Instrument/Gauges</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="left"><b className='text-md font-bold italic'>Preferred Pipe & Connection</b></TableCell>
+			<TableCell style={{background: '#4C4C6D', color: 'white', font: 'bold'}} align="right"><b className='text-md font-bold italic'>Options</b></TableCell>
+			
+			</TableRow>
+			</>
                    
                   </TableHead>
                   <>
                   
                     {
                     components.map(data => (
-                        <BrandView match={match} key={data.id} module={data}/>
+                        <ServiceView match={match} key={data.id} module={data}/>
                     ))
                   }
                       
@@ -174,6 +190,7 @@ function DQConfigView({module, match,type}) {
               </div>
             }
           </Collapse>
+	   <DQComponents index={length} type={type} match={match} module_id={module.id}/>
 		</>
 	)
 }

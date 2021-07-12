@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { db } from "../../firebase"
 import { firebaseLooper } from "../../utils/tools"
 import DQConfigView from "./components/DQConfigView"
-import { DialogContent, makeStyles,  Paper,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
+import { DialogContent, FormHelperText, makeStyles,  Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
 import { Button, Dialog, Typography, TextField, DialogActions, Card } from "@material-ui/core"
 import DQLayout from "../../components/DQNewSidebar/DQLayout";
 import { NavLink } from "react-router-dom";
@@ -55,6 +55,9 @@ export default function DQConfigD({match}) {
         db.collection('DQNew').doc(match.params.id).collection('content').doc('config')
         .collection('module').onSnapshot(snap => {
             const data = firebaseLooper(snap)
+            data.sort(function(a,b){
+              return(a.index-b.index)
+            })
             setConfig(data)
         })
     },[])
@@ -72,6 +75,10 @@ export default function DQConfigD({match}) {
 		.doc('config')
 		.collection('module')
 		.add({title, desc, index,type})
+    .then(() => {setTitle('')
+    setDesc(" ")
+    }
+    )
     }
 	return (
 		<>
@@ -98,7 +105,7 @@ export default function DQConfigD({match}) {
 				<br />
 			</div>
           <div>
-            <TableContainer component={Paper}>
+            <div component={Paper}>
 		<Table aria-label="simple table">
 			<TableHead>
 			<TableRow>
@@ -120,18 +127,23 @@ export default function DQConfigD({match}) {
             }
              
             	</Table>
-		</TableContainer>
+		</div>
         <Dialog open={openAdd} fullWidth onClose={handleCloseAdd}>
 
 <Typography variant='h4' align='center'  ><b>Add New Modules</b></Typography>
 <DialogContent>
 <TextField style={{marginBottom: '5%'}} label='Title'  variant='outlined' fullWidth onChange={(e) => setTitle(e.target.value)}/>
-<TextField rows={7} multiLine label='Description' variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
+<TextField style={{marginBottom: '5%'}} rows={7} multiLine label='Description' variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
 
+<Select onChange={(e) => setType(e.target.value)} value={type} variant='outlined' fullWidth>
+  <option selected value={0}>2 Row (Type 0)</option>
+  <option value={1}>SERVICES REQUIRED FROM CUSTOMER END</option>
+</Select>
+<FormHelperText className='italic'>Select Type Before Adding Module</FormHelperText>
 </DialogContent>
 <DialogActions>
 <Button onClick={handleCloseAdd} variant='contained' color='secondary'>Cancel</Button>
-<Button style={{background:'orange', color:'white'}} onClick={handleSubmit}>Add New</Button>
+<Button disabled={title===''|| desc ==='' } style={{background:'orange', color:'white'}} onClick={handleSubmit}>Add New</Button>
 </DialogActions>
 
 </Dialog>
