@@ -61,14 +61,17 @@ const AccountDetails = () => {
 
     const handleChange = (e) => {
         let selectedFile = e.target.files[0];
-        setDisabled(false)
+       
         if (selectedFile) {
             if (types.includes(selectedFile.type)) {
+                
                 setError(null);
                 setFile(selectedFile);
+                
             } else {
                 setFile(null);
                 setError("Please select an image file (png or jpg)");
+                setDisabled(true)
             }
         }
        
@@ -85,11 +88,11 @@ const AccountDetails = () => {
       return setError("Passwords do not match! Please try again")
     }
 
-      if (password.length <= 8){
+      if (password.length < 6){
         if(password.length === 0){
           history.push('/')
         }
-      return setError("Weak Password !")
+      return setError("Weak Password ! Passwords should be 6 characters")
     }
 
     if (email !== currentUser.email) {
@@ -166,21 +169,15 @@ const AccountDetails = () => {
           >
             {account.role}
           </Typography>
-          <Typography
-            className={classes.dateText}
-            color="textSecondary"
-            variant="body1"
-          >
-            
-          </Typography>
+          {error && <Alert severity="error">{error}</Alert>}
         </Box>
         
       </CardContent>
       <Divider />
-       <CardActions style={{alignItems: "center"}}>
+       <CardActions style={{display: 'flex', justifyContent: 'space-evenly'}}>
      
        <input type="file"  onChange={handleChange} />
-       <Button disabled={disabled}  variant="outlined" color="primary" onClick={handleUpload} >Upload</Button>
+       <Button disabled={progress < 100}  variant="outlined" color="primary" onClick={handleUpload} >Upload</Button>
       </CardActions>
     </Card>
     <Grid>
@@ -241,7 +238,7 @@ const AccountDetails = () => {
                 onChange={(e) => setPasswordConfirm(e.target.value)}
               />
               
-              {error && <Alert severity="error">{error}</Alert>}
+             
         
 
         </CardContent>

@@ -194,9 +194,9 @@ const MiddlePage = () =>{
       }}
     >
       <Container className='bg-gray-50' maxWidth={false}>
-        <Typography variant='h2' align='left' gutterBottom><b style={{font: 'var(--unnamed-font-style-normal) normal 600 34px/46px Montserrat', color: '#43425D'}}>Good Morning!</b></Typography>
+        <Typography variant='h2' align='left' gutterBottom><b style={{font: 'var(--unnamed-font-style-normal) normal 600 34px/46px Montserrat', color: '#43425D'}}>Welcome to the Dashboard</b></Typography>
         <Typography style={{font: 'var(--unnamed-font-style-normal) normal medium 23px/25px var(--unnamed-font-family-roboto)', color: '#43425D', marginBottom: '3%'}}  variant='caption' align='left'>Here's an overview of the available data</Typography>
-       
+       <br />
         <Grid
           container
           spacing={3}

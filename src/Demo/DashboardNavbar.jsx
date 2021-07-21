@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link as RouterLink, Redirect } from 'react-router-dom';
+import { Link as RouterLink, NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import {
@@ -146,11 +146,11 @@ function handleDelete(id){
             </Badge>
         
           </IconButton>
-           <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" href='/account' >
+          <IconButton component={NavLink} color="default" aria-controls='simple-menu' aria-haspopup="true" to='/account' >
               <span className="ml-2 text-sm font-medium">{userData.firstName} {userData.lastName}</span>
               <Avatar style={{marginLeft: '10px'}} src={userData.url} />
           
-         
+          
           </IconButton>
         </Hidden>
         <Hidden lgUp>

@@ -117,7 +117,7 @@ export default function CallLogs({match}) {
               </TableCell>
               <TableCell align="right">{row.user_id}</TableCell>
               <TableCell align="right">{row.step}</TableCell>
-              <TableCell align="right">{row.time}</TableCell>
+              <TableCell align="right">{row.time.toDate().toString().substring(0,15)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

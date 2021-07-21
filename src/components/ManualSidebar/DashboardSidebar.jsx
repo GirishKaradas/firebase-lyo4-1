@@ -110,13 +110,44 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         <List>
         
           <ListItem>
-            <Button component={NavLink} style={{textDecoration: 'none', color:'orange'}} className="flex items-center w-full h-12 px-3 mt-2 text-gray-200 bg-black rounded" to="/">
-                    <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
- 				</svg>
-					
-					<span className="ml-2 text-sm font-medium">Dashboard</span>
- 			</Button>
+          <div className="flex items-center w-full h-12 px-3 mt-2 rounded">
+        <ListItem
+      disableGutters
+      style={{
+        display: 'flex',
+        
+       
+      }}
+     
+    >
+      
+      <Button
+      
+        component={RouterLink}
+        style={{
+          background: 'black',
+          color: 'orange',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          letterSpacing: 0,
+          py: 1.25,
+          textTransform: 'none',
+          width: '100%',
+          
+        }}
+        to='/'
+      >
+     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 16">
+  <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+</svg>
+        <span>
+          
+            <b className='ml-2'>Dashboard</b> 
+         
+        </span>
+      </Button>
+      </ListItem> 
+            </div>
           </ListItem>
           
          

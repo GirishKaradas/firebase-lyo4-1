@@ -151,7 +151,7 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
             </Badge>
         
           </IconButton>
-           <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" href='/account' >
+           <IconButton component={NavLink} color="default" aria-controls='simple-menu' aria-haspopup="true" to='/account' >
               <span className="ml-2 text-sm font-medium">{userData.firstName} {userData.lastName}</span>
               <Avatar style={{marginLeft: '10px'}} src={userData.url} />
           

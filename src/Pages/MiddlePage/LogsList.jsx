@@ -147,7 +147,7 @@ export default function CallLogs() {
               <TableCell style={{color: '#4D4F5C'}} align="left">{row.user_id}</TableCell>
               
               <TableCell style={{color: '#4D4F5C'}} align="left">{row.step}</TableCell>
-              <TableCell style={{color: '#4D4F5C'}}align="right">{row.time}</TableCell>
+              <TableCell style={{color: '#4D4F5C'}}align="right">{row.time.toDate().toString().substring(0,15)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Container, Fade, makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import UserList from './UserList';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 import { db } from '../../firebase';
 import {firebaseLooper} from '../../utils/tools'
 import AddIcon from '@material-ui/icons/Add';
@@ -71,7 +71,7 @@ const Users = () => {
                   <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> 
                   </div>
                    </div>
-               <Button href={`/users/add-user`}  style={{width: '15%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add User</Button>
+               <Button component={NavLink} to={`/users/add-user`}  style={{width: '15%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add User</Button>
              
               
           

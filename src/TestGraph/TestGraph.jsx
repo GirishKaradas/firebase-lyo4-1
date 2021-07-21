@@ -368,7 +368,7 @@ const TestGraph = () => {
             xl={3}
             xs={12}
               >
-                <Button className=' mt-3 block ' onClick={onButtonClick} style={{backgroundColor: 'orange'}}>Show Graph</Button>
+                <Button className=' mt-3 block ' onClick={onButtonClick} style={{backgroundColor: 'orange', color: 'white'}}>Show Graph</Button>
               </Grid>
               
           </Grid>

@@ -148,7 +148,7 @@ export default function JobsList({match}) {
                <b style={{color: '#9ede73', display: 'flex', justifyContent: 'flex-end'}}><DoneIcon style={{color: '#9ede73'}}/>Completed</b> :
                <b style={{color: 'orange', display: 'flex', justifyContent: 'flex-end'}}><ErrorOutlineIcon style={{color: '#ff7a00d'}}/> Pending</b>}
                </TableCell>
-               <TableCell align="right">{row.date}</TableCell>
+               <TableCell align="right">{row.date.toDate().toString().substring(0,15)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

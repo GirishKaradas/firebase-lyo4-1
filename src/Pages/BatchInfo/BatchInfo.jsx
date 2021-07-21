@@ -118,7 +118,7 @@ export default function BatchInfo({match}) {
                 {row.manual_name}
               </TableCell>
               <TableCell align="center">{row.user_id}</TableCell>
-              <TableCell align="center">{row.time}</TableCell>
+              <TableCell align="center">{row.time.toDate().toString().substring(0,15)}</TableCell>
               <TableCell align="center"><img loading="lazy" src={row.url} width={450} height={250}/></TableCell>
               
             </TableRow>
