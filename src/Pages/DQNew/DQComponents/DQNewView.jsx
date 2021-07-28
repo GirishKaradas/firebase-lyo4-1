@@ -36,8 +36,8 @@ function DQNewView({report}) {
 	console.log(report)
 	return (
 		<div>
-			    <div className="container items-center px-5 py-12 lg:px-20">
-            <div className="p-6 mx-auto bg-white border rounded-lg shadow-xl lg:w-1/2">
+			    <div>
+            {/* <div className="p-6 mx-auto bg-white border rounded-lg shadow-xl lg:w-1/2">
               <div className="flex flex-col items-start py-2 rounded-lg lg:flex-row">
                 
                 <div className="flex flex-col w-full text-blueGray-500 lg:ml-4">
@@ -52,7 +52,7 @@ function DQNewView({report}) {
      
                 </div>
               </div>
-            </div>
+            </div> */}
             <Dialog fullWidth open={open} onClose={handleClose}>
                <div>
            
@@ -91,6 +91,30 @@ function DQNewView({report}) {
                     </Button>
                     </DialogActions>
           </Dialog>
+          <div className="xl:w-full w-11/12 mx-auto flex flex-wrap items-center justify-between xl:px-8 md:px-8 lg:px-8 mb-2 xl:mb-0 lg:mb-0 border-b border-gray-300 dark:border-gray-700">
+                        <div className="xl:w-3/5 lg:w-2/4 w-full pt-6 xl:pb-6 lg:pb-8 md:pb-8 sm:pb-8">
+                            <p className="text-lg font-bold text-gray-800 dark:text-gray-100 pb-1">{report.name}</p>
+                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">{report.desc}</p>
+                        </div>
+                        <div className="xl:w-1/5 lg:w-1/4 w-full pt-6 pb-8">
+                            <div className="flex items-center w-full justify-between">
+                                
+                                <Button component={NavLink} to={`/DQ/${report.id}/Approval`} className="text-gray-400 hover:text-gray-500 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-right" width={20} height={20} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                        <polyline points="9 6 15 12 9 18" />
+                                    </svg>
+                                </Button>
+                            </div>
+                        </div>
+                        <div className="xl:w-1/5 lg:w-1/4 w-full pt-6 xl:pb-8 lg:pb-8 md:pb-8 sm:pb-8">
+                            <div className="flex items-center xl:-ml-10">
+                            <Button onClick={handleOpen}><EditIcon/></Button>
+                            <Button onClick={handleOpenDelete}><DeleteIcon/></Button>
+                            </div>
+                        </div>
+                        
+                    </div>
 		</div>
 	)
 }

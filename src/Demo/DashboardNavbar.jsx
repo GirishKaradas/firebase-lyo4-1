@@ -131,7 +131,7 @@ function handleDelete(id){
       <Toolbar >
         <Box style={{ flexGrow: 1 }} />
         <Hidden mdDown>
-        
+         
             <IconButton color="default" aria-controls='simple-menu' aria-haspopup="true" onClick={handleVideoOpen} >
             <Badge
               badgeContent={videoData.length}

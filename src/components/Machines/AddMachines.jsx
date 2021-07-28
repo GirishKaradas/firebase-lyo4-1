@@ -41,20 +41,27 @@ const AddMachines = () => {
   const [createdBy, setCreatedBy] = useState(currentUser.email);
    const [desc, setDesc] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
   const notification = `${currentUser.email} has created a new Machine!`
   const link = 'machine-data'
   const history = useHistory();
   const [notifyData, setNotifyData] = useState([])
  
     const handleSubmit = (e) => {
-   
+      
     e.preventDefault();
     var result = {title,location,createdBy,desc }
-        db.collection('machineData').add(result).then(data => {
+    if(desc.length < 150){
+      setError(" Description must be atleast 150 characters long.")
+    }else {
+      db.collection('machineData').add(result).then(data => {
           history.push('/machine-data')
           console.log(data)
           setLoading(true)
         })
+    }
+    
+       
        
     }
 
@@ -109,6 +116,7 @@ const AddMachines = () => {
             onChange ={(e) => setCreatedBy(e.target.value)}
            style={{marginBottom: '20px'}}
           />
+          {error && <Alert severity="error" >{error}</Alert>}
            <TextField
            fullWidth
            value={desc}

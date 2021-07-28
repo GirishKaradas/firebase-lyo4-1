@@ -73,8 +73,12 @@ function DQNew({match}) {
 		  <Toolbar style={{display: 'flex', justifyContent: 'flex-end'}}>
 			<Button onClick={handleOpen} style={{backgroundColor:'orange', color: 'white', width: '12%' }}>Add New</Button>
 		  </Toolbar>
-           <div>
-			{
+           
+    <div>
+            <div className="container mx-auto px-6 py-10">
+                <div className="shadow bg-white dark:bg-gray-800  rounded">
+                
+                {
 				reports.map(data => (
 					<>
 					<DQNewView key={data.id} report={data}/>
@@ -82,7 +86,11 @@ function DQNew({match}) {
 					</>
 				))
 			}
-		</div>
+                   
+                      
+                    </div>
+                </div>
+    </div>
 		<Dialog onClose={handleClose} open={open} fullScreen>
 			 <Toolbar style={{display: 'flex', justifyContent: 'flex-start'}}>
 			<Button onClick={handleClose} style={{backgroundColor:'orange', color: 'white', width: '10%' }}>close</Button>
@@ -98,3 +106,4 @@ function DQNew({match}) {
 }
 
 export default DQNew
+

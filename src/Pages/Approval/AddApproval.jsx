@@ -1,5 +1,5 @@
 import { useState } from "react"
-import * as admin from 'firebase-admin'
+import firebase from 'firebase'
 import  { db } from "../../firebase"
 import {useStorage} from '../../utils/useStorage'
 import { FormHelperText, TextField, Button, Switch } from "@material-ui/core"
@@ -34,7 +34,7 @@ function AddApproval({match}) {
 		.collection('content')
 		.doc('approval')
 		.collection('customer')
-		.add({name,url,  timestamp: new Date()})
+		.add({name,url,  timestamp: firebase.firestore.Timestamp.fromDate(new Date())})
 		.then(() => {
 		setName('')
 		setFile(null)	

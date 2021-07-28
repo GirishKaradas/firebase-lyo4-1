@@ -130,9 +130,11 @@ export default function JobsList({match}) {
                  <Typography className='ml-2' variant='h5' align='left' gutterBottom><b>{mTitle}</b></Typography>
           <TableRow>  
             <TableCell  style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
-            <TableCell style={{backgroundColor: '#d8e3e7'}} align="center"><b>Description</b></TableCell>
+            <TableCell style={{backgroundColor: '#d8e3e7'}} align="left"><b>Description</b></TableCell>
+            
+            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="left"><b>Asignee</b></TableCell>
+            <TableCell  style={{backgroundColor: '#d8e3e7'}} align="left"><b>Date</b></TableCell>
             <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"><b>Status</b></TableCell>
-            <TableCell  style={{backgroundColor: '#d8e3e7'}} align="right"><b>Date</b></TableCell>
             
           </TableRow>
         </TableHead>
@@ -149,12 +151,14 @@ export default function JobsList({match}) {
               <TableCell style={{width: 160, backgroundColor: '#e8ffff'}} component="th" scope="row">
                <b> {row.title}</b>
               </TableCell>
-              <TableCell align="center">{row.desc}</TableCell>
-              <TableCell align="right">{row.status ?
+              <TableCell align="left">{row.desc}</TableCell>
+             
+               <TableCell align="left">{row.email}</TableCell>
+               <TableCell align="left">{row.date.toDate().toString().substring(0,15)}</TableCell>
+               <TableCell align="right">{row.status ?
                <b style={{color: '#9ede73', display: 'flex', justifyContent: 'flex-end'}}><DoneIcon style={{color: '#9ede73'}}/>Completed</b> :
                <b style={{color: 'orange', display: 'flex', justifyContent: 'flex-end'}}><ErrorOutlineIcon style={{color: '#ff7a00d'}}/> Pending</b>}
                </TableCell>
-               <TableCell align="right">{row.date.toDate().toString().substring(0,15)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

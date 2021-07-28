@@ -103,22 +103,18 @@ export default function LogIn() {
           
             <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-36">
                  
-                <a style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
+                <p style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
               
-              {navbar.name}</a>
+              {navbar.name}</p>
             
             <p style={{font: 'normal normal normal 20px/13px Roboto', color: '#4D4F5C', opacity: 0.5}} className="text-center text-3xl">Welcome back! Please login to your account.</p>
                  {error && <b style={{color: 'red'}}>{error}</b>}
                 <form style={{justifyContent: 'center'}} className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
-                    <div className="flex flex-col pt-4">
+                   
                         
-                        <input required onChange={(e) => setEmail(e.target.value)} type="email" id="email" placeholder="Email*" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                    </div>
-   
-                    <div className="flex flex-col pt-4">
-                        
-                        <input required onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="Password*" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                    </div>
+                        <TextField className='mb-4' variant='outlined' required onChange={(e) => setEmail(e.target.value)} type="email" id="email" label="Email" />
+                        <TextField variant='outlined' required onChange={(e) => setPassword(e.target.value)} type="password" id="password" label="Password" />
+                  
     
                    <button type='submit' style={{backgroundColor: 'orange', alignItems: 'center', marginLeft: '25%'}} className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 w-50 " >Log In</button>
                 </form>

@@ -55,6 +55,7 @@ export default function UserItem({ users}) {
     const [phone, setPhone] = useState(users.phone)
     const [role, setRole] = useState(users.role)
     const [loading, setLoading] = useState(false);
+    const [error,setError] = useState("")
     const history = useHistory()
    
     const handleView = () => {
@@ -85,13 +86,19 @@ export default function UserItem({ users}) {
 }
 
 const updateUser=(id) => {
-    const updatedUser = {firstName,lastName,phone,role,email,password}
-    setLoading(true)
-    db.collection('users').doc(id).update(updatedUser).then(() => {
+   
+  
+    if(phone.length < 10 || phone.length > 10){
+      setError("Phone number's length should be only 10 digits")
+    }else {
+       const updatedUser = {firstName,lastName,phone,role,email,password}
+       db.collection('users').doc(id).update(updatedUser).then(() => {
       setLoading(false)
       history.push('/users')
       
     })
+    }
+    
     
   }
   
@@ -255,9 +262,10 @@ const updateUser=(id) => {
                       </Grid>
                       
                     </Grid>
+                    {error && <Alert severity='error'>{error}</Alert>}
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Close</Button>
-                      {!loading && <Button
+                    <Button
                           type="submit"
                           variant="outlined"
                           color="primary"
@@ -266,10 +274,8 @@ const updateUser=(id) => {
                           }
                         >
                           Update
-                          </Button>}
-                      {
-                        loading && <Alert severity="success">User Updated !</Alert>
-                      }   
+                          </Button>
+                       
                     </DialogActions>
                      
                   </form>

@@ -74,6 +74,7 @@ export default function AddUser() {
   const {currentUser} = useAuth()
   const [admin, setAdmin] = useState(false)
   const history = useHistory()
+  const [url,setUrl] = useState("")
   const { signup } = useAuth()
 
   useEffect(() => {
@@ -104,13 +105,15 @@ export default function AddUser() {
      setError("Please put a valid email !")
    }
     
-    const userData = {firstName, lastName, email, password, phone, role, username, admin}
+    const userData = {firstName, lastName, email, password, phone, role, username, admin, url}
     try {
       setError("")
       setLoading(true)
       await signup(email, password)
-      db.collection('users').add(userData)
-      history.push("/")
+      db.collection('users').add(userData).then(() => {
+          history.push("/")
+      })
+    
     } catch {
       setError("Failed to create an account.This is either due to invalid input of email/ the email already exist in Database")
     }

@@ -52,6 +52,7 @@ const Machine= ({data, ...rest}) => {
    const {currentUser} = useAuth()
     const [openEdit, setOpenEdit] = useState(false)
     const [open, setOpen] = useState(false)
+    const [error, setError] = useState("")
    const [title, setTitle] = useState(data.title)
   const [location, setLocation] = useState(data.location);
   const [createdBy, setCreatedBy] = useState(data.createdBy);
@@ -78,6 +79,9 @@ const Machine= ({data, ...rest}) => {
  const updateMachine=(id) => {
     setLoading(true)
     const data = {title,location,desc}
+    if(desc.length < 150){
+      setError("Invalid length . description should be more than 150 characters.")
+    }
       db.collection('machineData').doc(id).update(data).then(()=>{
         setLoading(false)
         
@@ -305,6 +309,7 @@ const Machine= ({data, ...rest}) => {
                           label="Created By"
                           onChange={(e) => setCreatedBy(e.target.value)}
                         />
+                        {error && <Alert severity="error" >{error}</Alert>}
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
                        {!loading && <Button

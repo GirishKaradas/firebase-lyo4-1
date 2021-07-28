@@ -3,12 +3,13 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Typography, Toolbar, Switch } from '@material-ui/core';
 import WorkFlow from '../MiddlePage/WorkFlow';
+import ManualView from './ManualView';
  
 const UserManual = () => {
    const [change, setChange] = useState(false)
     return (
        <>
-       <Toolbar>
+       {/* <Toolbar>
           <Switch onClick={(e) => setChange(!change)}></Switch>
        </Toolbar>
         {change ?
@@ -122,10 +123,14 @@ const UserManual = () => {
                 </div>
                 
             </Carousel>
+            <div>
+               <ManualView/>
+            </div>
         </div>
       : 
       <WorkFlow/>
-      }
+      } */}
+      <ManualView/>
       </>
     )
 }

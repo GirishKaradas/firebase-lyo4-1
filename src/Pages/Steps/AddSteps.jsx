@@ -104,7 +104,7 @@ const AddSteps = ({match}) => {
         
         if (selectedFile) {
 
-          if(type === " " || format === " "){
+          if(type === "" || format === ""){
             setError("Please Select a Type / Format first to proceed")
           }
           if(format === 'image'){

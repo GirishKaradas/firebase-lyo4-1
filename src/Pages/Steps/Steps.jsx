@@ -139,7 +139,7 @@ const Steps = ({match}) => {
     data.format === 'video'?
     <div>
        <video
-    style={{width: '100%', height: 'auto', marginTop: '20px', objectFit: 'fill'}}
+    style={{width: '100%', height: '75vh'}}
    
     controls
       src={data.url}

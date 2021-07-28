@@ -152,7 +152,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
           
          
           {items.map((item) => (
-            
+            <div key={item.title} className="flex items-center w-full h-12 px-3 mt-2 rounded ">
               <NavItem
               href={`${item.href}/${match.params.id}/${item.title}`}
               key={item.title}
@@ -160,6 +160,8 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
               icon={item.icon}
             />
             
+            </div>
+              
             
           ))}
         </List>
