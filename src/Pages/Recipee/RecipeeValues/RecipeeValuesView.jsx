@@ -109,10 +109,10 @@ export default function RecipeeValuesView({match}) {
         <TableHead>
           <TableRow>
             <TableCell><b>Step</b></TableCell>
-            <TableCell align="right"><b>Time</b></TableCell>
-            <TableCell align="right"><b>Keep Time</b></TableCell>
-            <TableCell align="right"><b>Temprature</b></TableCell>
-            <TableCell align="right"><b>Pressure&nbsp;</b></TableCell>
+            <TableCell align="right"><b>Time(min)</b></TableCell>
+            <TableCell align="right"><b>Keep Time(min)</b></TableCell>
+            <TableCell align="right"><b>Temperature(deg C)</b></TableCell>
+            <TableCell align="right"><b>Pressure&nbsp;(bars / P)</b></TableCell>
             <TableCell align="right"><b>Actions&nbsp;</b></TableCell>
           </TableRow>
         </TableHead>

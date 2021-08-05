@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, Card, CardContent, Button, makeStyles, Typography, Container, Dialog, DialogTitle, DialogContentText, DialogContent, TextField, DialogActions } from '@material-ui/core';
+import { Grid, Card, CardContent, Button, makeStyles, Typography, Container, Dialog, DialogTitle, DialogContentText, DialogContent, TextField, DialogActions, FormHelperText } from '@material-ui/core';
 import { Alert } from 'bootstrap';
 import { AlertTitle } from '@material-ui/lab';
 import { db } from '../../firebase';
@@ -113,6 +113,7 @@ const ManualItem = ({data}) => {
                         <TextField
                         label="Content Name"
                         defaultValue={title}
+                        error={title === "" || title.length > 35}
                           variant="outlined"
                           margin="normal"
                           required
@@ -125,6 +126,7 @@ const ManualItem = ({data}) => {
                         <TextField
                         label="Description"
                         defaultValue={desc}
+                        error={desc === "" || desc.length > 300}
                         multiline
                         rows={5}
                           variant="outlined"
@@ -137,7 +139,7 @@ const ManualItem = ({data}) => {
                           onChange={(e) => setDesc(e.target.value)}
                         />
                        
-                       
+                       <FormHelperText>Description should be {desc.length}/300</FormHelperText>
                     
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>

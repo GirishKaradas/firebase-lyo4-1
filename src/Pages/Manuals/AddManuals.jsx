@@ -1,4 +1,4 @@
-import { Button, Card, Container, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, Card, Container, FormHelperText, makeStyles, TextField, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom'
@@ -103,6 +103,7 @@ const AddManuals = ({match}) => {
             label="Manual Title"
             name="content_name"
             autoFocus
+            error={title==="" || title.length > 35}
             onChange={(e) => setContentName(e.target.value)}
             
           />
@@ -117,17 +118,17 @@ const AddManuals = ({match}) => {
             id="content_name"
             label="Manual Description"
             name="content_name"
-            
+            error={desc.length > 300}
             onChange={(e) => setDesc(e.target.value)}
             
           />
-              
+              <FormHelperText>Description should be {desc.length}/300</FormHelperText>
           
          {!loading && <Button
             type="submit"
             fullWidth
             variant="contained"
-            
+            disabled={title==="" || desc===""}
             className={classes.submit}
           >
             Add Manual

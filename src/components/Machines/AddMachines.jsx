@@ -86,6 +86,8 @@ const AddMachines = () => {
             margin="normal"
             required
             fullWidth
+            error={title.length > 35}
+            
             id="machine_name"
             label="Machine Name"
             name="machine_name"
@@ -98,6 +100,7 @@ const AddMachines = () => {
             margin="normal"
             required
             fullWidth
+            error={location.length > 40}
             name="location"
             label="Location"
             onChange={(e) => setMachineLocation(e.target.value)}
@@ -134,7 +137,7 @@ const AddMachines = () => {
             type="submit"
             onClick={handleSubmit}
             variant="contained"
-            
+            disabled={title ===  "" || desc === "" || location === "" || title.length < 6 || location.length < 6 || location.length> 40 ||title.length> 35}
             className={classes.submit}
           >
             Add  Machine

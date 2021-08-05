@@ -6,6 +6,7 @@ import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import ManualItem from './ManualItem';
 import Page from '../../components/Page';
+import { NavLink } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Manuals({match}) {
     const classes = useStyles()
     const [manuals, setManuals] = useState([])
-    const [title, setTitle] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
     const [mTitle, setMTitle] = useState('')
     useEffect(() => {
       db.collection('machineData')
@@ -76,28 +77,29 @@ export default function Manuals({match}) {
                
                  <div className="relative"> 
                  
-                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Manuals..."/>
+                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Manuals..."/>
                   <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
               </div>
-               <Button href={`/machine-data/${match.params.id}/Add-Manuals`}  style={{width: '10%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add Manuals</Button>
+               <Button component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`}  style={{width: '10%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add Manuals</Button>
               </div>
             <br/>
-            
+            <b>{searchTerm}</b>
             <Grid container spacing={3}>
                 <>
                      {
-                        manuals.
-                          filter((data) => {
-                              if(title === ""){
-                                  return data
-                              } else if (data.title.toLowerCase().includes(title.toLocaleLowerCase())){
-                                      return data
-                             }
-                             else if (data.desc.toLowerCase().includes(title.toLocaleLowerCase())){
+                        manuals
+                        
+                        .filter((data) => {
+                           if(searchTerm === ""){
                                return data
-                             }
-                             return data 
-                            })
+                           } else if (data.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                                   return data
+                                   }
+                                   else if (data.desc.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                                    return data
+                                    }
+
+                       })
                         .map((data) => (
                           <ManualItem key={data.id} data={data}/>
                         ))

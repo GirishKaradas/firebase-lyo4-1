@@ -271,7 +271,8 @@ const updateStep=(id) => {
                       {error && <Alert severity='error'>{error}</Alert>}
                         <TextField
                        
-                        defaultValue={title}                       
+                        defaultValue={title}    
+                        error={title === ""}                  
                           variant="outlined"
                           margin="normal"
                           required
@@ -283,6 +284,7 @@ const updateStep=(id) => {
                         />
                         <TextField
                         defaultValue={desc}
+                        error={desc === ""}
                           variant="outlined"
                           margin="normal"
                           required

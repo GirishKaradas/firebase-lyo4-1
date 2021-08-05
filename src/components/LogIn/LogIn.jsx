@@ -17,6 +17,9 @@ import { useAuth } from '../context/AuthContext';
 import Logo from '../Logo';
 import Navbar from './Navbar';
 import { db } from '../../firebase';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { IconButton } from '@material-ui/core';
 
 
 function Copyright() {
@@ -63,6 +66,7 @@ export default function LogIn() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [passwordOn, setPasswordOn] = useState("password")
 
   useEffect(() => {
      db.collection('company').doc('navbar').onSnapshot(snapshot => {
@@ -113,7 +117,19 @@ export default function LogIn() {
                    
                         
                         <TextField className='mb-4' variant='outlined' required onChange={(e) => setEmail(e.target.value)} type="email" id="email" label="Email" />
-                        <TextField variant='outlined' required onChange={(e) => setPassword(e.target.value)} type="password" id="password" label="Password" />
+                        <div style={{display: 'flex'}}>
+                          <TextField variant='outlined' fullWidth required onChange={(e) => setPassword(e.target.value)} type={passwordOn} id="password" label="Password" />
+                        { passwordOn === "password" ?
+                          <IconButton onClick={(e) => setPasswordOn("text")}>
+                            <VisibilityOffIcon/>
+                          </IconButton>
+                          : 
+                          <IconButton onClick={(e) => setPasswordOn("password")}>
+                            <VisibilityIcon/>
+                          </IconButton>
+                        }
+                        </div>
+                        
                   
     
                    <button type='submit' style={{backgroundColor: 'orange', alignItems: 'center', marginLeft: '25%'}} className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 w-50 " >Log In</button>

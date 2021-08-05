@@ -216,6 +216,7 @@ const AddSteps = ({match}) => {
               <TextField
               value={title}
                 variant="outlined"
+                error={title.length > 40}
                 margin="normal"
                 required
                 fullWidth
@@ -227,6 +228,7 @@ const AddSteps = ({match}) => {
               />
               <TextField
               value={desc}
+               error={desc === ""}
                 variant="outlined"
                 margin="normal"
                 required
@@ -308,7 +310,7 @@ const AddSteps = ({match}) => {
 
        <div style={{display: 'flex', justifyContent: 'center', marginTop: '25px'}}>
          {!loading && <Button
-         disabled={progress < 100 || format===""}
+         disabled={progress < 100 || format==="" || file===null}
             type="submit"
             style={{width: '50%', color: 'white', background: 'orange'}}
             variant="contained"

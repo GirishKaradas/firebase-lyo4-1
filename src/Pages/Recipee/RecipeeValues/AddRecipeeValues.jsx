@@ -92,6 +92,7 @@ const AddRecipeeValues = ({match}) => {
                     fullWidth
                     label='Step'
                     value={step}
+                    error={step === ""}
                         onChange={(e) => setStep(e.target.value)}
                     />
                     <TextField 
@@ -102,6 +103,7 @@ const AddRecipeeValues = ({match}) => {
                     fullWidth
                     label='Temprature'
                     value={temp1}
+                    error={temp1 === ""}
                         onChange={(e) => setTemp(e.target.value)}
                     />
                     <TextField 
@@ -112,6 +114,7 @@ const AddRecipeeValues = ({match}) => {
                     fullWidth
                     label='Pressure'
                     value={pressure}
+                    error={pressure === ""}
                         onChange={(e) => setPressure(e.target.value)}
                     />
                     <TextField 
@@ -132,11 +135,12 @@ const AddRecipeeValues = ({match}) => {
                     type='number'
                     label='KeepTime'
                     value={time2}
+                    error={time2 === ""}
                         onChange={(e) => setKeepTime(e.target.value)}
                     />
                    
                 <CardActions>
-                    <Button fullWidth variant='outlined' color="primary" onClick={handleSubmit}>Add New Recipe</Button>
+                    <Button disabled={step === ''|| temp1 === '' || pressure === '' || time1 === '' || time2 === ''} fullWidth variant='outlined' color="primary" onClick={handleSubmit}>Add New Recipe</Button>
                  </CardActions>
               
                 </form> 

@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Container, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import MachineList from './MachineList';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import Machine from './Machine';
 import {db} from '../../firebase';
 import {firebaseLooper} from '../../utils/tools'
@@ -64,7 +64,7 @@ const Machines = () => {
                  <input style={{width: '570px', height: '52px', border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="  pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Machines..."/>
                   
                    </div>
-               <Button href={`/add-machine`}  style={{width: '129px', height: '52px', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add </Button>
+               <Button component={NavLink} to={`/add-machine`}  style={{width: '129px', height: '52px', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add </Button>
              
               
                

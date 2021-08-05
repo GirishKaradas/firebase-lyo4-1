@@ -264,6 +264,7 @@ const Machine= ({data, ...rest}) => {
                         defaultValue={title}
                         label="Machine Name"
                           variant="outlined"
+                          error={title === "" || title.length > 35}
                           margin="normal"
                           required
                           fullWidth
@@ -274,7 +275,7 @@ const Machine= ({data, ...rest}) => {
                         />
                         <TextField
                         label="Machine Location"
-                        
+                        error={location==="" || location.length > 40}
                         defaultValue={location}
                           variant="outlined"
                           margin="normal"
@@ -318,6 +319,7 @@ const Machine= ({data, ...rest}) => {
                           variant="outlined"
                           color="primary"
                           className={classes.submit}
+                          disabled={title.length < 6 || title.length > 30 || location.length > 40 || location.length < 6 || desc.length < 150} 
                           onClick={(e)=> {updateMachine(data.id)
                           handleEditClose(e)}}
                         >

@@ -72,6 +72,7 @@ const AddRecipe = ({match}) => {
                     fullWidth
                     label='Title'
                     value={title}
+                    error={title === "" || title.length > 40}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     <TextField 

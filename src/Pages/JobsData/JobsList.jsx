@@ -13,8 +13,9 @@ import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashb
 import { Card, Checkbox, TextField, Typography, Button } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import DatePicker, { CalendarContainer } from "react-datepicker";
+
 import Page from '../../components/Page';
+import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -71,19 +72,7 @@ export default function JobsList({match}) {
     }, [])
   const classes = useStyles();
 
-  const handleChangeDate = (e) => {
-     
-    const jobDate = e.target.value
-    db.collection('jobData').where('mid', '==', `${match.params.id}`)
-    .where('date', '==', `${jobDate}`).onSnapshot(doc => {
-            const data = firebaseLooper(doc)
-            data.sort(function(a,b){
-              return(b.date - a.date)
-            })
-            setJob(data)
-        })
-  }
-
+  
   const handleClick = () => {
     db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
@@ -92,6 +81,7 @@ export default function JobsList({match}) {
   }
   
   return (
+ 
       <Page title='Jobs | LyoIms'>
       <ContentDashboardLayout match={match}/>
        <div className={classes.wrapper}>
@@ -108,16 +98,8 @@ export default function JobsList({match}) {
                  <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Jobs..."/>
                   <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
               </div>
-                 <TextField
-                id="date"
-                label="Select Date"
-                type="date"
-            
-                onChange={handleChangeDate}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+            <TextField type="date"  format="dddd, mmmm dS, yyyy, h:MM:ss TT"onChange={(e) => setDate(e.target.value)} />
+             <b>{date}</b>
              <Button onClick={handleClick}>Reset</Button>
               
                
@@ -169,5 +151,6 @@ export default function JobsList({match}) {
       </div> 
    
     </Page>
+ 
   );
 }

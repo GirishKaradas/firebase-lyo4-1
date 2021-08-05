@@ -217,7 +217,7 @@ const updateUser=(id) => {
                         <TextField
                         value={phone}
                           variant="outlined"
-                          error={phone.length <10 || phone.length > 10}
+                          error={phone?.length <10 || phone?.length > 10}
                           required
                           fullWidth
                           name="password"
@@ -260,7 +260,7 @@ const updateUser=(id) => {
                           
                           variant="outlined"
                           color="primary"
-                        disabled={phone.length <10 || phone.length > 10}
+                        disabled={phone?.length <10 || phone?.length > 10}
                           onClick={(e)=> {updateUser(users.id);
                             handleEditClose()
                             }

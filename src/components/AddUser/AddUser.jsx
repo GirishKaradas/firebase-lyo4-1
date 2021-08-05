@@ -111,7 +111,8 @@ export default function AddUser() {
       setLoading(true)
       await signup(email, password)
       db.collection('users').add(userData).then(() => {
-          history.push("/")
+          history.push('/')
+          window.location.reload()
       })
     
     } catch {

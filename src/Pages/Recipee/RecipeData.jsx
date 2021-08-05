@@ -111,6 +111,7 @@ export default function RecipeData({rows, length, match}) {
                         <TextField
                         label="Recipe Name"
                         defaultValue={title}
+                        error={title=== "" || title.length > 40}
                           variant="outlined"
                           margin="normal"
                           required
