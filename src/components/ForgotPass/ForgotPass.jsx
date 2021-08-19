@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../../firebase';
 
@@ -88,11 +88,10 @@ export default function ForgotPass() {
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-           <div style={{backgroundImage: 'linear-gradient(to right top, #ff9a40, #ff9d3c, #ffa137, #ffa433, #ffa82e, #ffac2a, #ffb125, #ffb520, #ffbb1a, #ffc014, #ffc60b, #ffcc00)'}} className="w-1/2 shadow-2xl bg-yellow-800 ">
+    <div style={{backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/lyodata.appspot.com/o/login%2FGroup%20244.png?alt=media&token=9903cf0f-9a60-4955-93b0-cb057089f561")`}} className="w-1/2 shadow-2xl bg-yellow-800 ">
             <div className="object-cover w-full h-screen hidden md:block ">
               <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
             </div>
-        
         </div>
         <div className="w-full md:w-1/2 flex flex-col">
 
@@ -108,14 +107,14 @@ export default function ForgotPass() {
                  {message && <b style={{color: 'green'}}>{message}</b>}
                 <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
                     <div className="flex flex-col pt-4">
-                        <label for="email" className="text-lg">Email</label>
-                        <input onChange={(e) => setEmail(e.target.value)} type="email" id="email" placeholder="your@email.com" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
+
+                        <TextField onChange={(e) => setEmail(e.target.value)} type="email" label="Email" required id="email" placeholder="your@email.com" variant='outlined' fullWidth/>
                     </div>
     
                    <button type='submit' style={{backgroundColor: 'orange'}} className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Reset Password</button>
                 </form>
                 <div className="text-center pt-12 pb-12">
-                    <p>Made a mistake? <a href="/login" className="underline font-semibold">Login Here</a></p>
+                    <p>Made a mistake? <NavLink to="/login" className="underline font-semibold">Login Here</NavLink></p>
                 </div>
             </div>
 

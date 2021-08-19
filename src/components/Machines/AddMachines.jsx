@@ -86,7 +86,7 @@ const AddMachines = () => {
             margin="normal"
             required
             fullWidth
-            error={title.length > 35}
+            error={title.length > 30}
             
             id="machine_name"
             label="Machine Name"
@@ -94,21 +94,21 @@ const AddMachines = () => {
             autoFocus
             onChange={(e) => setMachineName(e.target.value)}
           />
-          <FormHelperText>Title should be max 35 Char</FormHelperText>
+          <FormHelperText>Title should be max 30 Char</FormHelperText>
           <TextField
           value={location}
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            error={location.length > 40}
+            error={location.length > 30}
             name="location"
             label="Location"
             onChange={(e) => setMachineLocation(e.target.value)}
             id="machine_location"
             
           />
-          <FormHelperText style={{marginBottom:"20px"}}>Location should be max 40 char long</FormHelperText>
+          <FormHelperText style={{marginBottom:"20px"}}>Location should be max 30 char long</FormHelperText>
           
            <TextField
            fullWidth
@@ -137,9 +137,7 @@ const AddMachines = () => {
           <FormHelperText>Description should be min {desc.length}/150</FormHelperText>
          {!loading && <Button
             type="submit"
-            
             variant="contained"
-           
             className={classes.submit}
           >
             Add  Machine

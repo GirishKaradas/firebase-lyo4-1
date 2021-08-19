@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -138,38 +137,60 @@ export default function AddUser() {
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <FormControl
+               required
+               fullWidth
+               
+               error={firstName.length > 20}
+              >
+                  <TextField
               value={firstName}
+              error={firstName.length > 20}
                 autoComplete="fname"
                 name="firstName"
-                variant="outlined"
-                required
-                fullWidth
+               required
+               variant="outlined"
                 id="firstName"
                 label="First Name"
                 autoFocus
                 onChange={(e) => setFirstName(e.target.value)}
               />
+              <FormHelperText>length should be less than 20</FormHelperText>
+              </FormControl>
+              
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+            <FormControl
+             required
+             fullWidth
+             variant="outlined"
+             error={lastName.length > 20}
+            >
+               <TextField
               value={lastName}
-              fullWidth
-                variant="outlined"
-                required
+              required
+              error={lastName.length > 20}
+              variant="outlined"
                 id="lastName"
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
                 onChange={(e) => setLastName(e.target.value)}
-              />
+              />  
+                <FormHelperText>length should be less than 20</FormHelperText>
+            </FormControl>
+             
             </Grid>
             <Grid item xs={12}>
-              <TextField
+            <FormControl
+             required
+             fullWidth
+             variant="outlined"
+            >
+                <TextField
               value={email}
-                variant="outlined"
-                required
-                fullWidth
+              required
+              variant="outlined"
                 id="email"
                 ref={emailRef}
                 label="Email Address"
@@ -177,23 +198,37 @@ export default function AddUser() {
                 autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
+                </FormControl>
+              
             </Grid>
              <Grid item xs={12}>
-              <TextField
+             <FormControl
+              required
+              fullWidth
+              variant="outlined"
+              error={username.length > 20 || username.length < 6}
+             >
+                 <TextField
               value={username}
-                variant="outlined"
-                required
-                fullWidth
+              required
+              error={username.length > 20 || username.length < 6}
+              variant="outlined"
                 label="Username"
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <FormHelperText>Username should be atleast 6 characters and max 20 characters</FormHelperText>
+                </FormControl>
+             
             </Grid>
             <Grid item xs={12}>
-              <TextField
+            <FormControl
+             required
+             fullWidth
+             variant="outlined">
+                <TextField
               value={phone}
-                variant="outlined"
-                required
-                fullWidth
+              variant="outlined"
+              required
                 name="password"
                 label="Phone Number"
                 type="Number"
@@ -201,13 +236,19 @@ export default function AddUser() {
                 autoComplete="current-password"
                 onChange={(e) => setPhone(e.target.value)}
               />
+              <FormHelperText>Length should be 10 characters</FormHelperText>
+            </FormControl>
+              
             </Grid>
             <Grid item xs={12}>
-              <TextField
+            <FormControl
+             required
+             fullWidth
+             variant="outlined">
+                 <TextField
               value={password}
-                variant="outlined"
-                required
-                fullWidth
+              variant="outlined"
+              required
                 helperText="Password must have atleast 6 characters"
                 ref={passwordRef}
                 id="password"
@@ -216,13 +257,19 @@ export default function AddUser() {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </FormControl>
+             
             </Grid>
             <Grid item xs={12}>
-              <TextField
+            <FormControl
+             required
+             fullWidth
+             variant="outlined"
+            >
+                <TextField
               value={confirmPass}
-                variant="outlined"
-                required
-                fullWidth
+              required
+              variant="outlined"
                 ref={passwordConfirmRef}
                 name="password"
                 label="Re-enter Password"
@@ -230,7 +277,9 @@ export default function AddUser() {
                 id="password"
                 autoComplete="current-password"
                 onChange={(e) => setConfirmPass(e.target.value)}
-              />
+              /> 
+                </FormControl>
+             
             </Grid>
 
             <Grid item xs={12}>

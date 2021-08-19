@@ -151,7 +151,7 @@ const Machine= ({data, ...rest}) => {
             <Button component={NavLink} style={{background: '#0C03EB'}} to={`/machine-data/Manuals/${data.id}/Manuals`} className="px-3 py-1 text-xs text-white uppercase  rounded-full dark:bg-indigo-300 dark:text-indigo-900">Open </Button>
         </div>
           <span className="text-sm font-light text-gray-800 dark:text-gray-400">{data.location}</span>
-           {data && <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc.slice(0,150)} ...</p>}
+           {data && <p className="mt-2 break-all text-sm text-gray-600 dark:text-gray-300">{data.desc?.slice(0,150)} ...</p>}
         </div>
 
         <div>

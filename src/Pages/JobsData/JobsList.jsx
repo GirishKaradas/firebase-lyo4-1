@@ -114,7 +114,7 @@ export default function JobsList({match}) {
             <TableCell  style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
             <TableCell style={{backgroundColor: '#d8e3e7'}} align="left"><b>Description</b></TableCell>
             
-            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="left"><b>Asignee</b></TableCell>
+            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="left"><b>Assignee</b></TableCell>
             <TableCell  style={{backgroundColor: '#d8e3e7'}} align="left"><b>Date</b></TableCell>
             <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"><b>Status</b></TableCell>
             

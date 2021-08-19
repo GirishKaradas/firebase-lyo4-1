@@ -12,14 +12,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../Logo';
 import Navbar from './Navbar';
 import { db } from '../../firebase';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { IconButton } from '@material-ui/core';
+import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 
 
 function Copyright() {
@@ -118,8 +118,13 @@ export default function LogIn() {
                         
                         <TextField className='mb-4' variant='outlined' required onChange={(e) => setEmail(e.target.value)} type="email" id="email" label="Email" />
                         <div style={{display: 'flex'}}>
-                          <TextField variant='outlined' fullWidth required onChange={(e) => setPassword(e.target.value)} type={passwordOn} id="password" label="Password" />
-                        { passwordOn === "password" ?
+                          <FormControl required variant='outlined' fullWidth>
+                          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                          <OutlinedInput   onChange={(e) => setPassword(e.target.value)} type={passwordOn} id="password" label="Password" 
+                            endAdornment={
+                              <InputAdornment position="end">
+                               
+                                  { passwordOn === "password" ?
                           <IconButton onClick={(e) => setPasswordOn("text")}>
                             <VisibilityOffIcon/>
                           </IconButton>
@@ -127,7 +132,15 @@ export default function LogIn() {
                           <IconButton onClick={(e) => setPasswordOn("password")}>
                             <VisibilityIcon/>
                           </IconButton>
-                        }
+                        } 
+                               
+                              </InputAdornment>
+                            }
+                          
+                          />
+                          </FormControl>
+                        
+                       
                         </div>
                         
                   
@@ -135,7 +148,7 @@ export default function LogIn() {
                    <button type='submit' style={{backgroundColor: 'orange', alignItems: 'center', marginLeft: '25%'}} className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 w-50 " >Log In</button>
                 </form>
                 <div className="text-center pt-12 pb-12">
-                    <p>Don't remember password? <a href="/forgotPass" className="underline font-semibold">Reset Password.</a></p>
+                    <p>Don't remember password? <Button component={NavLink} to="/forgotPass" style={{color: 'blue', textDecoration: 'none'}} >Reset Password.</Button></p>
                 </div>
             </div>
 

@@ -49,7 +49,8 @@ const AddRecipe = ({match}) => {
     const [mid, setMid] = useState(`${match.params.id}`)
     const history = useHistory()
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+      e.preventDefault()
       const createdBy = `${currentUser.email}`
         const data = {title, mid, createdBy}
         db.collection('recipes').add(data)
@@ -72,7 +73,7 @@ const AddRecipe = ({match}) => {
                     fullWidth
                     label='Title'
                     value={title}
-                    error={title === "" || title.length > 40}
+                    error={title.length > 40}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     <FormHelperText>Title legth should be maximum {title.length}/40</FormHelperText>
@@ -86,7 +87,7 @@ const AddRecipe = ({match}) => {
                         onChange={(e) => setMid(e.target.value)}
                     />
                 <CardActions>
-                    <Button disabled={title === "" || title.length > 40} fullWidth variant='outlined' color="primary" onClick={handleSubmit}>Add New Recipe</Button>
+                    <Button disabled={title.length>40} fullWidth variant='outlined' color="primary" type="submit">Add New Recipe</Button>
                  </CardActions>
               
                 </form> 

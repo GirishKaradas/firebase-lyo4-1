@@ -301,6 +301,9 @@ const MiddlePage = () =>{
    handleEnd={handleEnd}
      floating={true}
   headerTitle="Arizon Chatbot"
+  placeholder=""
+  cache={true}
+  hideSubmitButton={true}
   speechSynthesis={{ enable: true, lang: 'en' }}
   steps={[
     {

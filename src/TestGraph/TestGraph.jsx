@@ -14,7 +14,7 @@ const chartConfig = {
     datasets: [
       {
           fill: 'false',
-        label: "Temprature",
+        label: "Temperature",
          yAxisID: "y-axis-0",
         data: [],
         borderWidth: 1,

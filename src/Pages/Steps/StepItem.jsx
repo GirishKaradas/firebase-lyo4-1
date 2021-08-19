@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, InputLabel, makeStyles, Select, Snackbar, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, makeStyles, Select, Snackbar, TextField, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { db, storageRef } from '../../firebase';
@@ -275,6 +275,7 @@ const updateStep=(id) => {
                         error={title === ""}                  
                           variant="outlined"
                           margin="normal"
+                          label="Title"
                           required
                           fullWidth
                           id="title"
@@ -288,15 +289,24 @@ const updateStep=(id) => {
                           variant="outlined"
                           margin="normal"
                           required
+                          label="Description"
                           fullWidth
                           name="desc"
                           onChange={(e) => setDesc(e.target.value)}
                           id="desc"
                           multiline
+                          style={{marginBottom: '20px'}}
                         />
+                        
+                        <FormControl required
+                        variant='outlined'
+                        fullWidth
+                        style={{marginBottom: '20px'}}
+                        >
                         <InputLabel>Select Type</InputLabel>
                         <Select
                         required
+                        label="Select type"
                         variant='outlined'
                         value={type}                      
                           fullWidth
@@ -311,14 +321,22 @@ const updateStep=(id) => {
                             <option value='critical'>Critical</option>
                             <option value='normal'>Normal</option>
                         </Select>
+                        </FormControl>
+                        
                         <br/>
-                        <InputLabel >Select Format </InputLabel>
+                        <FormControl required
+                        variant='outlined'
+                        fullWidth
+                        style={{marginBottom: '20px'}}
+                        >
+                           <InputLabel >Select Format </InputLabel>
                           <Select
                           required
                           variant='outlined'
+                          label="Select Format"
                           value={format}
-                            label="Select Format"
-                          required
+                           
+                        
                             fullWidth
                             InputLabelProps={{
                               shrink: true,
@@ -330,6 +348,8 @@ const updateStep=(id) => {
                               <option value='audio'>Audio</option>
                              
                           </Select>
+                        </FormControl>
+                       
                           
                           {getMedia()}
                          <Alert>To Update Media Click <b>'Update Media'</b> After uploading a new Media file</Alert>
@@ -346,7 +366,7 @@ const updateStep=(id) => {
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
                        {!loading && <Button
                           type="submit"
-                          disabled={title==="" || desc==="" || desc?.length > 300 || title?.length > 35 } 
+                          disabled={title==="" || desc==="" || desc?.length > 300 || title?.length > 30} 
                           variant="outlined"
                           color="primary"
                           className={classes.submit}

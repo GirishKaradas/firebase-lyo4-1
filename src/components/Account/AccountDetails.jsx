@@ -40,6 +40,7 @@ const AccountDetails = () => {
   const [error, setError] = useState("")
     const [account, setAccount] = useState([])
      const [loading, setLoading] = useState(false)
+     const [message, setMessage] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
      const [file, setFile] = useState(null);
@@ -88,10 +89,9 @@ const AccountDetails = () => {
       return setError("Passwords do not match! Please try again")
     }
 
+
       if (password.length < 6){
-        if(password.length === 0){
-          history.push('/')
-        }
+     
       return setError("Weak Password ! Passwords should be 6 characters")
     }
 
@@ -105,10 +105,9 @@ const AccountDetails = () => {
     
     try {
       await  updatePassword(password)
-      
-       history.push("/")
+            setMessage("Password updated successfully !")
     } catch (error) {
-        setError("Failed to create an account")
+        setError("Failed to Update Password! Please try again")
     }
 
     
@@ -124,6 +123,10 @@ const AccountDetails = () => {
     return (
       <Page title='Account | LyoIms'>
           <Container maxWidth={false} style={{marginTop: '3%', marginBottom: '3%'}}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+            {error && <Alert severity="error">{error}</Alert>}
+            {message && <Alert severity="success">{message}</Alert>}
+            </div>
            <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <div>
                       <Typography variant='h1'><b>Account Details</b></Typography>
@@ -169,7 +172,7 @@ const AccountDetails = () => {
           >
             {account.role}
           </Typography>
-          {error && <Alert severity="error">{error}</Alert>}
+         
         </Box>
         
       </CardContent>

@@ -241,7 +241,7 @@ const updateUser=(id) => {
                       id: 'role-native-simple',
                     }}
                   >
-                  <option aria-label="None" value="" />
+                  
                 <option value="Admin">Admin</option>
                 <option value="Trainee">Trainee</option>
                   <option value="Operator">Operator</option>
@@ -355,7 +355,7 @@ const updateUser=(id) => {
                       id: 'role-native-simple',
                     }}
                   >
-                    <option aria-label="None" value="" />
+                   
                     <option value="Admin">Admin</option>
                     <option value="Trainee">Trainee</option>
                       <option value="Operator">Operator</option>

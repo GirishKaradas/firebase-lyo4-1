@@ -77,12 +77,10 @@ const ManualItem = ({data}) => {
             
             <Button component={NavLink} style={{background: '#0C03EB'}} to={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</Button>
         </div>
-           {data.desc &&  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{data.desc.slice(0,30)}</p>}
+           {data.desc &&  <p className="mt-2 text-sm break-all text-gray-600 dark:text-gray-300">{data.desc?.slice(0,30)}</p>}
         </div>
 
         <div>
-           
-
             <div className="flex items-center justify-center mt-4">
                 <button onClick={() => handleEditOpen()} class="mr-2 text-gray-800 cursor-pointer dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

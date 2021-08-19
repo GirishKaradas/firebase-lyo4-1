@@ -28,9 +28,10 @@ const FileView = ({data}) => {
     const handleDelete = (id) => {
     db.collection('FileManager').doc(id).delete()
 }
-  const updateFile = (id) => {
+  const updateFile = (e) => {
+    e.preventDefault()
    
-      db.collection('FileManager').doc(id).update({title,desc}).then((data)=>{
+      db.collection('FileManager').doc(data.id).update({title,desc}).then((data)=>{
               console.log(data)
       })
   }
@@ -70,7 +71,7 @@ const FileView = ({data}) => {
               {data.title}
             </a>
             <p className="mb-2 text-gray-700">
-              {data.desc.slice(0,25)}....
+              {data.desc?.slice(0,25)}
             </p>
             <a
               href={data.url}
@@ -115,7 +116,7 @@ const FileView = ({data}) => {
                    <DialogTitle id="alert-dialog-title">{<b>Edit {title}</b>}</DialogTitle>
                       <DialogContent>
 
-                           <form >
+                           <form onSubmit={(e) => {updateFile(e); handleEditClose(e);}}>
                     <TextField
                        
                         defaultValue={title}                       
@@ -142,10 +143,7 @@ const FileView = ({data}) => {
                         />
                           <DialogActions>
                             <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
-                            <Button onClick={(e)=> 
-                            {updateFile(data.id);
-                               handleEditClose();
-                          }} variant='outlined' color='primary'>Update</Button> 
+                            <Button type="submit" variant='outlined' color='primary'>Update</Button> 
                           </DialogActions>
                       </form>  
                       </DialogContent>
