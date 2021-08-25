@@ -1,4 +1,4 @@
-import { Typography, Toolbar, TextField, Button,Card,makeStyles, IconButton } from "@material-ui/core"
+import { Typography, Toolbar, TextField, Button,Card,makeStyles, IconButton, Fab } from "@material-ui/core"
 import { useEffect } from "react"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
@@ -7,7 +7,9 @@ import { db } from "../../firebase"
 import { firebaseLooper } from "../../utils/tools"
 import SpecDetails from "./DScomps/SpecDetails"
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
-
+import { Alert } from "@material-ui/lab"
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
    backgroundColor: 'whitesmoke',
@@ -16,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
 
+  },
+  fab: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -48,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 function DesignSpecs({match}) {
 	const [titles, setTitles] = useState([])
 	const [title, setTitle] = useState('')
+	const [error, setError] = useState('')
 	const classes = useStyles()
 	useEffect(() => {
 		db.collection('DQNew').doc(match.params.id)
@@ -61,11 +69,14 @@ function DesignSpecs({match}) {
 		})
 	}, [])
 
-	function handleSubmit(){
+	function handleSubmit(e){
+		if(title?.trim().length === 0){
+			return setError("Empty Spaces are not valid input!")
+		}
 		// /DQ/HeceUekdaKAgLQvwFKc5/Design-Specs
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs')
-		.collection('title').add({title,index: titles.length})
+		.collection('title').add({title,index: titles.length}).then(() => {setError("")})
 	}
 
 	function handleDelete(id){
@@ -81,7 +92,17 @@ function DesignSpecs({match}) {
         <div className={classes.container}>
           <Card className={classes.content}>
 		<div>
+		<div className={classes.fab}>
+				<Fab component={NavLink} to={`/DQ/${match.params.id}/Equipment-Config`} style={{marginRight: '20px'}}  color="primary" aria-label="add">
+  <KeyboardArrowLeftIcon/>
+</Fab>
+
+			<Fab component={NavLink} to={`/DQ/${match.params.id}/Safety`}  color="primary" aria-label="add">
+  <KeyboardArrowRightIcon/>
+</Fab>
+			</div>
 			<Typography variant='h1' align='center' gutterBottom >Design Specifications</Typography>
+			{error && <Alert severity='error'>{error}</Alert>}
 			<Toolbar style={{display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
 				<TextField className='mr-5' label='Add new Specification' variant='outlined' fullWidth value={title} onChange={(e) => setTitle(e.target.value)} />
 				<Button onClick={handleSubmit} disabled={title===''}>Submit</Button>
@@ -102,6 +123,7 @@ function DesignSpecs({match}) {
 					</div>
 				))
 			}
+{/* 					
 			  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
 		<Button component={NavLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '4%'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
@@ -113,7 +135,7 @@ function DesignSpecs({match}) {
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
 				</Button>
-	  </div>
+	  </div> */}
 		</div>
           </Card>
 	

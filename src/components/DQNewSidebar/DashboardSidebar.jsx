@@ -54,16 +54,17 @@ const items = [
 
     },
     {
+      title: 'Specifications',
+    href: '/DQ',
+      icon: CompareIcon,
+     
+  },
+    {
         title: 'Equipment-Config',
         href: '/DQ',
         icon: ReceiptIcon
     },
-    {
-        title: 'Specifications',
-      href: '/DQ',
-        icon: CompareIcon,
-       
-    },
+   
       {
         title: 'Design-Specs',
       href: '/DQ',

@@ -9,6 +9,7 @@ function DQSpecsView({specs, match}) {
 	const [desc, setDesc] = useState(specs.desc)
 	const [review, setReview] = useState(specs.review)
 	const [open, setOpen] = useState(false)
+	const [error, setError] = useState("")
 	const [openDel, setOpenDel] = useState(false)
 	function handleOpenDel(){
 		setOpenDel(true)
@@ -23,7 +24,11 @@ function DQSpecsView({specs, match}) {
 	function handleClose(){
 		setOpen(false)
 	}
-	function handleUpdate(){
+	function handleUpdate(e){
+		e.preventDefault()
+		if(desc?.trim().length === 0){
+			return setError("Blank spaces are not accepted as inputs")
+		}
 		db.collection('DQNew')
 		.doc(match.params.id)
 		.collection('content')
@@ -63,19 +68,23 @@ function DQSpecsView({specs, match}) {
 		
 			</TableBody>
 			 <Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
-				<DialogContent>
+			 {error && <Alert severity="error">{error}</Alert>}
+				<form  onSubmit={handleUpdate}>
+					<DialogContent>
 					<Typography variant='h4' align='center' gutterBottom><b>Edit Details</b></Typography>
-					<form  >
-					<TextField style={{marginBottom: '3%'}} value={desc} variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>
+					
+						
+					<TextField required label="Description" style={{marginBottom: '3%'}} value={desc} variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>
 				
-				</form>
+				
 				</DialogContent>
 				
 				
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
-				<Button onClick={handleUpdate} style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
+				<Button type="submit" style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
 			</DialogActions>
+			</form>
 			</Dialog>
 			{/* Open delete dialog */}
 			 <Dialog

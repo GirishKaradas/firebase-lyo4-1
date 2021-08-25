@@ -8,6 +8,7 @@ import {
   Divider,
   Drawer,
   Hidden,
+  IconButton,
   List,
   ListItem,
   Typography
@@ -32,11 +33,15 @@ import { useAuth } from '../components/context/AuthContext';
 import { db } from '../firebase';
 import { firebaseLooper } from '../utils/tools';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
-
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const items = [
   
-  
+  {
+    href: '/',
+    icon: DashboardIcon,
+    title: 'Dashboard'
+  },
   {
     href: '/machine-data',
     icon: ShoppingBagIcon,
@@ -57,6 +62,7 @@ const items = [
 ];
 
 const itemSecond = [
+
    {
     href: '/users',
     icon: UsersIcon,
@@ -145,8 +151,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
 					
 					<span className="ml-2 text-sm font-medium">DASHBOARD</span>
  			</Button> */}
-        <div className="flex items-center w-full h-12 px-3 mt-2 rounded">
-        <ListItem
+        <div className="flex items-center w-full h-12  mt-2 rounded">
+        {/* <ListItem
       disableGutters
       style={{
         display: 'flex',
@@ -160,8 +166,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       
         component={RouterLink}
         style={{
-          background: 'black',
-          color: 'orange',
+          background: 'orange',
+          color: 'white',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
           letterSpacing: 0,
@@ -182,14 +188,14 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
          
         </span>
       </Button>
-      </ListItem> 
+      </ListItem>  */}
             </div>
           </>
           
          
           
           {items.map((item) => (
-            <div key={item.title} className="flex items-center w-full h-12 px-3 mt-2 rounded ">
+            <div key={item.title} className="flex items-center w-full h-12 mt-2  ">
               <NavItem
               href={`${item.href}`}
               key={item.title}
@@ -201,7 +207,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           ))}
           <div className='flex flex-col items-center w-full mt-2 border-t border-gray-700'>
           {itemSecond.map((item) => (
-            <div key={item.title} className="flex items-center w-full h-12 px-3 mt-2 rounded ">
+            <div key={item.title} className="flex items-center w-full h-12 mt-2  ">
               
                 <NavItem
               href={`${item.href}`}
@@ -217,7 +223,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box style={{ flexGrow: 1 }} />
-      <Box
+      {/* <Box
       m={2}
       p={2}
         style={{
@@ -232,25 +238,57 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         >
           Want to Logout?
         </Typography>
-        <Box
+       
+      </Box> */}
+       <Box
         pt= {2}
           style={{
             display: 'flex',
             justifyContent: 'center',
+            paddingBottom: '4.2rem'
             
           }}
         >
-          <Button
-          style={{backgroundColor: "orange", color: "white"}}
-          startIcon={<LogOutIcon/>}
-            component="a"
-            variant="contained"
+          <div className="flex items-center w-full p-3 mt-2  ">
+              <ListItem
+      disableGutters
+      style={{
+        display: 'flex',
+        color: 'white',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          background: 'orange',
+          borderRadius: "0.25rem"
+       
+      }}
+      
+    >
+
+       <Button
+          fullWidth
+          style={{backgroundColor: "orange", color: "white",
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          letterSpacing: 0,
+          py: 1.25,
+          display: 'flex',
+          textTransform: 'none',
+          width: '100%',}}
+          
+            
+            
             onClick={handleLogout}
           >
-            Log Out
+           
+            <LogOutIcon style={{color: 'white', marginLeft: '5px'}}/>
+           
+            <b className="ml-2">Log Out</b>
           </Button>
+    </ListItem>
+          </div>
+      
         </Box>
-      </Box>
+       
     </Box>
 
   );

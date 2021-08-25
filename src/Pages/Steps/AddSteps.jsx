@@ -1,4 +1,4 @@
-import { Box, Button, Card, CircularProgress, Container, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Card, CircularProgress, Container, FormControl, FormHelperText, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone';
@@ -72,6 +72,7 @@ const AddSteps = ({match}) => {
 
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('');
+  const [disabled, setDisabled] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [format, setFormat] = useState('')
    const [type, setType] = useState('');
@@ -111,9 +112,12 @@ const AddSteps = ({match}) => {
              if (types.includes(selectedFile.type)) {
                 setError(null);
                 setFile(selectedFile);
+                setDisabled(false)
             } else {
                 setFile(null);
                 setError("Please select an image file (png or jpg)");
+                setMessage("")
+                setDisabled(true)
             }
           }else if(format === 'video'){
             if (videoTypes.includes(selectedFile.type)) {
@@ -122,6 +126,8 @@ const AddSteps = ({match}) => {
             } else {
                 setFile(null);
                 setError("Please select a video file (mp4 or mkv)");
+                setMessage("")
+                setDisabled(true)
             }
           }else if(format === 'audio'){
             if (audioTypes.includes(selectedFile.type)) {
@@ -129,7 +135,9 @@ const AddSteps = ({match}) => {
                 setFile(selectedFile);
             } else {
                 setFile(null);
-                setError("Please select an audi file (mp3 )");
+                setError("Please select an audio file (mp3 )");
+                setMessage("")
+                setDisabled(true)
             }
           }
            
@@ -140,13 +148,22 @@ const AddSteps = ({match}) => {
     const { progress, url } = useStorage(file);
 
     const handleSubmit = (e) => {
-    e.preventDefault();
+      e.preventDefault();
+      if(title?.trim().length === 0 || desc?.trim().length === 0 ){
+        return setError("Empty Strings are not accepted as valid inputs ! Please try again with a valid input");
+      }
+    
     const index = indexD.length
     const steps = {title, desc, manual_id, url, type, index, format };
     setLoading(true);
     db.collection('stepData').add(steps).then(()=>{
       setLoading(false)
-      setMessage('Step Added successfully !')
+      setMessage('Step Added successfully ! Close the Window or Add another one')
+      setTitle("")
+      setDesc("")
+      setError("")
+      setFormat("")
+      setType("")
      
     })
   }
@@ -192,6 +209,7 @@ const AddSteps = ({match}) => {
           Add  Step
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
+          
           <div style={{display: 'flex'}}>
           <Grid 
            container
@@ -226,9 +244,10 @@ const AddSteps = ({match}) => {
                 autoFocus
                 onChange={(e) => setTitle(e.target.value)}
               />
+              <FormHelperText>Title should be max {title.length}/40</FormHelperText>
               <TextField
               value={desc}
-               
+                error={desc.length > 150}
                 variant="outlined"
                 margin="normal"
                 required
@@ -239,10 +258,11 @@ const AddSteps = ({match}) => {
                 onChange={(e) => setDesc(e.target.value)}
                 id="step_description"
                 multiline
-                style={{marginBottom: '20px'}}
+                
                 
               />
-              <FormControl   style={{marginBottom: '20px'}} fullWidth variant='outlined'>
+              <FormHelperText style={{marginBottom: '20px'}}>Description should be max {desc.length}/150</FormHelperText>
+              <FormControl required  style={{marginBottom: '20px'}} fullWidth variant='outlined'>
               <InputLabel>Select Type</InputLabel>
               <Select
               required
@@ -257,7 +277,7 @@ const AddSteps = ({match}) => {
                    <MenuItem value='normal'>Normal</MenuItem>
               </Select>
               </FormControl>
-              <FormControl   style={{marginBottom: '20px'}} fullWidth variant='outlined'>
+              <FormControl required  style={{marginBottom: '20px'}} fullWidth variant='outlined'>
           <InputLabel>Select Format </InputLabel>
               <Select
              
@@ -317,14 +337,14 @@ const AddSteps = ({match}) => {
             style={{width: '50%', color: 'white', background: 'orange'}}
             variant="contained"
             color="primary"
-            
+            disabled={disabled || desc.length > 150 || title.length > 40}
           >
             Add Step
             </Button>}
          {
            loading && <Button
             type="submit"
-            style={{width: '50%', color: 'white', background: 'orange'}}
+            style={{width: '50%', color: 'white', background: 'grey'}}
             variant="contained"
             color="primary"
             disabled
@@ -332,7 +352,7 @@ const AddSteps = ({match}) => {
           >Adding Step...</Button>
          }   
        </div>
-         
+       {message && <Alert severity="success">{message}</Alert>}
           </form>
           </div>
           

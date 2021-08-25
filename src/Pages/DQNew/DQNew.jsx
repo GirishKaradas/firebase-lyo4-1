@@ -1,4 +1,4 @@
-import { Button, Card, Toolbar, Dialog } from "@material-ui/core";
+import { Button, Card, Toolbar, Dialog, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react"
 import ContentDashboardLayout from "../../components/ContentSidebar/ContentDashboardLayout";
@@ -70,12 +70,21 @@ function DQNew({match}) {
 		  <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-		  <Toolbar style={{display: 'flex', justifyContent: 'flex-end'}}>
-			<Button onClick={handleOpen} style={{backgroundColor:'orange', color: 'white', width: '12%' }}>Add New</Button>
+            <div style={{paddingLeft: '16%', paddingTop: '3%', display: 'flex', justifyContent: 'space-between', paddingRight: '15%'}}>
+              <div>
+                <Typography variant='h2' align='left'>DQ Master Copy </Typography>
+               <Typography variant='body1' align='left'>Master Copy of all the DQ reports</Typography>
+              </div>
+               
+               <Toolbar style={{display: 'flex', justifyContent: 'flex-end'}}>
+			<Button onClick={handleOpen} style={{backgroundColor:'orange', color: 'white', width: '150px' }}>Add New</Button>
 		  </Toolbar>
+            </div>
+           
+		 
            
     <div>
-            <div className="container mx-auto px-6 py-10">
+            <div className="container mx-auto  py-10">
                 <div className="shadow bg-white dark:bg-gray-800  rounded">
                 
                 {
@@ -91,7 +100,7 @@ function DQNew({match}) {
                     </div>
                 </div>
     </div>
-		<Dialog onClose={handleClose} open={open} fullScreen>
+		<Dialog onClose={handleClose} open={open} fullWidth>
 			 <Toolbar style={{display: 'flex', justifyContent: 'flex-start'}}>
 			<Button onClick={handleClose} style={{backgroundColor:'orange', color: 'white', width: '10%' }}>close</Button>
 		  </Toolbar>

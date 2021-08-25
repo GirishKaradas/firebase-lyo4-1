@@ -7,7 +7,7 @@ import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashb
 import ManualItem from './ManualItem';
 import Page from '../../components/Page';
 import { NavLink } from 'react-router-dom';
-
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -70,17 +70,21 @@ export default function Manuals({match}) {
         <Container maxWidth={false} className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.content}>
-            <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
-              <Typography variant='h1' align='center'><b>Manuals Data</b></Typography>
-               <Typography variant='body2' align='center' gutterBottom >These are all your Manuals</Typography>
+            <div style={{paddingLeft: "4.5rem"}}>
+             
+              <Typography variant='h1' align='left'><b>Manuals Data</b></Typography>
+              <Typography variant='body2' align='left' gutterBottom >These are all your Manuals</Typography>
+            </div>
+            
+              
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                
                  <div className="relative"> 
                  
                  <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Manuals..."/>
-                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
+                  <div className="absolute top-4 right-3"> <SearchIcon style={{opacity: '0.5'}}/> </div>
               </div>
-               <Button component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`}  style={{width: '10%', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add Manuals</Button>
+               <Button component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`} color='primary' variant='contained' style={{width: '10%', marginLeft: '4%', marginRight: '3%',color: 'white'}}>Add Manuals</Button>
               </div>
             <br/>
             <b>{searchTerm}</b>

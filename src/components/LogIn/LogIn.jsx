@@ -17,6 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import Logo from '../Logo';
 import Navbar from './Navbar';
 import { db } from '../../firebase';
+import './Login.css'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
@@ -97,8 +98,8 @@ export default function LogIn() {
 
     <div className="w-full flex flex-wrap">
         <div style={{backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/lyodata.appspot.com/o/login%2FGroup%20244.png?alt=media&token=9903cf0f-9a60-4955-93b0-cb057089f561")`}} className="w-1/2 shadow-2xl bg-yellow-800 ">
-            <div className="object-cover w-full h-screen hidden md:block ">
-              <img className='ml-auto mr-auto pt-64' src={navbar.url} alt="" />
+            <div style={{display:'flex', justifyContent: 'center'}} className="object-cover align-center m-auto w-full h-screen hidden md:block ">
+              <img className='verticalCenter' src={navbar.url} alt="" />
             </div>
         </div>
         <div className="w-full md:w-1/2 flex flex-col">

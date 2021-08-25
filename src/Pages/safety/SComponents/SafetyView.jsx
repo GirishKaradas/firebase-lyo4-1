@@ -11,6 +11,7 @@ function SafetyView({module, match}) {
 	const [action, setAction] = useState(module.action)
 	const [desc, setDesc] = useState(module.desc)
 	const [open, setOpen] = useState(false)
+	const [error, setError] = useState("")
 	const [openDel, setOpenDel] = useState(false)
 	const [openC, setOpenC] = useState(false)
 	function handleOpenDel(){
@@ -33,12 +34,19 @@ function SafetyView({module, match}) {
 	function handleClose(){
 		setOpen(false)
 	}
-	function handleUpdate(){
+	function handleUpdate(e){
+		e.preventDefault()
+		if(cause?.trim().length===0 || desc?.trim().length===0 || action?.trim().length===0){
+			return setError("Empty Spaces are not accepted as input!")
+		}
+
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('safety')
 		.collection('details')
 		.doc(module.id)
-		.update({ desc,cause,action})
+		.update({ desc,cause,action}).then(() => {
+			setOpen(false)
+		})
 	}
 	function handleDelete(id){
 		db.collection('DQNew').doc(match.params.id)
@@ -70,21 +78,23 @@ function SafetyView({module, match}) {
 		
 			</TableBody>
 			 <Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
-				<DialogContent>
+				<form onSubmit={handleUpdate}  >
+					<DialogContent>
 					<Typography variant='h4' align='center' gutterBottom><b>Edit Details</b></Typography>
-					<form  >
-						<TextField style={{marginBottom: '3%'}} multiline rows={7} value={desc} variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>
-					<TextField style={{marginBottom: '3%'}} value={cause} variant='outlined' fullWidth onChange={(e) => setCause(e.target.value)}/>
-					<TextField style={{marginBottom: '3%'}} value={action} variant='outlined' fullWidth onChange={(e) => setAction(e.target.value)}/>
+					{error && <Alert severity="error" >{error}</Alert>}
+						<TextField required label="Description" error={desc.length > 150} style={{marginBottom: '3%'}} multiline rows={5} value={desc} variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>
+					<TextField required label="Cause" style={{marginBottom: '3%'}} multiline value={cause} variant='outlined' error={cause.length > 150} fullWidth onChange={(e) => setCause(e.target.value)}/>
+					<TextField required label="Actions" style={{marginBottom: '3%'}} rows={5} multiline error={action.length> 150} value={action} variant='outlined' fullWidth onChange={(e) => setAction(e.target.value)}/>
 				
-				</form>
+				
 				</DialogContent>
 				
 				
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
-				<Button disabled={cause === '' || desc==='' || action ===''} onClick={handleUpdate} style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
+				<Button disabled={desc.length>150 || cause.length>150 || action.length>150} type="submit" style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
 			</DialogActions>
+			</form>
 			</Dialog>
 			{/* Open delete dialog */}
 			 <Dialog

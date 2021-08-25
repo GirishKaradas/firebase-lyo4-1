@@ -47,7 +47,7 @@ const ContentDashboardLayout = ({ match}) => {
 
   return (
     <div >
-      <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
+      <DashboardNavbar match={match} onMobileNavOpen={() => setMobileNavOpen(true)} />
       <DashboardSidebar
        match={match}
         onMobileClose={() => setMobileNavOpen(false)}

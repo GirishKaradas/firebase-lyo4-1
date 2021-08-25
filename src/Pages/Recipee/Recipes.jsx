@@ -159,9 +159,12 @@ const Recipes = ({match}) => {
             <Container >
         <div className={classes.container}>
           <Card className={classes.content}>
-            <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
+            
          <div>
-              <Typography align='center' variant='h1'><b>Recipe Data</b></Typography>
+         <div style={{display: 'flex', justifyContent: 'center'}}>
+              <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography>
+              <Typography variant='h1' align='center'><b>Recipe Data</b></Typography>
+            </div>
                <Typography align='center' variant='body2' > These are all the required Recipe Data </Typography>
               </div>
               <br/>

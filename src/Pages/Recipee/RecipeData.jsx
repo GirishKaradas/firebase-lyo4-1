@@ -15,6 +15,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 export default function RecipeData({rows, length, match}) {
     const [title, setTitle] = useState(rows.title)
     const [open, setOpen] = useState(false)
+    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
 
@@ -37,6 +38,9 @@ export default function RecipeData({rows, length, match}) {
         })
     }
    const updateRecipe=(id) => {
+     if(title?.trim().length === 0){
+       return setError('Empty spaces are not valid inputs ! Please try again with a valid input')
+     }
     setLoading(true)
     db.collection('recipes').doc(id).update({title}).then((data) => {
         console.log(data)
@@ -108,6 +112,7 @@ export default function RecipeData({rows, length, match}) {
                     <DialogContent>
                      
                     <form   >
+                      {error && <Alert severity='error'>{error}</Alert>}
                         <TextField
                         label="Recipe Name"
                         defaultValue={title}

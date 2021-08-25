@@ -70,8 +70,8 @@ const FileView = ({data}) => {
             >
               {data.title}
             </a>
-            <p className="mb-2 text-gray-700">
-              {data.desc?.slice(0,25)}
+            <p className="mb-2 line-clamp-1 text-gray-700">
+              {data.desc}
             </p>
             <a
               href={data.url}

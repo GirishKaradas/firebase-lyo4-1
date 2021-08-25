@@ -96,13 +96,15 @@ export default function ForgotPass() {
         <div className="w-full md:w-1/2 flex flex-col">
 
             <div className="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                <a href="#" className="bg-black text-white font-bold text-xl p-4">
-                  
-                  {navbar.name}</a>
+                
             </div>
           
             <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <p className="text-center text-3xl">Forgot Password?</p>
+            <p style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
+              
+              {navbar.name}</p>
+                {/* <p className="text-center text-3xl">Forgot Password?</p> */}
+                <p style={{font: 'normal normal normal 20px/13px Roboto', color: '#4D4F5C', opacity: 0.5}} className="text-center text-3xl">Forgot Password ?</p>
                  {error && <b style={{color: 'red'}}>{error}</b>}
                  {message && <b style={{color: 'green'}}>{message}</b>}
                 <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>

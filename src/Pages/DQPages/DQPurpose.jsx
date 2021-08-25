@@ -1,13 +1,16 @@
-import { DialogContent, makeStyles } from "@material-ui/core";
+import { DialogContent, Fab, makeStyles } from "@material-ui/core";
 import { Button, Dialog, Typography, TextField, DialogActions, Card } from "@material-ui/core"
 import { useEffect } from "react"
 import { useState } from "react"
 import DQLayout from "../../components/DQNewSidebar/DQLayout";
 import { db } from "../../firebase"
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import {
   NavLink as RouterLink,
   matchPath,
-  useLocation
+  useLocation,
+  NavLink
 } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
 
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -105,19 +113,23 @@ function DQPurpose({match}) {
 		 <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-           <div style={{height: '100vh'}}>
-			<Typography variant='h1' align='center' gutterBottom><b>{purpose.title}</b></Typography>
+           <div >
+			   <div >
+				   
+				      <Typography variant='h1' align='center' gutterBottom><b>{purpose.title}</b></Typography>
+					    
+				   	   </div>
+		
+			 
+		
+			
 
 			<hr />
 			<Typography variant='body1' align='left' gutterBottom><p className='italic'>{purpose.desc}</p></Typography>
 			<hr />
 			<div style={{display: 'flex', marginBottom: 'auto', paddingRight: '3%', justifyContent: 'flex-end'}}>
 				<Button style={{color: 'white', background: 'orange'}} onClick={handleOpen}>Edit</Button>
-				<Button  component={RouterLink} to={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
-</svg>
-				</Button>
+			
 				
 			</div>
 			<Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
@@ -135,6 +147,16 @@ function DQPurpose({match}) {
 				<Button onClick={handleUpdate} style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
 			</DialogActions>
 			</Dialog>
+			<div className={classes.fab}>
+				<Fab component={NavLink} to={`/DQ/${match.params.id}/Approval`} style={{marginRight: '20px'}}  color="primary" aria-label="add">
+  <KeyboardArrowLeftIcon/>
+</Fab>
+
+			<Fab component={NavLink} to={`/DQ/${match.params.id}/General-Information`}  color="primary" aria-label="add">
+  <KeyboardArrowRightIcon/>
+</Fab>
+			</div>
+			
 		</div>
           </Card>
         </div>
@@ -158,6 +180,7 @@ function DQPurpose({match}) {
           </Card>
         </div>
       </div>
+	  
       </>
       }
 		</>

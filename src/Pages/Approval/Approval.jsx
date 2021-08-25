@@ -1,4 +1,4 @@
-import { Card, DialogContent, makeStyles, Typography } from "@material-ui/core"
+import { Card, DialogContent, Fab, makeStyles, Typography } from "@material-ui/core"
 import { Dialog } from "@material-ui/core"
 import { Paper, Table, TableCell, TableContainer, TableHead, TableRow, Toolbar } from "@material-ui/core"
 import { useEffect, useState } from "react"
@@ -8,6 +8,8 @@ import DQLayout from "../../components/DQNewSidebar/DQLayout"
 import DQRLayout from "../../components/DQRLayout/DQRLayout"
 import { db } from "../../firebase"
 import { firebaseLooper } from "../../utils/tools"
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 import AddApproval from "./AddApproval"
 import ApprovalCView from "./ApprovalCView"
@@ -20,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
 
+  },
+  fab: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -138,7 +145,16 @@ function Approval({match}) {
 					
 		</Table>
 		</TableContainer>
+		<div className={classes.fab}>
+				<Fab component={NavLink} to={`/DQ/${match.params.id}/Abbreviations`} style={{marginRight: '20px'}}  style={{ color: 'white'}} color="primary" aria-label="add">
+  <KeyboardArrowLeftIcon/>
+</Fab>
 
+			<Fab component={NavLink} to={`/DQ/${match.params.id}/Purpose`}  style={{ color: 'white'}} color="primary" aria-label="add">
+  <KeyboardArrowRightIcon/>
+</Fab>
+		</div>
+	
 		<Dialog open={open} onClose={handleClose} fullWidth >
 			<DialogContent>
 				<AddApproval match={match}/>

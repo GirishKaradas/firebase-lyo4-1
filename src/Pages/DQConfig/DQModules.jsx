@@ -1,4 +1,4 @@
-import { DialogContent, makeStyles,  Paper,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
+import { DialogContent, Fab, FormHelperText, makeStyles,  Paper,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
 import { Button, Dialog, Typography, TextField, DialogActions, Card } from "@material-ui/core"
 import { useEffect } from "react"
 import { useState } from "react"
@@ -8,6 +8,8 @@ import { firebaseLooper } from "../../utils/tools";
 import DQmodules from "../DQNew/DQmodules";
 import DQConfigView from "./DQCOnfigDetails/DQConfigView";
 import DQModule from "./DQModule/DQModule";
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import {
   NavLink as RouterLink,
   matchPath,
@@ -26,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
 
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -171,24 +178,24 @@ function DQConfig({match, modules}) {
         <div className={classes.container}>
           <Card className={classes.content}>
           { 
-	  purpose ? <div style={{height: '100vh'}}>
-			<Typography variant='h1' align='center' gutterBottom><b>{purpose.name}</b></Typography>
+	   <div style={{height: '100vh'}}>
+			<Typography variant='h1' align='center' gutterBottom><b>Equipment Configuration </b></Typography>
 			<hr />
-			<Typography variant='body1' align='left' gutterBottom><p className='italic'>{purpose.desc}</p></Typography>
+			<Typography variant='body1' align='left' gutterBottom><p className='italic'></p></Typography>
 			<hr />
 			<div style={{display: 'flex', marginBottom: '3%', paddingRight: '3%', justifyContent: 'flex-end'}}>
-				<Button href={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '4%'}}>
+				{/* <Button href={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '4%'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
 </svg>
-					</Button>
+					</Button> */}
 				<Button style={{color: 'white', background: 'black', marginRight: '4%'}} onClick={handleOpenAdd}>Add Module</Button>
 				<Button style={{color: 'white', background: 'orange', marginRight: '4%'}} onClick={handleOpen}>Edit</Button>
-				<Button component={RouterLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
+				{/* <Button component={RouterLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
-				</Button>
+				</Button> */}
 				
 				<br />
 			</div>
@@ -236,15 +243,17 @@ function DQConfig({match, modules}) {
 		}
 		  
 		</div>
-		: 
-		<div>
-			<form onSubmit={handleSubmitNew}>
-			<Typography variant='h1' align='center'>Add New Configuration details</Typography>
-		<TextField style={{marginBottom: '20px'}} label='Title'  variant='outlined' fullWidth onChange={(e) => setName(e.target.value)}/>
-		<TextField multiline rows={7} label='Description'  variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
-		<Button fullWidth style={{background: 'orange', color: 'white', marginTop: '5%'}} >Add New</Button>
-	  </form>
-		</div>
+		
+	// 	<div>
+	// 		<form onSubmit={handleSubmitNew}>
+	// 		<Typography variant='h1' align='center'>Add New Configuration details</Typography>
+	// 	<TextField error={title.length > 30} required  label='Title'  variant='outlined' fullWidth onChange={(e) => setName(e.target.value)}/>
+	// 	<FormHelperText>Title should be max {title.length}/30 characters </FormHelperText>
+	// 	<TextField error={desc.length > 100} required multiline rows={5} label='Description'  variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
+	// 	<FormHelperText>Description must be {desc.length}/100</FormHelperText>
+	// 	<Button type='submit' fullWidth style={{background: 'orange', color: 'white', marginTop: '5%'}} >Add New</Button>
+	//   </form>
+	// 	</div>
 		}
           </Card>
         </div>

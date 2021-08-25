@@ -51,15 +51,17 @@ const AddMachines = () => {
       
     e.preventDefault();
     var result = {title,location,createdBy,desc }
-    if(desc.length < 150){
-      setError(" Description must be atleast 150 characters long.")
-    }else {
+    if(title?.trim().length===0 || desc?.trim().length===0 || location?.trim().length===0){
+      return setError("Empty Spaces can't be added as input! Please try again with a valid input")
+    }
+   
       db.collection('machineData').add(result).then(data => {
           history.push('/machine-data')
           console.log(data)
           setLoading(true)
+          setError("")
         })
-    }
+   
     
        
        
@@ -77,6 +79,7 @@ const AddMachines = () => {
           Add Machine
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form} >
+          {error && <Alert severity='error'>{error}</Alert>}
           <Card >
             <CardContent>
 
@@ -121,7 +124,7 @@ const AddMachines = () => {
             onChange ={(e) => setCreatedBy(e.target.value)}
            style={{marginBottom: '20px'}}
           />
-          {error && <Alert severity="error" >{error}</Alert>}
+         
            <TextField
            fullWidth
            value={desc}
@@ -139,6 +142,7 @@ const AddMachines = () => {
             type="submit"
             variant="contained"
             className={classes.submit}
+            disabled={title.length > 30 || desc.length < 150 || location.length > 30}
           >
             Add  Machine
             </Button>}

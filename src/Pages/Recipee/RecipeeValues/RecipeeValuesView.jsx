@@ -14,6 +14,7 @@ import StepDashboardLayout from '../../../components/StepSidebar/StepDashboardLa
 import TestData from '../../../Pages/Tests/TestData'
 
 import ItemRow from './ItemRow';
+import AddRecipeeValues from './AddRecipeeValues';
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -49,6 +50,7 @@ export default function RecipeeValuesView({match}) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [mTitle, setMTitle] = useState('')
+  const [openAdd, setOpenAdd] = useState(false)
   
   
   const [batch, setBatch] = useState([])
@@ -123,10 +125,15 @@ export default function RecipeeValuesView({match}) {
         </TableBody>
       </Table>
       <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button style={{color: 'orangered'}} href={`/Recipe/${match.params.id}/Add-Recipee-Data`}>Add Data</Button>
+          <Button style={{color: 'orangered'}} onClick={() => setOpenAdd(!openAdd)}>Add Data</Button>
           <Button onClick={handleOpen}>Show Graph</Button>
       </div>
       <div style={{width: '100%'}}>
+        <Dialog fullWidth={true} open={openAdd} onClose={() => setOpenAdd(false)}>
+          <DialogContent>
+            <AddRecipeeValues match={match}/>
+          </DialogContent>
+        </Dialog>
            <Dialog
            fullScreen
             open={open}

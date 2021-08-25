@@ -37,7 +37,7 @@ const useStyles = theme => ({
   }
 });
 
-const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
+const DashboardNavbar = ({avatar, match, onMobileNavOpen, ...rest }) => {
   const classes = useStyles()
  const [open, setOpen] = useState(false)
  const [anchorE1, setAnchorE1] = useState(null)
@@ -48,12 +48,19 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
   const [status, setStatus] = useState('')
   const [userData, setUserData] = useState([])
   const textRef = useRef();
+  const [machineData, setMachineData] = useState([])
   useEffect(() => {
+
     if (currentUser){
       db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
       setUserData(data[0])
       console.log(data[0])
+
+    })
+    db.collection("machineData").doc(match.params.id).onSnapshot(snap => {
+      const data = snap.data()
+      setMachineData(data)
     })
     }else {
        <Redirect to='/login'/>
@@ -124,6 +131,9 @@ const DashboardNavbar = ({avatar, onMobileNavOpen, ...rest }) => {
     >
      
       <Toolbar >
+        <Box style={{marginLeft: 256}}>
+          <Typography align='left' variant='h3' style={{color: 'black'}}>Machine Name : {machineData.title}</Typography>
+        </Box>
         <Box style={{ flexGrow: 1 }} />
         <Hidden smDown>
           {/* <IconButton  aria-controls='simple-menu' aria-haspopup="true" onClick={handleOpen} color="default">

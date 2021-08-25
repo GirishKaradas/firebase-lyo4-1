@@ -1,4 +1,5 @@
-import { Button, Card, CardActions, CardContent, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, FormHelperText, makeStyles, Slider, TextField, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import StepDashboardLayout from '../../../components/StepSidebar/StepDashboardLayout';
@@ -49,6 +50,7 @@ const AddRecipeeValues = ({match}) => {
     const [rid, setRid] = useState(`${match.params.id}`)
     const [step, setStep] = useState('')
     const [recipe, setRecipe] = useState([])
+    const [error, setError] = useState('')
     const [time1, setTime] = useState('')
      const [time2, setKeepTime] = useState('')
       const [temp1, setTemp] = useState('')
@@ -61,23 +63,52 @@ const AddRecipeeValues = ({match}) => {
             setRecipe(data)
         })
     })
-    const handleSubmit = (e) => {
+    async function handleSubmit(e)  {
       e.preventDefault()
+      if(step?.trim().length === 0){
+        return setError("Empty strings are not accepted as valid inputs ! Please try again with a valid input")
+      }
+      if(step.length > 20){
+        return setError("Step length should be less than 20 characters")
+      }
+
+      if(temp1 > 100 || temp1 < -100){
+        return setError("Temperature should be between -100 to 100 deg C")
+      }
+
+      if(pressure > 2000 || pressure < -2000){
+        return setError("Pressure should be between -2000 to 2000 mT")
+      }
+
+      if(time1 < 0 || time1 > 300){
+        return setError("Time shuld be between 0 to 300 mins")
+      }
+
+      if(time2 < 0 || time2 > 300){
+        return setError("Keep Time shuld be between 0 to 300 mins")
+      }
+
         const index = recipe.length 
         const data = {rid, step, temp1, time1, time2, pressure, index}
-       db.collection('recipeeData').add(data)
-       history.push(`/Recipe/${match.params.id}/Recipe-values`)
+      try {
+         await db.collection('recipeeData').add(data)
+     
+      } catch (error) {
+        setError("Failed")
+      }
+     
         
     }
     return (
         <>
-        <StepDashboardLayout match={match}/>
+        {/* <StepDashboardLayout match={match}/> */}
          <div >
         <div >
-          <Card className={classes.content}>
+          <Card >
               
              <CardContent >
                  <Typography variant='button' component='h1' align='center'><b>Add Recipe</b></Typography>
+                 {error && <Alert severity="error" >{error}</Alert>}
                    <form style={{width: '100%', alignItems: "center"}} onSubmit={handleSubmit}>
                      <TextField 
                     variant="outlined"
@@ -98,17 +129,20 @@ const AddRecipeeValues = ({match}) => {
                 
                         onChange={(e) => setStep(e.target.value)}
                     />
+                    <FormHelperText>Step length should be less than 20 characters</FormHelperText>
                     <TextField 
                     variant="outlined"
                     margin="normal"
                     required
                     type='number'
+                   
                     fullWidth
                     label='Temprature (deg C)'
                     value={temp1}
                   
                         onChange={(e) => setTemp(e.target.value)}
                     />
+                   <FormHelperText>Temperature should be between -100 to 100 deg C</FormHelperText>
                     <TextField 
                     variant="outlined"
                     margin="normal"

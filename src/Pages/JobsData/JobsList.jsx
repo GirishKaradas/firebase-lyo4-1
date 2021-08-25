@@ -10,12 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import { db } from '../../firebase';
 import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
-import { Card, Checkbox, TextField, Typography, Button } from '@material-ui/core';
-import DoneIcon from '@material-ui/icons/Done';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { Card, Checkbox, TextField, Typography, Button, Select, FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import DatePicker from 'react-date-picker';
 
+import JobView from './JobView'
 import Page from '../../components/Page';
-import DateFnsUtils from '@date-io/date-fns';
+
+
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -55,12 +56,18 @@ export default function JobsList({match}) {
      const [job, setJob] = useState([])
      const [mTitle, setMTitle] = useState('')
      const [date, setDate] = useState('')
+     const [users, setUsers] = useState([])
      const [title, setTitle] = useState('')
+    const [user, setUser] = useState('')
     useEffect(() => {
       db.collection('machineData')
        .doc(match.params.id)
         .onSnapshot(doc => {
          setMTitle(doc.data().title)
+        })
+        db.collection('users').onSnapshot(snap => {
+          const data = firebaseLooper(snap)
+          setUsers(data)
         })
         db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
             const data = firebaseLooper(doc)
@@ -71,14 +78,75 @@ export default function JobsList({match}) {
         })
     }, [])
   const classes = useStyles();
-
   
+  function userHandleChange(e){
+      const temp = e.target.value
+      if(temp === ""){
+        db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
+          const data = firebaseLooper(doc)
+          data.sort(function(a,b){
+            return(b.date - a.date)
+          })
+          setJob(data)
+      })
+      }else {
+         db.collection('jobData').where('mid', '==', `${match.params.id}`).where('email', '==', `${temp}`).onSnapshot(doc => {
+        const data = firebaseLooper(doc)
+        data.sort(function(a,b){
+          return(b.date - a.date)
+        })
+        setJob(data)
+    })
+      }
+     
+  }
+
+  function pendingCheck(e){
+    const temp = e.target.value
+    if(temp === ""){
+      db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
+        const data = firebaseLooper(doc)
+        data.sort(function(a,b){
+          return(b.date - a.date)
+        })
+        setJob(data)
+    })
+    }else{
+      db.collection('jobData').where('mid', '==', `${match.params.id}`).where('status', '==', temp).onSnapshot(doc => {
+      const data = firebaseLooper(doc)
+      data.sort(function(a,b){
+        return(b.date - a.date)
+      })
+      setJob(data)
+  })
+    }
+    
+  }
   const handleClick = () => {
     db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
-            const data = firebaseLooper(doc)
-            setJob(data)
-        })
+      const data = firebaseLooper(doc)
+      data.sort(function(a,b){
+        return(b.date - a.date)
+      })
+      setJob(data)
+  })
   }
+
+  // function handleChange(event) {
+  //   db.collection('jobData').where('mid', '==', `${match.params.id}`).onSnapshot(doc => {
+  //     const data = firebaseLooper(doc)
+  //     data.sort(function(a,b){
+      
+  //       return(b.date - a.date)
+  //     })
+  //    data.filter(data => {
+  //      if(data.date.toDate().toString().substring(0,15) === date.toDateString()){
+  //        return data 
+  //      }
+  //    })
+  //     setJob(data)
+  // })
+  // }
   
   return (
  
@@ -89,18 +157,44 @@ export default function JobsList({match}) {
           <Card className={classes.content}>
             
             <div>
-              <Typography align='center' variant='h1'><b>Jobs</b></Typography>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+              <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography>
+              <Typography variant='h1' align='center'><b>Recipe Data</b></Typography>
+            </div>
                <Typography align='center' variant='body2' >- These are all the Job status -</Typography>
               </div>
               <br/>
-              <div style={{display: 'flex', justifyContent: 'space-evenly', marginBottom: '30px'}}>
-              <div className="relative mr-2"> 
+              <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '30px'}}>
+              <div style={{ marginRight: '2%'}}> 
                  <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Jobs..."/>
-                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
+                  <b>{user}</b>
               </div>
-            <TextField type="date"  format="dddd, mmmm dS, yyyy, h:MM:ss TT"onChange={(e) => setDate(e.target.value)} />
-             <b>{date}</b>
-             <Button onClick={handleClick}>Reset</Button>
+              <FormControl style={{width: '10%', marginRight: '2%'}} variant='outlined'>
+                <InputLabel variant='outlined'>Assignee</InputLabel>
+                <Select onChange={userHandleChange} label="Assignee">
+                <MenuItem value="">All</MenuItem>
+                {users.map((data) => (
+                  <MenuItem value={data.email}>{data.firstName} {data.lastName}</MenuItem>
+                ))}
+              </Select>
+              </FormControl>
+              <FormControl style={{width: '10%'}} variant='outlined'>
+                <InputLabel variant='outlined'>Status</InputLabel>
+                <Select onChange={pendingCheck} label="Status">
+                <MenuItem value="">All</MenuItem>
+                <MenuItem value={true}>Completed</MenuItem>
+                <MenuItem value={false}>Pending</MenuItem>
+               
+              </Select>
+              </FormControl>
+            
+              {/* <DatePicker
+        onChange={onChange}
+        value={value}
+
+      />
+             <b>{value?.toString().substring(0,15)}</b>
+             <Button onClick={handleClick}>Reset</Button> */}
               
                
                 
@@ -109,7 +203,7 @@ export default function JobsList({match}) {
                  <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-                 <Typography className='ml-2' variant='h5' align='left' gutterBottom><b>{mTitle}</b></Typography>
+                 
           <TableRow>  
             <TableCell  style={{backgroundColor: '#d8e3e7'}}><b>Title</b></TableCell>
             <TableCell style={{backgroundColor: '#d8e3e7'}} align="left"><b>Description</b></TableCell>
@@ -117,7 +211,7 @@ export default function JobsList({match}) {
             <TableCell   style={{backgroundColor: '#d8e3e7'}} align="left"><b>Assignee</b></TableCell>
             <TableCell  style={{backgroundColor: '#d8e3e7'}} align="left"><b>Date</b></TableCell>
             <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"><b>Status</b></TableCell>
-            
+            <TableCell   style={{backgroundColor: '#d8e3e7'}} align="right"><b>Actions</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -127,21 +221,9 @@ export default function JobsList({match}) {
             } else if (row.title.toLowerCase().includes(title.toLocaleLowerCase())){
               return row
             }
+           
           }).map((row) => (
-            <TableRow key={row.id}>
-
-              <TableCell style={{width: 160, backgroundColor: '#e8ffff'}} component="th" scope="row">
-               <b> {row.title}</b>
-              </TableCell>
-              <TableCell align="left">{row.desc}</TableCell>
-             
-               <TableCell align="left">{row.email}</TableCell>
-               <TableCell align="left">{row.date.toDate().toString().substring(0,15)}</TableCell>
-               <TableCell align="right">{row.status ?
-               <b style={{color: '#9ede73', display: 'flex', justifyContent: 'flex-end'}}><DoneIcon style={{color: '#9ede73'}}/>Completed</b> :
-               <b style={{color: 'orange', display: 'flex', justifyContent: 'flex-end'}}><ErrorOutlineIcon style={{color: '#ff7a00d'}}/> Pending</b>}
-               </TableCell>
-            </TableRow>
+           <JobView key={row.id} row={row} match={match} />
           ))}
         </TableBody>
       </Table>

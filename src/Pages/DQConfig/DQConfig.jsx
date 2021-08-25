@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import { db } from "../../firebase"
 import { firebaseLooper } from "../../utils/tools"
 import DQConfigView from "./components/DQConfigView"
-import { DialogContent, FormHelperText, makeStyles,  Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
+import { DialogContent, Fab, FormHelperText, makeStyles,  Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow  } from "@material-ui/core";
 import { Button, Dialog, Typography, TextField, DialogActions, Card } from "@material-ui/core"
 import DQLayout from "../../components/DQNewSidebar/DQLayout";
 import { NavLink } from "react-router-dom";
 import DQBrands from "../brands/DQBrands";
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -16,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
 
+  },
+  fab: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -92,18 +99,18 @@ export default function DQConfigD({match}) {
             <Typography variant='h1' align='center' gutterBottom ><b>Equipment Configuration</b></Typography>
             <hr />
           <div style={{display: 'flex', marginBottom: '3%', paddingRight: '3%', justifyContent: 'flex-end'}}>
-				<Button component={NavLink} to={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '4%'}}>
+				{/* <Button component={NavLink} to={`/DQ/${match.params.id}/General-Information`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '4%'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
 </svg>
-					</Button>
+					</Button> */}
 				<Button style={{color: 'white', background: 'black', marginRight: '4%'}} onClick={handleOpenAdd}>Add Module</Button>
 		
-				<Button component={NavLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
+				{/* <Button component={NavLink} to={`/DQ/${match.params.id}/Specifications`} style={{background: 'blue', color: 'white'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
-				</Button>
+				</Button> */}
 				
 				<br />
 			</div>
@@ -131,13 +138,23 @@ export default function DQConfigD({match}) {
              
             	</Table>
 		</div>
+    <div className={classes.fab}>
+				<Fab component={NavLink} to={`/DQ/${match.params.id}/Specifications`} style={{marginRight: '20px'}}  color="primary" aria-label="add">
+  <KeyboardArrowLeftIcon/>
+</Fab>
+
+			<Fab component={NavLink} to={`/DQ/${match.params.id}/Design-Specs`}  color="primary" aria-label="add">
+  <KeyboardArrowRightIcon/>
+</Fab>
+			</div>
         <Dialog open={openAdd} fullWidth onClose={handleCloseAdd}>
 <form onSubmit={handleSubmit}>
-  <Typography variant='h4' align='center'  ><b>Add New Modules</b></Typography>
+  <Typography variant='h4' align='center'  gutterBottom style={{marginTop: '15px'}}><b>Add New Modules</b></Typography>
 <DialogContent>
-<TextField required style={{marginBottom: '5%'}} label='Title'  variant='outlined' fullWidth onChange={(e) => setTitle(e.target.value)}/>
-<TextField required style={{marginBottom: '5%'}} rows={7} multiLine label='Description' variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
-
+<TextField error={title.length > 30} required  label='Title'  variant='outlined' fullWidth onChange={(e) => setTitle(e.target.value)}/>
+<FormHelperText style={{marginBottom: '5%'}}>Title should be {title.length}/30</FormHelperText>
+<TextField error={desc.length>100} required  rows={5} multiline label='Description' variant='outlined' fullWidth onChange={(e) => setDesc(e.target.value)}/>  
+<FormHelperText style={{marginBottom: '5%'}}>Description should be max {desc.length}/100</FormHelperText>
 <Select required onChange={(e) => setType(e.target.value)} value={type} variant='outlined' fullWidth>
   <option selected value={0}>2 Row (Type 0)</option>
   <option value={1}>SERVICES REQUIRED FROM CUSTOMER END</option>
@@ -152,7 +169,15 @@ export default function DQConfigD({match}) {
 
 
 </Dialog>
-		
+		<br />
+    <div>
+
+    </div>
+    <br />
+    <div>
+
+    </div>
+    <br />
         </div>
 
           </Card>

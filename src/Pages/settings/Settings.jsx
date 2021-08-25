@@ -7,10 +7,13 @@ import EditNavbar from "./EditNavbar";
 import EditVideoCall from "./EditVideoCall";
 import Page from "../../components/Page";
 import AddApk from "./AddApk";
+import { useAuth } from "../../components/context/AuthContext";
 
 const Settings = () => {
     const [mobile, setMobile] = useState({})
     const [glass, setGlass] = useState({})
+    const {currentUser} = useAuth()
+    const [user, setUser] = useState([])
    
     useEffect(()=> {
         db.collection('apks').doc('mobile').onSnapshot(snapshot => {
@@ -23,11 +26,20 @@ const Settings = () => {
           setGlass(data)
           
       })
+      db.collection('users').where('email', '==', `${currentUser.email}`).onSnapshot(snapshot => {
+        const data = firebaseLooper(snapshot)
+        setUser(data[0])
+        console.log(data)
+      })
+     
+
     } ,[])
  
 
     return (
       <Page title='Settings | LyoIms'>
+       {
+         user.role === 'Admin'?
         <section class="text-gray-600 body-font">
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
              <Typography variant='h3' gutterBottom align='left'><b>Settings</b></Typography>
@@ -78,6 +90,11 @@ const Settings = () => {
         
   
 </section>
+: 
+<div>
+  No Access
+</div>
+}
       </Page>
         
     

@@ -32,12 +32,14 @@ function AbbView({module, match}) {
 	function handleClose(){
 		setOpen(false)
 	}
-	function handleUpdate(){
+	function handleUpdate(e){
+		e.preventDefault()
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('abbreviations')
 		.collection('details')
 		.doc(module.id)
 		.update({short, full})
+		.then(() => {setOpen(false)})
 	}
 	function handleDelete(id){
 		db.collection('DQNew').doc(match.params.id)
@@ -69,21 +71,23 @@ function AbbView({module, match}) {
 		
 			</TableBody>
 			 <Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
-				<DialogContent>
+				<form onSubmit={handleUpdate} >
+					<DialogContent>
 					<Typography variant='h4' align='center' gutterBottom><b>Edit Details</b></Typography>
-					<form  >
+					
 						
-					<TextField style={{marginBottom: '3%'}} value={short} variant='outlined' fullWidth onChange={(e) => setShort(e.target.value)}/>
-					<TextField style={{marginBottom: '3%'}} value={full} variant='outlined' fullWidth onChange={(e) => setFull(e.target.value)}/>
+					<TextField required label="Short Form" style={{marginBottom: '3%'}} value={short} variant='outlined' fullWidth onChange={(e) => setShort(e.target.value)}/>
+					<TextField label="Long Form" required style={{marginBottom: '3%'}} value={full} variant='outlined' fullWidth onChange={(e) => setFull(e.target.value)}/>
 				
-				</form>
+				
 				</DialogContent>
 				
 				
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
-				<Button onClick={handleUpdate} style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
+				<Button type="submit"  style={{backgroundColor: 'orange', color: 'whitesmoke'}}>Update</Button>
 			</DialogActions>
+			</form>
 			</Dialog>
 			{/* Open delete dialog */}
 			 <Dialog

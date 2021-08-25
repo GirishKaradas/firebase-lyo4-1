@@ -4,10 +4,12 @@ import { useEffect } from "react"
 import { db } from "../../../firebase"
 import { firebaseLooper } from "../../../utils/tools"
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import { Alert } from "@material-ui/lab"
 
 function SpecDetails({match, tid}) {
 	const [descs, setDescs] = useState([])
 	const [desc, setDesc] = useState('')
+	const [error, setError] = useState('')
 	useEffect(() => {
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs').collection('points')
@@ -23,7 +25,7 @@ function SpecDetails({match, tid}) {
 		const desc = data
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs').collection('points')
-		.doc(id).update({desc})
+		.doc(id).update({desc}).then(() => {setError("")})
 	}
 	function handleDelete (id){
 		
@@ -33,18 +35,22 @@ function SpecDetails({match, tid}) {
 	}
 
 	function handleSubmit(){
+		if(desc?.trim().length === 0){
+			return setError("Can not add blank spaces as input!")
+		}
 		db.collection('DQNew').doc(match.params.id)
 		.collection('content').doc('designSpecs').collection('points')
-		.add({desc,tid,index: descs.length})
+		.add({desc,tid,index: descs.length}).then(() => {setError("")})
 	}
 
 	return (
 		<div>
+			{error && <Alert severity="error">{error}</Alert>}
 			{
 				descs.map(data => (
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
 						<p className='text-2xl mr-3'>⦿</p>
-						<TextField className='mb-5' variant='outlined' fullWidth key={data.id} defaultValue={data.desc} onChange={handleChange(data.id,data.desc)}/>
+						<TextField multiline className='mb-5' variant='outlined' fullWidth key={data.id} defaultValue={data.desc} onChange={handleChange(data.id,data.desc)}/>
 						<IconButton onClick={(e) =>handleDelete(data.id)}><DeleteSweepIcon className='hover:text-red-600' /></IconButton>
 					</div>
 					

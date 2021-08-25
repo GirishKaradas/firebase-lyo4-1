@@ -106,10 +106,15 @@ const AddFiles = ({match}) => {
     e.preventDefault();
     const index = indexD.length
     const steps = {title, desc, url, date};
+    
+    if(title?.trim().length===0 || desc?.trim().length === 0 ){
+      return setError("Empty spaces can't be added as input ! Please try again with valid data!")
+    }
     setLoading(true);
     db.collection('FileManager').add(steps).then(()=>{
       setLoading(false)
       setMessage('Step Added successfully !')
+      setError("")
       history.push('/file-manager')
     })
   }
@@ -139,6 +144,7 @@ const AddFiles = ({match}) => {
           <b>Add  New File</b>
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
+          {error && <Alert severity='error'>{error}</Alert>}
           <div style={{display: 'flex'}}>
           <Grid 
            container
@@ -154,6 +160,7 @@ const AddFiles = ({match}) => {
            
               <TextField
               value={title}
+              error={title.length > 30}
                 variant="outlined"
                 margin="normal"
                 required
@@ -217,6 +224,7 @@ const AddFiles = ({match}) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={title.length > 30}
           >
             Add File
             </Button>}

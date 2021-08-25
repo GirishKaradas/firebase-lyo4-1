@@ -48,23 +48,23 @@ const Machines = () => {
     return (
         <Page className='bg-gray-50' title="Machines | LyoIms">
           
-        <div className='bg-gray-50' >
-            <div style={{display: 'flex', padding: '20px'}}>
-                <div style={{width: '300%'}}>
+        <div className='bg-gray-50 ' >
+            <div  style={{display: 'flex', paddingTop: '20px', justifyContent:'space-between', paddingRight: '4.5rem', paddingLeft: '4.5rem'}}>
+                <div >
                  <Typography variant='h1' style={{ color: '#43425D', marginBottom: '20px'}}><>Machines</></Typography>
              <Typography style={{color: '#43425D'}} variant='h5'>These are the available Machines</Typography>
             </div>
-             <div style={{display: 'flex', justifyContent: 'flex-end', width: '70%'}}>
+             <div style={{display: 'flex', justifyContent: 'flex-end' }}>
                  <div className="relative"> 
                  <div className="absolute top-4 right-3"> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill='gray' class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg>
                   </div>
-                 <input style={{width: '570px', height: '52px', border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="  pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Machines..."/>
+                 <input style={{width: '570px', height: '52px', border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="  pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Machines..."/>
                   
                    </div>
-               <Button component={NavLink} to={`/add-machine`}  style={{width: '129px', height: '52px', marginLeft: '4%', marginRight: '3%',color: 'white', backgroundColor: 'orange'}}>Add </Button>
+               <Button component={NavLink} to={`/add-machine`} color='primary' variant='contained'  style={{width: '129px', height: '52px', marginLeft: '4%', color: 'white'}}>Add </Button>
              
               
                

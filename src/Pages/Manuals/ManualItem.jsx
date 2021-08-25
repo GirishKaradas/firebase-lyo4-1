@@ -33,9 +33,10 @@ const ManualItem = ({data}) => {
     db.collection('manualData').doc(id).delete()
 }
 
-  const updateManual=(id) => {
+  const updateManual=(e) => {
+    e.preventDefault()
     setLoading(true)
-    db.collection('manualData').doc(id).update({title, desc}).then((data) => {
+    db.collection('manualData').doc(data.id).update({title, desc}).then((data) => {
         console.log(data)
         setLoading(false)
     }).then(() => {setOpenEdit(false)})
@@ -75,9 +76,9 @@ const ManualItem = ({data}) => {
             <div className="flex items-center justify-between">
               <h1 className="mt-2 text-lg font-semibold text-gray-800 dark:text-white">{data.title}</h1>
             
-            <Button component={NavLink} style={{background: '#0C03EB'}} to={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-indigo-700 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</Button>
+            <Button component={NavLink} style={{background: 'orange'}} to={`/Manuals/${data.id}/Steps`} className="px-3 py-1 text-xs text-white uppercase bg-yellow-800 rounded-full dark:bg-indigo-300 dark:text-indigo-900">Steps</Button>
         </div>
-           {data.desc &&  <p className="mt-2 text-sm break-all text-gray-600 dark:text-gray-300">{data.desc?.slice(0,30)}</p>}
+           {data.desc &&  <p className="mt-2 text-sm break-all line-clamp-1 text-gray-600 dark:text-gray-300">{data.desc}</p>}
         </div>
 
         <div>
@@ -99,19 +100,21 @@ const ManualItem = ({data}) => {
     </div>
                     <div>
                     <Dialog
+                    fullWidth
                     open={openEdit}
                     onClose={handleEditClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{`Edit ${title}`}</DialogTitle>
+                    <Typography align='center' variant='h3' gutterBottom><b>Edit {title}</b></Typography>
+                    <form  onSubmit={updateManual} >
                     <DialogContent>
                      
-                    <form   >
+                   
                         <TextField
                         label="Content Name"
                         defaultValue={title}
-                        error={title === "" || title.length > 35}
+                        error={title === "" || title.length > 30}
                           variant="outlined"
                           margin="normal"
                           required
@@ -121,10 +124,12 @@ const ManualItem = ({data}) => {
                           autoFocus
                           onChange={(e) => setContentName(e.target.value)}
                         />
+                        <FormHelperText style={{marginBottom: '3%'}}>Title should be max {title.length}/30</FormHelperText>
+
                         <TextField
                         label="Description"
                         defaultValue={desc}
-                        error={desc === "" || desc.length > 300}
+                        error={desc === "" || desc.length > 150}
                         multiline
                         rows={5}
                           variant="outlined"
@@ -137,24 +142,23 @@ const ManualItem = ({data}) => {
                           onChange={(e) => setDesc(e.target.value)}
                         />
                        
-                       <FormHelperText>Description should be {desc.length}/300</FormHelperText>
+                       <FormHelperText>Description should be max {desc.length}/150</FormHelperText>
                     
                     <DialogActions>
                       <Button color="secondary" onClick={handleEditClose}>Cancel</Button>
                        {!loading && <Button
                           type="submit"
-                          fullWidth
-                          variant="outlined"
-                          color="primary"
-                          disabled={title==="" || desc==="" || desc.length > 300 || title.length > 35} 
-                          onClick={(e)=> updateManual(data.id)}
+                         style={{ color: 'white', background: 'orange'}}
+                          
+                          disabled={ desc.length > 300 || title.length > 30} 
+                         
                         >
                           Update
                           </Button>}
                       {
                         loading && <Button
                           type="submit"
-                          fullWidth
+                          style={{ color: 'white', background: 'grey'}}
                           variant="outlined"
                           color="primary"
                           disabled
@@ -163,8 +167,9 @@ const ManualItem = ({data}) => {
                       }   
                     </DialogActions>
                      
-                  </form>
+                
                     </DialogContent>
+                      </form>
                 </Dialog>
 
                     </div>

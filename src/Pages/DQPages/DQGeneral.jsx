@@ -1,4 +1,4 @@
-import { DialogContent, makeStyles } from "@material-ui/core";
+import { DialogContent, Fab, makeStyles } from "@material-ui/core";
 import { Button, Dialog, Typography, TextField, DialogActions, Card } from "@material-ui/core"
 import { useEffect } from "react"
 import { useState } from "react"
@@ -7,8 +7,11 @@ import { db } from "../../firebase"
 import {
   NavLink as RouterLink,
   matchPath,
-  useLocation
+  useLocation,
+  NavLink
 } from 'react-router-dom';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: '#141256',
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
  wrapper: {
   display: 'flex',
@@ -106,23 +114,32 @@ function DQGeneral({match}) {
 		 <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-           <div style={{height: '100vh'}}>
+           <div >
 			<Typography variant='h1' align='center' gutterBottom><b>{purpose.title}</b></Typography>
 			<hr />
 			<Typography variant='body1' align='left' gutterBottom><p className='italic'>{purpose.desc}</p></Typography>
 			<hr />
+			<div className={classes.fab}>
+				<Fab component={NavLink} to={`/DQ/${match.params.id}/Purpose`} style={{marginRight: '20px'}}  color="primary" aria-label="add">
+  <KeyboardArrowLeftIcon/>
+</Fab>
+
+			<Fab component={NavLink} to={`/DQ/${match.params.id}/Specifications`}  color="primary" aria-label="add">
+  <KeyboardArrowRightIcon/>
+</Fab>
+			</div>
 			<div style={{display: 'flex', marginBottom: 'auto', paddingRight: '3%', justifyContent: 'flex-end'}}>
-				<Button component={RouterLink} to={`/DQ/${match.params.id}/Purpose`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '25px'}}>
+				{/* <Button component={RouterLink} to={`/DQ/${match.params.id}/Purpose`} style={{background: 'blue', color: 'white', marginLeft: '25px',  marginRight: '25px'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
 </svg>
-					</Button>
+					</Button> */}
 				<Button style={{color: 'white', background: 'orange'}} onClick={handleOpen}>Edit</Button>
-				<Button component={RouterLink} to={`/DQ/${match.params.id}/Equipment-Config`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
+				{/* <Button component={RouterLink} to={`/DQ/${match.params.id}/Equipment-Config`} style={{background: 'blue', color: 'white', marginLeft: '25px'}}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
 </svg>
-				</Button>
+				</Button> */}
 			</div>
 			<Dialog style={{alignItems: 'center'}} fullWidth open={open} onClose={handleClose}>
 				<DialogContent>

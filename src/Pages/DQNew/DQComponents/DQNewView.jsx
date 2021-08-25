@@ -1,4 +1,4 @@
-import { DialogActions, DialogTitle } from "@material-ui/core"
+import { DialogActions, DialogTitle, FormHelperText } from "@material-ui/core"
 import { DialogContent } from "@material-ui/core"
 import { DialogContentText } from "@material-ui/core"
 import { Button, Dialog, Typography,TextField } from "@material-ui/core"
@@ -7,10 +7,12 @@ import { db } from "../../../firebase"
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { NavLink } from "react-router-dom"
+import { Alert, AlertTitle } from "@material-ui/lab"
 function DQNewView({report}) {
   const [name, setName] = useState(report.name)
   const [desc, setDesc] = useState(report.desc)
   const [open, setOpen] = useState(false)
+  const [error, setError] = useState('')
   const [openDelete, setOpenDelete] = useState(false)
   function handleOpen(){
     setOpen(true)
@@ -30,7 +32,11 @@ function DQNewView({report}) {
  function handleDelete(id){
    db.collection('DQNew').doc(id).delete()
  }
-  function handleSubmit(){
+  function handleSubmit(e){
+    e.preventDefault()
+    if(name?.trim().length === 0 || desc?.trim().length === 0){
+      return setError("Empty Strings are not valid input! Please try again with a valid input")
+    }
     db.collection('DQNew').doc(report.id).update({name, desc}).then(() => {setOpen(false)})
   }
 	console.log(report)
@@ -54,43 +60,59 @@ function DQNewView({report}) {
               </div>
             </div> */}
             <Dialog fullWidth open={open} onClose={handleClose}>
-               <div>
+              <form action="" onSubmit={handleSubmit}>
+                {error && <Alert severity='error'>{error}</Alert>}
+                 <div>
            
           < >
-              <Typography variant='h3' align='center'><b>Update {name}</b></Typography> 
+              <Typography style={{marginTop: '15px'}} variant='h3' align='center' gutterBottom><b>Update {name}</b></Typography> 
             <DialogContent  >
 
-                <TextField style={{marginBottom: '20px'}} variant='outlined' fullWidth value={name} onChange={(e) => setName(e.target.value)} type="text"  placeholder="Enter Name" />
+                <TextField label="Name" required error={name.length > 40}  variant='outlined' fullWidth value={name} onChange={(e) => setName(e.target.value)} type="text"  placeholder="Enter Name" />
+                <FormHelperText style={{marginBottom: '20px'}}>Name should be max {name.length}/40</FormHelperText>
           
-                  <TextField fullWidth multiLine rows={5} variant='outlined' value={desc} onChange={(e) => setDesc(e.target.value)} required/>
-              
+                  <TextField label="Description" required error={desc.length> 300} fullWidth multiline rows={5} variant='outlined' value={desc} onChange={(e) => setDesc(e.target.value)} required/>
+               <FormHelperText>Desc should be max {desc.length}/300</FormHelperText>
              
             </DialogContent>
           </>
        <DialogActions >
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button disabled={name === '' || desc === '' || desc>300 || name > 35} style={{background: 'orange', color: 'white'}} onClick={handleSubmit} > Update </Button>
+                <Button type="submit" disabled={ desc>300 || name > 35} style={{background: 'orange', color: 'white'}}  > Update </Button>
               </DialogActions>
         </div>
+              </form>
+              
             </Dialog>
           </div>
-          <Dialog open={openDelete} fullWidth onClose={handleCloseDelete}>
-            <DialogTitle id="alert-dialog-title">{"Are You Sure You Want To Delete?"}</DialogTitle>
+         
+          <Dialog
+			 
+                    open={openDelete}
+                    onClose={handleCloseDelete}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                  <Alert severity="error" variant="filled">
+                    <AlertTitle><strong>Delete</strong></AlertTitle>
+                    <DialogTitle id="alert-dialog-title">{"Are You Sure You Want To Delete?"}</DialogTitle>
                     <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    <DialogContentText color="white" id="alert-dialog-description">
                         Deleting will be a permanent action and data pervailing will be permanently deleted and can not be retrieved back.                    </DialogContentText>
                     </DialogContent>
+                    </Alert>
                     <DialogActions>
-                    <Button onClick={handleCloseDelete} color="secondary">
+                    <Button onClick={handleCloseDelete} color="primary" variant="outlined">
                         Disagree
                     </Button>
                     <Button   onClick={(e)=>{
                         handleDelete(report.id);
-                         handleCloseDelete()}} color="primary" autoFocus>
+                         handleCloseDelete()}}   color="secondary" variant="outlined" autoFocus>
                         Agree
                     </Button>
                     </DialogActions>
-          </Dialog>
+                </Dialog>
+        
           <div className="xl:w-full w-11/12 mx-auto flex flex-wrap items-center justify-between xl:px-8 md:px-8 lg:px-8 mb-2 xl:mb-0 lg:mb-0 border-b border-gray-300 dark:border-gray-700">
                         <div className="xl:w-3/5 lg:w-2/4 w-full pt-6 xl:pb-6 lg:pb-8 md:pb-8 sm:pb-8">
                             <p className="text-lg font-bold text-gray-800 dark:text-gray-100 pb-1">{report.name}</p>
@@ -100,6 +122,7 @@ function DQNewView({report}) {
                             <div className="flex items-center w-full justify-between">
                                 
                                 <Button component={NavLink} to={`/DQ/${report.id}/Approval`} className="text-gray-400 hover:text-gray-500 cursor-pointer">
+                                  Open
                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-right" width={20} height={20} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" />
                                         <polyline points="9 6 15 12 9 18" />

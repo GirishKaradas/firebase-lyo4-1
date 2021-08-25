@@ -16,6 +16,7 @@ const ItemRow= ({row}) => {
     const [openEdit, setOpenEdit] = useState(false)
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
       const handleEditOpen = () => {
       setOpenEdit(true)
     }
@@ -27,6 +28,28 @@ const ItemRow= ({row}) => {
     db.collection('recipeeData').doc(id).delete()
 }
 const updateRecipeValues=(id) => {
+  if(step?.trim().length === 0){
+    return setError("Empty strings are not accepted as valid inputs ! Please try again with a valid input")
+  }
+  if(step.length > 20){
+    return setError("Step length should be less than 20 characters")
+  }
+
+  if(temp1 > 100 || temp1 < -100){
+    return setError("Temperature should be between -100 to 100 deg C")
+  }
+
+  if(pressure > 2000 || pressure < -2000){
+    return setError("Pressure should be between -2000 to 2000 mT")
+  }
+
+  if(time1 < 0 || time1 > 300){
+    return setError("Time shuld be between 0 to 300 mins")
+  }
+
+  if(time2 < 0 || time2 > 300){
+    return setError("Keep Time shuld be between 0 to 300 mins")
+  }
     setLoading(true)
     const recipeValues = {time1, time2, step, pressure, temp1}
     db.collection('recipeeData').doc(id).update(recipeValues).then((data) => {
@@ -69,6 +92,7 @@ const updateRecipeValues=(id) => {
                     <DialogContent>
                      
                     <form   >
+                      {error && <Alert severity='error'>{error}</Alert>}
                         <TextField
                         label="Step"
                         defaultValue={step}
@@ -145,7 +169,7 @@ const updateRecipeValues=(id) => {
                           fullWidth
                           variant="outlined"
                           color="primary"
-                          disabled={step === ''|| temp1 === '' || pressure === '' || time1 === '' || time2 === ''}
+                       
                           onClick={(e)=> {
                               updateRecipeValues(row.id)
                                 handleEditClose()
