@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { Autocomplete } from '@material-ui/lab';
 import { NavLink } from 'react-router-dom';
-
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   layoutRoot: {
@@ -161,23 +161,29 @@ const Recipes = ({match}) => {
           <Card className={classes.content}>
             
          <div>
-         <div style={{display: 'flex', justifyContent: 'center'}}>
-              <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography>
-              <Typography variant='h1' align='center'><b>Recipe Data</b></Typography>
+         <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              {/* <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography> */}
+              <div>
+                 <Typography variant='h1' align='left'><b>Recipe Data</b></Typography>
+                  <Typography align='left' variant='body2' > These are all the required Recipe Data </Typography>
+              </div>
+              <div>
+              <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               
+               <div className="relative"> 
+            <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Recipes..."/>
+             <div className="absolute top-4 right-3"><SearchIcon style={{opacity: '0.5'}}/>  </div>
+         </div>
+               <Button color='primary' variant='contained' style={{width: '150px', marginLeft: '4%', marginRight: '2%',  color: 'white'}} component={NavLink} to={`/machine-data/Reports/${match.params.id}/Add-Recipes`}>ADD New </Button>
+       
+       <hr/>
+         </div>
+              </div>
             </div>
-               <Typography align='center' variant='body2' > These are all the required Recipe Data </Typography>
+              
               </div>
               <br/>
-                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                
-                    <div className="relative"> 
-                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Recipes..."/>
-                  <div className="absolute top-4 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
-              </div>
-                    <Button style={{width: '15%', marginLeft: '4%', marginRight: '3%', backgroundColor: 'orange', color: 'white'}} component={NavLink} to={`/machine-data/Reports/${match.params.id}/Add-Recipes`}>ADD New </Button>
-            
-            <hr/>
-              </div>
               <br/>
               {(rowsPerPage > 0
             ? recipe.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

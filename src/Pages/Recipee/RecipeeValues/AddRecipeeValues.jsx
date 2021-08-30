@@ -52,6 +52,7 @@ const AddRecipeeValues = ({match}) => {
     const [recipe, setRecipe] = useState([])
     const [error, setError] = useState('')
     const [time1, setTime] = useState('')
+    const [message, setMessage] = useState('')
      const [time2, setKeepTime] = useState('')
       const [temp1, setTemp] = useState('')
        const [pressure, setPressure] = useState('')
@@ -62,7 +63,7 @@ const AddRecipeeValues = ({match}) => {
             const data = firebaseLooper(doc)
             setRecipe(data)
         })
-    })
+    }, [])
     async function handleSubmit(e)  {
       e.preventDefault()
       if(step?.trim().length === 0){
@@ -91,7 +92,14 @@ const AddRecipeeValues = ({match}) => {
         const index = recipe.length 
         const data = {rid, step, temp1, time1, time2, pressure, index}
       try {
-         await db.collection('recipeeData').add(data)
+         await db.collection('recipeeData').add(data).then(() => {
+           setMessage("Step for Recipe added successfully! You can close the window OR add another")
+           setKeepTime("")
+           setPressure("")
+           setTime("")
+           setStep("")
+           setTemp("")
+         })
      
       } catch (error) {
         setError("Failed")
@@ -102,13 +110,14 @@ const AddRecipeeValues = ({match}) => {
     return (
         <>
         {/* <StepDashboardLayout match={match}/> */}
-         <div >
-        <div >
-          <Card >
+         <div  >
+        <div  >
+          <Card  >
               
              <CardContent >
                  <Typography variant='button' component='h1' align='center'><b>Add Recipe</b></Typography>
                  {error && <Alert severity="error" >{error}</Alert>}
+                 {message && <Alert severity="success" >{message}</Alert>}
                    <form style={{width: '100%', alignItems: "center"}} onSubmit={handleSubmit}>
                      <TextField 
                     variant="outlined"
@@ -137,7 +146,7 @@ const AddRecipeeValues = ({match}) => {
                     type='number'
                    
                     fullWidth
-                    label='Temprature (deg C)'
+                    label='Temperature (deg C)'
                     value={temp1}
                   
                         onChange={(e) => setTemp(e.target.value)}
@@ -161,7 +170,7 @@ const AddRecipeeValues = ({match}) => {
                     type='number'
                     fullWidth
                     label='Time (mins)'
-                   
+                   value={time1}
                         onChange={(e) => setTime(e.target.value)}
                     />
                     <TextField 
@@ -177,7 +186,7 @@ const AddRecipeeValues = ({match}) => {
                     />
                    
                 <CardActions>
-                    <Button type="submit" fullWidth variant='outlined' color="primary" >Add New Recipe</Button>
+                    <Button type="submit" fullWidth variant='contained' color="primary" >Add New Recipe</Button>
                  </CardActions>
               
                 </form> 

@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { db } from '../../../firebase';
 import { firebaseLooper } from '../../../utils/tools';
-import { Button, Card, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, InputLabel, Select, TablePagination, TextField, Typography } from '@material-ui/core';
+import { Button, Card, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, InputLabel, Select, TablePagination, TextField, Toolbar, Typography } from '@material-ui/core';
 import StepDashboardLayout from '../../../components/StepSidebar/StepDashboardLayout'
 import TestData from '../../../Pages/Tests/TestData'
 
@@ -130,6 +130,9 @@ export default function RecipeeValuesView({match}) {
       </div>
       <div style={{width: '100%'}}>
         <Dialog fullWidth={true} open={openAdd} onClose={() => setOpenAdd(false)}>
+          <Toolbar>
+            <Button onClick={() => setOpenAdd(false)} color='primary' style={{color: 'white'}} variant='contained'>Close</Button>
+          </Toolbar>
           <DialogContent>
             <AddRecipeeValues match={match}/>
           </DialogContent>

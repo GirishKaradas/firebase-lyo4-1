@@ -12,7 +12,7 @@ import { firebaseLooper } from '../../utils/tools';
 import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { Card, Checkbox, TextField, Typography, Button, Select, FormControl, InputLabel, MenuItem } from '@material-ui/core';
 import DatePicker from 'react-date-picker';
-
+import SearchIcon from '@material-ui/icons/Search';
 import JobView from './JobView'
 import Page from '../../components/Page';
 
@@ -157,19 +157,20 @@ export default function JobsList({match}) {
           <Card className={classes.content}>
             
             <div>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-              <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography>
-              <Typography variant='h1' align='center'><b>Recipe Data</b></Typography>
-            </div>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              {/* <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography> */}
+              <div>
+                 <Typography variant='h1' align='center'><b>JOBS</b></Typography>
                <Typography align='center' variant='body2' >- These are all the Job status -</Typography>
               </div>
-              <br/>
-              <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '30px'}}>
-              <div style={{ marginRight: '2%'}}> 
-                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Jobs..."/>
-                  <b>{user}</b>
-              </div>
-              <FormControl style={{width: '10%', marginRight: '2%'}} variant='outlined'>
+             <div>
+             <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '30px'}}>
+             <div className="relative mr-3"> 
+            <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Jobs..."/>
+             <div className="absolute top-4 right-3"><SearchIcon style={{opacity: '0.5'}}/>  </div>
+         </div>
+              
+              <FormControl style={{width: '140px', marginRight: '2%'}} variant='outlined'>
                 <InputLabel variant='outlined'>Assignee</InputLabel>
                 <Select onChange={userHandleChange} label="Assignee">
                 <MenuItem value="">All</MenuItem>
@@ -178,7 +179,7 @@ export default function JobsList({match}) {
                 ))}
               </Select>
               </FormControl>
-              <FormControl style={{width: '10%'}} variant='outlined'>
+              <FormControl style={{width: '140px'}} variant='outlined'>
                 <InputLabel variant='outlined'>Status</InputLabel>
                 <Select onChange={pendingCheck} label="Status">
                 <MenuItem value="">All</MenuItem>
@@ -199,6 +200,12 @@ export default function JobsList({match}) {
                
                 
               </div>
+             </div>
+            </div>
+              
+              </div>
+              <br/>
+              
            
                  <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">

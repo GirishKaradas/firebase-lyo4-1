@@ -62,6 +62,9 @@ const AddRecipe = ({match}) => {
 
     function handleChange(e){
       const titleD = e.target.value
+      if(recipe.length === 0){
+        return setTitle(titleD)
+      }
       for (let index = 0; index < recipe.length; index++) {
         const element = recipe[index].title;
         if(titleD === element){
@@ -111,7 +114,7 @@ const AddRecipe = ({match}) => {
                     error={title.length > 40 }
                         onChange={handleChange}
                     />
-                    <FormHelperText>Title legth should be maximum {title.length}/40</FormHelperText>
+                    <FormHelperText>Title length should be maximum {title.length}/40</FormHelperText>
                     <TextField 
                     variant="outlined"
                     margin="normal"

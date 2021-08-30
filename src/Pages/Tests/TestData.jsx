@@ -27,7 +27,7 @@ const delayBetweenPoints = totalDuration / data.length;
   useEffect(() => {
     db.collection('realtimeData').where('recipe_id','==', `${reid}`).onSnapshot(doc => {
       const data = firebaseLooper(doc)
-      setRealData(data[0].temp_points)
+      setRealData(data[0]?.temp_points)
     })
       var x, y, z;
       var randomTemp, randomPressure;
@@ -120,7 +120,7 @@ const delayBetweenPoints = totalDuration / data.length;
 {
        yAxisID: "y-axis-0",
        position: "right",
-      label: 'Temprature',
+      label: 'Temperature',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'orange',

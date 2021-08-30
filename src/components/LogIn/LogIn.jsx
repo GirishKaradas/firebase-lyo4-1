@@ -18,6 +18,7 @@ import Logo from '../Logo';
 import Navbar from './Navbar';
 import { db } from '../../firebase';
 import './Login.css'
+import animation from '../../assets/images/animation.gif'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
@@ -92,21 +93,22 @@ export default function LogIn() {
   }
 
   return (
-        <div>
+        <div  style={{backgroundColor: 'white'}}>
 
         <div className="bg-white font-family-karla h-screen">
 
     <div className="w-full flex flex-wrap">
-        <div style={{backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/lyodata.appspot.com/o/login%2FGroup%20244.png?alt=media&token=9903cf0f-9a60-4955-93b0-cb057089f561")`}} className="w-1/2 shadow-2xl bg-yellow-800 ">
+        <div  className="w-1/2 shadow-2xl bg-yellow-800 ">
             <div style={{display:'flex', justifyContent: 'center'}} className="object-cover align-center m-auto w-full h-screen hidden md:block ">
-              <img className='verticalCenter' src={navbar.url} alt="" />
+              {/* <img className='verticalCenter' src={navbar.url} alt="" /> */}
+              <img src={animation} />
             </div>
         </div>
         <div className="w-full md:w-1/2 flex flex-col">
 
           
           
-            <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-36">
+            <div data-aos='fade-up-left' data-aos-duration="2000" className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-36">
                  
                 <p style={{font: 'normal normal bold 40px/21px Montserrat', letterSpacing: '2.36px', color: '#43425D', opacity: 1}}  className="text-center text-black font-bold text-xl p-4">
               

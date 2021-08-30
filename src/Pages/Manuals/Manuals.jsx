@@ -70,24 +70,46 @@ export default function Manuals({match}) {
         <Container maxWidth={false} className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.content}>
-            <div style={{paddingLeft: "4.5rem"}}>
+            {/* <div style={{display: 'flex', justifyContent: 'space-between'}}> 
+                <div style={{paddingLeft: "2.5rem"}}>
              
               <Typography variant='h1' align='left'><b>Manuals Data</b></Typography>
               <Typography variant='body2' align='left' gutterBottom >These are all your Manuals</Typography>
             </div>
-            
-              
-                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                
                  <div className="relative"> 
                  
                  <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Manuals..."/>
                   <div className="absolute top-4 right-3"> <SearchIcon style={{opacity: '0.5'}}/> </div>
               </div>
-               <Button component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`} color='primary' variant='contained' style={{width: '10%', marginLeft: '4%', marginRight: '3%',color: 'white'}}>Add Manuals</Button>
+               <Button component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`} color='primary' variant='contained' style={{width: '150px', marginLeft: '4%', marginRight: '6%',color: 'white'}}>Add </Button>
               </div>
+            </div> */}
+           <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              {/* <Typography style={{marginRight: '15px'}} variant='h1' align='center'><b>{mTitle} : </b></Typography> */}
+              <div style={{paddingLeft: '2.5rem'}}
+              >
+                 <Typography variant='h1' align='left'><b>Manuals</b></Typography>
+                  <Typography align='left' variant='body2' > These are all the required Manuals and data </Typography>
+              </div>
+              <div>
+              <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               
+               <div className="relative"> 
+            <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setSearchTerm(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Manuals..."/>
+             <div className="absolute top-4 right-3"><SearchIcon style={{opacity: '0.5'}}/>  </div>
+         </div>
+               <Button color='primary' variant='contained' style={{width: '150px', marginLeft: '4%', marginRight: '2%',  color: 'white'}} component={NavLink} to={`/machine-data/${match.params.id}/Add-Manuals`}>ADD New </Button>
+       
+       <hr/>
+         </div>
+              </div>
+            </div>
+              
+              
             <br/>
-            <b>{searchTerm}</b>
+            {/* <b>{searchTerm}</b> */}
             <Grid container spacing={3}>
                 <>
                      {

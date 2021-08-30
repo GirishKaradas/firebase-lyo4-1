@@ -77,7 +77,7 @@ function DQNew({match}) {
               </div>
                
                <Toolbar style={{display: 'flex', justifyContent: 'flex-end'}}>
-			<Button onClick={handleOpen} style={{backgroundColor:'orange', color: 'white', width: '150px' }}>Add New</Button>
+			<Button onClick={handleOpen} color='primary' variant='contained' style={{ color: 'white', width: '150px' }}>Add New</Button>
 		  </Toolbar>
             </div>
            

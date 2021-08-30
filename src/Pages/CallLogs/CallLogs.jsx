@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import SearchIcon from '@material-ui/icons/Search';
 import { Button, Card, Container, Dialog, Grid, InputLabel, Select, TablePagination, TextField, Typography } from '@material-ui/core';
  import ContentDashboardLayout from '../../components/ContentSidebar/ContentDashboardLayout';
 import { db } from '../../firebase';
@@ -82,11 +82,20 @@ export default function CallLogs({match}) {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <Card className={classes.content}>
-            <Typography variant='h4' align='left'><b>{mTitle}</b></Typography>
-            <Typography variant='h1' align='center'><b>Call Logs</b></Typography>
-            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-              <TextField onChange={(e) => setTitle(e.target.value)}  label="Search Call Logs.." variant="outlined" />
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+               <div>
+                 <Typography variant='h2' align='left'><b>Call logs</b></Typography>
+                 <Typography variant='body-2' align='left'>These are all the call history</Typography>
+               </div>
+               <div>
+                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+               <div className="relative"> 
+                 <input style={{ border: '2px solid whitesmoke'}} onChange={(e) => setTitle(e.target.value)} type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Search Batch..."/>
+                  <div className="absolute top-4 right-3"> <SearchIcon style={{opacity: '0.5'}}/> </div>
               </div>
+              </div>
+               </div>
+             </div>
               <br/>
                <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">

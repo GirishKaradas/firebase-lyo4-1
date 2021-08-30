@@ -90,7 +90,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
       <Divider />
       <Box m={2} >
         <List>
-        <div className="flex items-center w-full h-12 px-3 mt-2 rounded">
+        {/* <div className="flex items-center w-full h-12 px-3 mt-2 rounded">
         <ListItem
       disableGutters
       style={{
@@ -127,7 +127,7 @@ const DashboardSidebar = ({ onMobileClose,match, openMobile }) => {
         </span>
       </Button>
       </ListItem> 
-            </div>
+            </div> */}
           
           {items.map((item) => (
              <div key={item.title} className="flex items-center w-full h-12 px-3 mt-2 rounded ">

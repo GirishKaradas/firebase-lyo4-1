@@ -27,7 +27,11 @@ const NavItem = ({
       disableGutters
       style={{
         display: 'flex',
-        
+        color: 'white',
+          fontWeight: 'medium',
+          justifyContent: 'flex-start',
+          background: 'orange',
+          borderRadius: "0.25rem"
        
       }}
       {...rest}
@@ -37,9 +41,10 @@ const NavItem = ({
       
         component={RouterLink}
         style={{
-          color: 'orange',
+          color: 'white',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
+          background: 'orange',
           letterSpacing: 0,
           py: 1.25,
           textTransform: 'none',
